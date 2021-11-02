@@ -67,6 +67,30 @@ class auth_model extends CI_Model
         return $data;
     }
 
+    public function lupapassword($data, $user)
+    {
+        $this->db->set('token', $data['token']);
+        $this->db->set('url', $data['url']);
+        $this->db->where('id', $user['id']);
+        $this->db->update('user');
+    }
+
+    public function checkrecovery($kode)
+    {
+        $hasil = $this->db->get_where('user', array('token' => $kode['kode'], 'email' => $kode['email']))->row_array();
+        return $hasil;
+    }
+
+    public function gantipassword($post)
+    {
+        $email = $post['email'];
+        $password = password_hash($post['password2'], PASSWORD_DEFAULT);
+
+        $this->db->set('password', $password);
+        $this->db->where('email', $email);
+        $this->db->update('user');
+    }
+
     public function idsession()
     {
         $id = $this->session->userdata('id');

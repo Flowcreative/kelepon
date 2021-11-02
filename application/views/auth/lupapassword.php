@@ -11,6 +11,7 @@
                         <div class="small mb-3 text-muted">Masukan email kamu yang terdaftar dan kami akan mengirim kode dan url reset password.</div>
                         <!-- Forgot password form-->
                         <form action="<?= base_url('auth/lupapassword') ?>" method="post">
+                            <?= $this->session->flashdata('pesan_error'); ?>
                             <!-- Form Group (email address)-->
                             <div class="mb-3">
                                 <input class="form-control" name="email" type="email" aria-describedby="emailHelp" placeholder="Masukan email anda" />

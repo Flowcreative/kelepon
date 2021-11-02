@@ -35,11 +35,6 @@
         }
 
         /* What it does: Stops Outlook from adding extra spacing to tables. */
-        table,
-        td {
-            mso-table-lspace: 0pt !important;
-            mso-table-rspace: 0pt !important;
-        }
 
         /* What it does: Fixes webkit padding issue. */
         table {
@@ -205,9 +200,6 @@
             color: #17bebb;
         }
 
-        table {}
-
-        /*LOGO*/
 
         .logo h1 {
             margin: 0;
@@ -306,9 +298,9 @@
 
 </head>
 
-<body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #f1f1f1;">
+<body width="100%" style="margin: 0; padding: 0 !important;  background-color: #f1f1f1;">
     <center style="width: 100%; background-color: #f1f1f1;">
-        <div style="display: none; font-size: 1px;max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; font-family: sans-serif;">
+        <div style="display: none; font-size: 1px;max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;  font-family: sans-serif;">
             &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
         </div>
         <div style="max-width: 600px; margin: 0 auto;" class="email-container">
@@ -319,7 +311,7 @@
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
                             <tr>
                                 <td class="logo" style="text-align: center;">
-                                    <h1><a href="#">Akun Aktivasi</a></h1>
+                                    <h1><a href="#">Password Recovery</a></h1>
                                 </td>
                             </tr>
                         </table>
@@ -331,7 +323,7 @@
                             <tr>
                                 <td style="padding: 0 2.5em; text-align: center; padding-bottom: 3em;">
                                     <div class="text">
-                                        <h3>Hallo!! <?= $nama; ?>, Silahkan masukan kode dibawah ini atau klik tombol aktivasi untuk mengaktifkan akun anda.</h3>
+                                        <h3>Hallo!! <?= $nama; ?>, Silahkan masukan kode dibawah ini atau klik tombol validasi untuk mengantipassword anda.</h3>
                                     </div>
                                 </td>
                             </tr>
@@ -341,7 +333,7 @@
                                         <img src="images/person_2.jpg" alt="" style="width: 100px; max-width: 600px; height: auto; margin: auto; display: block;">
                                         <h3 class="text">Kode verifikasi:</h3>
                                         <h2 class="name"><?= $token ?></h2>
-                                        <p><a href="<?= base_url('auth/verifikasi/?user=' . $id . '&verify=' . $url) ?>" class="btn btn-primary">Aktivasi sekarang</a></p>
+                                        <p><a href="<?= base_url('auth/verifikasi/?user=' . $id . '&verify=' . $url) ?>" class="btn btn-primary">Verifikasi</a></p>
                                     </div>
                                 </td>
                             </tr>

@@ -36,3 +36,22 @@ function aktif_cek()
         redirect('auth');
     }
 }
+
+function smtpemail()
+{
+
+    // $klepon = get_instance();
+    // $klepon->load->helper('email');
+
+    $config = [
+        'protocol'  => 'smtp',
+        'smtp_host' => 'ssl://smtp.googlemail.com',
+        'smtp_user' => 'sipoponprabu@gmail.com',
+        'smtp_pass' => '0200102002',
+        'smtp_port' => 465,
+        'mailtype'  => 'html',
+        'charset'   => 'utf-8',
+        'newline'   => "\r\n"
+    ];
+    return $config;
+}

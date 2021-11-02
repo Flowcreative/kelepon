@@ -91,7 +91,7 @@ class Auth extends CI_Controller
 
     public function _sendemailregist($user, $tokenect)
     {
-        $config = $this->_emailparam();
+        $config = smtpemail();
 
         $this->email->initialize($config);
 
@@ -105,7 +105,7 @@ class Auth extends CI_Controller
         );
 
         // $data['link'] = base_url() . 'auth/verify?email=' . $user['id'] . '&token=' . urlencode($tokenect['url']);
-        $isi = $this->load->view('auth/emailregist', $isiemail, TRUE);
+        $isi = $this->load->view('auth/registrasiemail', $isiemail, TRUE);
 
         // $code = $this->load->view('auth/emailregist', $isiemail);
 
@@ -132,7 +132,7 @@ class Auth extends CI_Controller
 
     private function _resendemailregist($data, $user)
     {
-        $config = $this->_emailparam();
+        $config = smtpemail();
 
         $this->email->initialize($config);
 
@@ -146,7 +146,7 @@ class Auth extends CI_Controller
         );
 
         // $data['link'] = base_url() . 'auth/verify?email=' . $user['id'] . '&token=' . urlencode($tokenect['url']);
-        $isi = $this->load->view('auth/emailregist', $isiemail, TRUE);
+        $isi = $this->load->view('auth/registrasiemail', $isiemail, TRUE);
 
         // $code = $this->load->view('auth/emailregist', $isiemail);
 
@@ -158,21 +158,6 @@ class Auth extends CI_Controller
         if ($this->email->send()) {
             return true;
         }
-    }
-
-    private function _emailparam()
-    {
-        $config = [
-            'protocol'  => 'smtp',
-            'smtp_host' => 'ssl://smtp.googlemail.com',
-            'smtp_user' => 'sipoponprabu@gmail.com',
-            'smtp_pass' => '0200102002',
-            'smtp_port' => 465,
-            'mailtype'  => 'html',
-            'charset'   => 'utf-8',
-            'newline'   => "\r\n"
-        ];
-        return $config;
     }
 
     public function verifikasi()
@@ -260,11 +245,65 @@ class Auth extends CI_Controller
             $email = $this->input->post('email');
             $cekemail = $this->auth_model->cekemail($email);
             if ($cekemail) {
+                $data['token'] = random_int(100000, 999999);
+                $data['url'] = base64_encode(random_bytes(32));
+                $this->_sendemaillupapassword($data, $cekemail);
+                $this->auth_model->lupapassword($data, $cekemail);
+                $data['judul'] = 'Konfirmasi Lupa Password - KLEPON PRAMUKA UNIB';
+                $this->load->view('auth/head', $data);
+                $this->load->view('auth/lupapasswordkonfirmasi', $cekemail);
+                $this->load->view('auth/foot');
             } else {
                 $this->session->set_flashdata('pesan_error', '<div class="alert alert-red text-center" role="alert">Yaaah emailnya ga ada.</div>');
-                redirect('auth/luppassword');
+                redirect('auth/lupapassword');
             }
         }
+    }
+
+    private function _sendemaillupapassword($data, $user)
+    {
+        $config = smtpemail();
+
+        $this->email->initialize($config);
+
+        $isiemail = array(
+            'url' => $data['url'],
+            'token' => $data['token'],
+            'nama' => $user['nama'],
+            'id' => $user['email']
+        );
+        $isi = $this->load->view('auth/lupapasswordemail', $isiemail, TRUE);
+
+        $this->email->from('contact@klepon.online', 'Klepon Pramuka Unib');
+        $this->email->to($user['email']);
+        $this->email->subject('Password Recovery');
+        $this->email->message($isi);
+
+        if ($this->email->send()) {
+            return true;
+        }
+    }
+
+    public function konfirmasilupapassword()
+    {
+        $kode = $this->input->post();
+        $hasil = $this->auth_model->checkrecovery($kode);
+        if ($hasil) {
+            $data['judul'] = 'Ganti Password - KLEPON PRAMUKA UNIB';
+            $this->load->view('auth/head', $data);
+            $this->load->view('auth/lupapasswordganti', $kode);
+            $this->load->view('auth/foot');
+        } else {
+            $this->session->set_flashdata('pesan_error', '<div class="alert alert-red text-center" role="alert">Kok salah kodenya.</div>');
+            redirect('auth/konfirmasilupapassword');
+        }
+    }
+
+    public function lupapasswordganti()
+    {
+        $post = $this->input->post();
+        $this->auth_model->gantipassword($post);
+        redirect('auth');
     }
 
     public function error_404()
