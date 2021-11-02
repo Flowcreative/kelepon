@@ -7,10 +7,14 @@ class Landing extends CI_Controller
     public function index()
     {
 
-        $data['tittle'] = 'KLEPON - Pramuka UNIB';
+        $data['tittle'] = 'KELEPON - Pramuka UNIB';
         $this->load->view('landing/head', $data);
         $this->load->view('landing/header');
         $this->load->view('landing/home');
         $this->load->view('landing/foot');
+    }
+
+    public function about()
+    {
     }
 }

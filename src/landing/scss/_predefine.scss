@@ -1,71 +1,107 @@
-.section_gap {
-  padding: 130px 0;
-  @media (max-width: 991px) {
-    padding: 70px 0;
-  }
+.list{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
 }
 
-.section_gap_top {
-  padding-top: 130px;
-  @media (max-width: 991px) {
-    padding-top: 70px;
-  }
+a{
+    text-decoration:none;
+    transition: all 0.3s ease-in-out;
+    &:hover, &:focus{
+       text-decoration:none;
+       outline: none;
+    }
+}
+.row.m0{
+    margin: 0px;
 }
 
-.section_gap_bottom {
-  padding-bottom: 130px;
-  @media (max-width: 991px) {
-    padding-bottom: 70px;
-  }
+body{
+    line-height: 26px;
+    font-size: 16px;
+    font-family: $rob;
+    font-weight: normal;
+    color: $pfont;
+}
+h1, h2, h3, h4, h5, h6{ 
+    font-family: $hee; 
+    font-weight: bold;
+}
+
+button:focus{
+    outline: none;
+	box-shadow: none;
+}
+
+.p_120{
+	padding-top: 120px;
+	padding-bottom: 120px;
+}
+.pad_top{
+	padding-top: 120px;
+}
+.pad_btm{
+	padding-bottom: 120px;
+}
+.mt-25{
+	margin-top: 25px;
+}
+.p0{
+	padding-left: 0px;
+	padding-right: 0px;
+}
+.container{
+    @media(min-width:1200px){
+        max-width: 1170px;
+    }
+}
+@media(min-width: 1620px){
+	.box_1620{
+		max-width: 1650px;
+		margin: auto;
+	}
+}
+
+
+.white_bg{
+	background: #fff !important;
 }
 
 /* Main Title Area css
 ============================================================================================ */
-
-.main_title {
-  text-align: center;
-  margin-bottom: 85px;
-  @media (max-width: 991px) {
-    margin-bottom: 40px;
-  }
-  h2 {
-    font-size: 36px;
-    line-height: 30px;
-    font-weight: bold;
-    margin-bottom: 15px;
-    @media (max-width: 575px) {
-      font-size: 30px;
-      margin-bottom: 10px;
-    }
-  }
-  p {
-    font-size: 16px;
-    margin-bottom: 0px;
-    font-style: italic;
-  }
-}
-
-.lite_bg {
-  background: #f9f9f9;
+.main_title{
+	text-align: center;
+	margin-bottom: 75px;
+	h2{
+		font-family: $hee;
+		font-size: 36px;
+		color: $dip;
+		font-weight: bold;
+		margin-bottom: 15px;
+		text-transform: uppercase;
+	}
+	p{
+		font-size: 16px;
+		font-family: $rob;
+		line-height: 26px;
+		color: $pfont;
+		margin-bottom: 0px;
+		max-width: 570px;
+		margin: auto;
+	}
+	&.white{
+		h2{
+			color: #fff;
+		}
+		p{
+			color: #fff;
+			opacity: .6;
+		}
+	}
 }
 
 /* End Main Title Area css
 ============================================================================================ */
 
-/* Start Overlay css
-============================================================================================ */
-.overlay {
-  position: relative;
-}
-.overlay:after {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  content: "";
-  z-index: -1;
-}
 
-/* End Overlay css
-============================================================================================ */
+

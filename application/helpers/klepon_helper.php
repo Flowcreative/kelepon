@@ -55,3 +55,10 @@ function smtpemail()
     ];
     return $config;
 }
+
+function timeline()
+{
+    $klepon = get_instance();
+    $klepon->load->view('admin/header');
+    $klepon->load->view('admin/timeline');
+}

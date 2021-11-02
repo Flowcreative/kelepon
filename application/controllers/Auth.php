@@ -9,6 +9,10 @@ class Auth extends CI_Controller
         $this->load->model('auth_model');
     }
 
+    public function welcome()
+    {
+        echo "nanti yaaaa";
+    }
     public function index()
     {
         login_cek();
@@ -31,7 +35,6 @@ class Auth extends CI_Controller
             $this->_registrasi($post);
         }
     }
-
 
     private function _registrasi($post)
     {
