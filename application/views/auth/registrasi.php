@@ -1,59 +1,75 @@
                 <main>
                     <div class="container-xl px-4">
                         <div class="row justify-content-center">
-                            <div class="col-lg-7">
-                                <!-- Basic registration form-->
-                                <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header justify-content-center">
-                                        <h3 class="fw-light my-4">Daftar Akun Baru</h3>
+                            <div class="col-xl-8 col-lg-9">
+                                <!-- Social registration form-->
+                                <div class="card my-5">
+                                    <div class="card-body p-5 text-center">
+                                        <div class="h3 fw-light fw-800 mb-3">Buat Akun Baru</div>
                                     </div>
-                                    <div class="card-body">
-                                        <?= $this->session->flashdata('pesan_error'); ?>
-                                        <!-- Registration form-->
+                                    <hr class="my-0" />
+                                    <div class="card-body p-5">
+                                        <div class="text-center small text-muted mb-4"><?= $this->session->flashdata('pesan_error'); ?></div>
+                                        <!-- Login form-->
                                         <form action="<?= base_url('auth') ?>" method="post">
-                                            <!-- form row nama -->
-                                            <div class="mb-3">
-                                                <label class="small mb-1" for="inputNama">Nama Lengkap</label>
-                                                <input class="form-control" name="nama" id="inputNama" type="text" aria-describedby="emailHelp" placeholder="Masukan nama anda" />
-                                                <?= form_error('nama', '<small class="text-danger">', '</small>'); ?>
-                                            </div>
-                                            <!-- form row nomor hp -->
-                                            <div class="mb-3">
-                                                <label class="small mb-1" for="inputTelepon">Nomor Handpone/WA</label>
-                                                <input class="form-control" name="telepon" id="inputTelepon" type="text" aria-describedby="emailHelp" placeholder="Masukan nama anda" />
-                                                <?= form_error('telepon', '<small class="text-danger">', '</small>'); ?>
-                                            </div>
-                                            <!-- Form Group (email address)            -->
-                                            <div class="mb-3">
-                                                <label class="small mb-1" for="inputEmailAddress">Email</label>
-                                                <input class="form-control" name="email" id="inputEmailAddress" type="email" aria-describedby="emailHelp" placeholder="Enter email address" />
-                                                <?= form_error('email', '<small class="text-danger">', '</small>'); ?>
-                                            </div>
-                                            <!-- Form Row    -->
+                                            <!-- Form Row-->
                                             <div class="row gx-3">
-                                                <div class="col-md-6">
-                                                    <!-- Form Group (password)-->
+                                                <div class="col-md-12">
+                                                    <!-- Form Group (email address)-->
                                                     <div class="mb-3">
-                                                        <label class="small mb-1" for="inputPassword">Password</label>
-                                                        <input class="form-control" name="password1" id="inputPassword" type="password" placeholder="Enter password" />
-                                                        <?= form_error('password1', '<small class="text-danger">', '</small>'); ?>
+                                                        <label class="text-gray-600 small" for="emailExample">Nama Lengkap</label>
+                                                        <input class="form-control form-control-solid" name="nama" type="text" placeholder="" aria-label="Email Address" aria-describedby="emailExample" />
+                                                        <?= form_error('nama', '<small class="text-danger">', '</small>'); ?>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <!-- Form Group (confirm password)-->
                                                     <div class="mb-3">
-                                                        <label class="small mb-1" for="inputConfirmPassword">Konfirmasi Password</label>
-                                                        <input class="form-control" name="password2" id="inputConfirmPassword" type="password" placeholder="Confirm password" />
-                                                        <?= form_error('password2', '<small class="text-danger">', '</small>'); ?>
+                                                        <label class="text-gray-600 small" for="emailExample">Telepon</label>
+                                                        <input class="form-control form-control-solid" name="telepon" type="text" placeholder="" aria-label="Email Address" aria-describedby="emailExample" />
+                                                        <?= form_error('telepon', '<small class="text-danger">', '</small>'); ?>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <!-- Form Group (create account submit)-->
-                                            <button class="btn btn-primary btn-block" type="submit">Daftar Akun</button>
+                                                    <div class="mb-3">
+                                                        <label class="text-gray-600 small" for="emailexample">Alamat email</label>
+                                                        <input class="form-control form-control-solid" name="email" type="email" placeholder="" aria-label="Email Address" aria-describedby="emailExample" />
+                                                        <?= form_error('email', '<small class="text-danger">', '</small>'); ?>
+                                                    </div>
+                                                    <!-- Form Row-->
+                                                    <div class="row gx-3">
+                                                        <div class="col-md-6">
+                                                            <!-- Form Group (choose password)-->
+                                                            <div class="mb-3">
+                                                                <label class="text-gray-600 small" for="passwordExample">Password</label>
+                                                                <input class="form-control form-control-solid" name="password1" type="password" placeholder="" aria-label="Password" aria-describedby="passwordExample" />
+                                                                <?= form_error('password1', '<small class="text-danger">', '</small>'); ?>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <!-- Form Group (confirm password)-->
+                                                            <div class="mb-3">
+                                                                <label class="text-gray-600 small" for="confirmPasswordExample">Confirm Password</label>
+                                                                <input class="form-control form-control-solid" name="password2" type="password" placeholder="" aria-label="Confirm Password" aria-describedby="confirmPasswordExample" />
+                                                                <?= form_error('password2', '<small class="text-danger">', '</small>'); ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Form Group (form submission)-->
+                                                    <div class="d-flex align-items-center justify-content-between mb-4">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" id="checkTerms" type="checkbox" value="" />
+                                                            <label class="form-check-label" for="checkTerms">
+                                                                I accept the
+                                                                <a href="#!">terms &amp; conditions</a>
+                                                                .
+                                                            </label>
+                                                        </div>
+                                                        <button class="btn btn-primary" type="submit">Daftar akun</button>
+                                                    </div>
                                         </form>
                                     </div>
-                                    <div class="card-footer text-center">
-                                        <div class="small"><a href="<?= base_url('auth/login') ?>">Sudah Memiliki Akun? Silahkan Login</a></div>
+                                    <hr class="my-0" />
+                                    <div class="card-body px-5 py-4">
+                                        <div class="small text-center">
+                                            Sudah punya akun?
+                                            <a href="<?= base_url('auth/login') ?>">Sign in aja!!</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

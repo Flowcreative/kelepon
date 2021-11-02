@@ -1,28 +1,25 @@
 <main>
     <div class="container-xl px-4">
         <div class="row justify-content-center">
-            <div class="col-lg-4">
-                <!-- Basic forgot password form-->
-                <div class="card shadow-lg border-0 rounded-lg mt-5">
-                    <div class="card-header justify-content-center">
-                        <h3 class="fw-light my-4 text-center">Password Baru</h3>
+            <div class="col-xl-5 col-lg-6 col-md-8 col-sm-11">
+                <!-- Social forgot password form-->
+                <div class="card my-5">
+                    <div class="card-body p-5 text-center">
+                        <div class="h3 fw-light mb-0 fw-800">Password Baru</div>
                     </div>
-                    <div class="card-body">
+                    <hr class="my-0" />
+                    <div class="card-body p-5 justify-content-center">
                         <!-- Forgot password form-->
                         <form action="<?= base_url('auth/lupapasswordganti') ?>" method="post">
                             <!-- Form Group (email address)-->
                             <div class="mb-3">
-                                <input name="email" type="hidden" value="<?= $email ?>" />
-                                <input class="form-control" name="password1" type="password" placeholder="Password baru" />
-                                <?= form_error('password1', '<small class="text-danger text-center">', '</small>'); ?>
+                                <input type="hidden" value="<?= $email ?>" name="email" />
+                                <input class="form-control form-control-solid text-center" name="password2" type="password" placeholder="Password baru" aria-label="Email Address" aria-describedby="emailExample" />
+                                <?= form_error('email', '<small class="text-danger text-center">', '</small>'); ?>
                             </div>
-                            <div class="mb-3">
-                                <input class="form-control" name="password2" type="password" placeholder="Konfirmasi password baru" />
-                                <?= form_error('password2', '<small class="text-danger">', '</small>'); ?>
-                            </div>
-                            <!-- Form Group (submit options)-->
+                            <!-- Form Group (reset password button)    -->
                             <div class="d-flex align-items-center justify-content-center mt-4 mb-0">
-                                <button class="btn btn-primary" type="submit">Ganti Password</button>
+                                <button class="btn btn-primary" type="submit">Submit</button>
                             </div>
                         </form>
                     </div>

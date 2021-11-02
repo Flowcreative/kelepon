@@ -1,31 +1,38 @@
 <main>
     <div class="container-xl px-4">
         <div class="row justify-content-center">
-            <div class="col-lg-5">
-                <!-- Basic forgot password form-->
-                <div class="card shadow-lg border-0 rounded-lg mt-5">
-                    <div class="card-header justify-content-center">
-                        <h3 class="fw-light my-4">Password Recovery</h3>
+            <div class="col-xl-5 col-lg-6 col-md-8 col-sm-11">
+                <!-- Social forgot password form-->
+                <div class="card my-5">
+                    <div class="card-body p-5 text-center">
+                        <div class="h3 fw-light mb-0 fw-800">Lupa Password</div>
                     </div>
-                    <div class="card-body">
-                        <div class="small mb-3 text-muted">Masukan email kamu yang terdaftar dan kami akan mengirim kode dan url reset password.</div>
+                    <hr class="my-0" />
+                    <div class="card-body p-5 justify-content-center">
+                        <div class="text-center small text-muted mb-4">Masukan email kamu yang terdaftar dan kami akan mengirim kode dan url reset password.</div>
+                        <?= $this->session->flashdata('pesan_error'); ?>
                         <!-- Forgot password form-->
                         <form action="<?= base_url('auth/lupapassword') ?>" method="post">
-                            <?= $this->session->flashdata('pesan_error'); ?>
                             <!-- Form Group (email address)-->
                             <div class="mb-3">
-                                <input class="form-control" name="email" type="email" aria-describedby="emailHelp" placeholder="Masukan email anda" />
-                                <?= form_error('email', '<small class="text-danger">', '</small>'); ?>
+                                <input class="form-control form-control-solid text-center" name="email" type="text" placeholder="Masukan email anda" aria-label="Email Address" aria-describedby="emailExample" />
+                                <?= form_error('email', '<small class="text-danger text-center">', '</small>'); ?>
                             </div>
-                            <!-- Form Group (submit options)-->
-                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                <a class="small" href="<?= base_url('auth/login') ?>">Kembali login</a>
-                                <button class="btn btn-primary" type="submit">Reset Password</button>
+                            <!-- Form Group (reset password button)    -->
+                            <div class="d-flex align-items-center justify-content-center mt-4 mb-0">
+                                <button class="btn btn-primary" type="submit">Reset password</button>
                             </div>
                         </form>
+                        <div class="d-flex align-items-center justify-content-center mt-4 mb-0">
+                            <a class="small" href="<?= base_url('auth/logout') ?>">Kembali sign in</a>
+                        </div>
                     </div>
-                    <div class="card-footer text-center">
-                        <div class="small"><a href="auth-register-basic.html">Belum memiliki akun? Daftar!</a></div>
+                    <hr class="my-0" />
+                    <div class="card-body px-5 py-4">
+                        <div class="small text-center">
+                            Belum memiliki akun??
+                            <a href="<?= base_url('auth/logout') ?>">Sign up yuk!!</a>
+                        </div>
                     </div>
                 </div>
             </div>

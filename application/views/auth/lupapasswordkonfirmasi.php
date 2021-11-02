@@ -1,35 +1,40 @@
 <main>
     <div class="container-xl px-4">
         <div class="row justify-content-center">
-            <div class="col-lg-4">
-                <!-- Basic forgot password form-->
-                <div class="card shadow-lg border-0 rounded-lg mt-5">
-                    <div class="card-header justify-content-center">
-                        <h3 class="fw-light my-4 text-center">Verifikasi Recovery</h3>
+            <div class="col-xl-5 col-lg-6 col-md-8 col-sm-11">
+                <!-- Social forgot password form-->
+                <div class="card my-5">
+                    <div class="card-body p-5 text-center">
+                        <div class="h3 fw-light mb-0 fw-800">Verifikasi Recovery</div>
                     </div>
-                    <div class="card-body">
+                    <hr class="my-0" />
+                    <div class="card-body p-5 justify-content-center">
+                        <div class="text-center small text-muted mb-4">Silahkan masukan kode atau klik url password recovery yang ada pada email anda.</div>
+                        <div class="text-center small text-danger mb-4">CEK SPAM PADA EMAIL ANDA JIKA TIDAK ADA PADA EMAIL UTAMA</div>
                         <?= $this->session->flashdata('pesan_error'); ?>
-                        <div class="small mb-3 text-muted">Silahkan masukan kode atau klik url password recovery yang ada pada email anda.</div>
-                        <div class="small mb-3 text-muted">CEK SPAM PADA EMAIL ANDA JIKA TIDAK ADA PADA EMAIL UTAMA .</div>
                         <!-- Forgot password form-->
                         <form action="<?= base_url('auth/konfirmasilupapassword') ?>" method="post">
                             <!-- Form Group (email address)-->
                             <div class="mb-3">
-                                <input class="form-control text-center" name="email" type="hidden" value="<?= $email ?>" />
-                                <input class="form-control text-center" name="kode" type="text" placeholder="Masukan kode verifikasi" />
-                                <?= form_error('token', '<small class="text-danger text-center">', '</small>'); ?>
+                                <input type="hidden" value="<?= $email ?>" name="email" />
+                                <input class="form-control form-control-solid text-center" name="kode" type="text" placeholder="Masukan kode" aria-label="Email Address" aria-describedby="emailExample" />
+                                <?= form_error('email', '<small class="text-danger text-center">', '</small>'); ?>
                             </div>
-                            <!-- Form Group (submit options)-->
+                            <!-- Form Group (reset password button)    -->
                             <div class="d-flex align-items-center justify-content-center mt-4 mb-0">
-                                <button class="btn btn-primary" type="submit">SUBMIT</button>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-center mt-4 mb-0">
-                                <a class="small" href="<?= base_url('auth/resendemailregist') ?>">Belum menerima email</a>
+                                <button class="btn btn-primary" type="submit">Submit</button>
                             </div>
                         </form>
+                        <div class="d-flex align-items-center justify-content-center mt-4 mb-0">
+                            <a class="small" href="<?= base_url('auth/resendemailregist') ?>">Belum menerima e-mail</a>
+                        </div>
                     </div>
-                    <div class="card-footer text-center">
-                        <div class="small"><a href="<?= base_url('auth') ?>">Belum memiliki akun? Daftar!</a></div>
+                    <hr class="my-0" />
+                    <div class="card-body px-5 py-4">
+                        <div class="small text-center">
+                            Belum memiliki akun??
+                            <a href="<?= base_url('auth') ?>">Sign up yuk!!</a>
+                        </div>
                     </div>
                 </div>
             </div>

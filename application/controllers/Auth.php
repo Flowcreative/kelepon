@@ -83,7 +83,7 @@ class Auth extends CI_Controller
                 $this->auth_model->dataregister($user);
                 $this->auth_model->activatecode($tokenect);
                 $this->session->set_userdata('id', $data['id']);
-                redirect('auth');
+                redirect('auth/login');
             }
         }
     }
@@ -164,7 +164,7 @@ class Auth extends CI_Controller
     {
         $get = $this->input->get();
         $this->auth_model->urlregist($get);
-        redirect('auth');
+        redirect('auth/login');
     }
 
     public function aktivasi()
@@ -303,7 +303,7 @@ class Auth extends CI_Controller
     {
         $post = $this->input->post();
         $this->auth_model->gantipassword($post);
-        redirect('auth');
+        redirect('auth/login');
     }
 
     public function error_404()

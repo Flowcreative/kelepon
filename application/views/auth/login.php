@@ -1,47 +1,51 @@
-            <main>
-                <div class="container-xl px-4">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-5">
-                            <!-- Basic login form-->
-                            <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                <div class="card-header justify-content-center">
-                                    <h3 class="fw-light my-4">Login</h3>
-                                </div>
-                                <div class="card-body">
-                                    <?= $this->session->flashdata('pesan_error'); ?>
-                                    <!-- Login form-->
-                                    <form action="<?= base_url('auth/login') ?>" method="post">
-                                        <!-- Form Group (email address)-->
-                                        <div class="mb-3">
-                                            <label class="small mb-1" for="inputEmailAddress">Email</label>
-                                            <input class="form-control" name="email" id="inputEmailAddress" type="text" placeholder="Enter email address" value="<?= set_value('email') ?>" />
-                                            <?= form_error('email', '<small class="text-danger">', '</small>'); ?>
-                                        </div>
-                                        <!-- Form Group (password)-->
-                                        <div class="mb-3">
-                                            <label class="small mb-1" for="inputPassword">Password</label>
-                                            <input class="form-control" name="password" id="inputPassword" type="password" placeholder="Enter password" />
-                                            <?= form_error('password', '<small class="text-danger">', '</small>'); ?>
-                                        </div>
-                                        <!-- Form Group (remember password checkbox)-->
-                                        <div class="mb-3">
-                                            <div class="form-check">
-                                                <input class="form-check-input" id="rememberPasswordCheck" type="checkbox" value="" />
-                                                <label class="form-check-label" for="rememberPasswordCheck">Remember password</label>
-                                            </div>
-                                        </div>
-                                        <!-- Form Group (login box)-->
-                                        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                            <a class="small" href="<?= base_url('auth/lupapassword') ?>">Lupa Password?</a>
-                                            <button class="btn btn-primary" type="submit">Login</button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="card-footer text-center">
-                                    <div class="small"><a href="<?= base_url('auth') ?>">Belum memiliki Akun? Daftar!</a></div>
-                                </div>
+<main>
+    <div class="container-xl px-4">
+        <div class="row justify-content-center">
+            <div class="col-xl-5 col-lg-6 col-md-8 col-sm-11">
+                <!-- Social login form-->
+                <div class="card my-5">
+                    <div class="card-body p-5 text-center">
+                        <div class="h3 fw-light fw-800 mb-3">
+                            Sign In
+                        </div>
+                    </div>
+                    <hr class="my-0" />
+                    <div class="card-body p-5">
+                        <!-- Login form-->
+                        <?= $this->session->flashdata('pesan_error'); ?>
+                        <!-- Login form-->
+                        <form action="<?= base_url('auth/login') ?>" method="post">
+                            <!-- Form Group (email address)-->
+                            <div class="mb-3">
+                                <label class="text-gray-600 small" for="emailExample">Email address</label>
+                                <input class="form-control form-control-solid" name="email" type="email" placeholder="" aria-label="Email Address" aria-describedby="emailExample" />
+                                <?= form_error('email', '<small class="text-danger">', '</small>'); ?>
                             </div>
+                            <!-- Form Group (password)-->
+                            <div class="mb-3">
+                                <label class="text-gray-600 small" for="passwordExample">Password</label>
+                                <input class="form-control form-control-solid" name="password" type="password" placeholder="" aria-label="Password" aria-describedby="passwordExample" />
+                                <?= form_error('password', '<small class="text-danger">', '</small>'); ?>
+                            </div>
+                            <!-- Form Group (forgot password link)-->
+                            <!-- Form Group (login box)-->
+                            <div class="d-flex align-items-center justify-content-between mb-0">
+                                <div class="mb-3">
+                                    <a class="small" href="<?= base_url('auth/lupapassword') ?>">Forgot your password?</a>
+                                </div>
+                                <button class="btn btn-primary" type="submit">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                    <hr class="my-0" />
+                    <div class="card-body px-5 py-4">
+                        <div class="small text-center">
+                            Belum punya akun?
+                            <a href="<?= base_url('auth') ?>">Daftar yuk!</a>
                         </div>
                     </div>
                 </div>
-            </main>
+            </div>
+        </div>
+    </div>
+</main>

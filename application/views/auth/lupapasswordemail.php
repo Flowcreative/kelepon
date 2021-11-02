@@ -333,7 +333,7 @@
                                         <img src="images/person_2.jpg" alt="" style="width: 100px; max-width: 600px; height: auto; margin: auto; display: block;">
                                         <h3 class="text">Kode verifikasi:</h3>
                                         <h2 class="name"><?= $token ?></h2>
-                                        <p><a href="<?= base_url('auth/verifikasi/?user=' . $id . '&verify=' . $url) ?>" class="btn btn-primary">Verifikasi</a></p>
+                                        <!-- <p><a href="<?= base_url('auth/verifikasi/?user=' . $id . '&verify=' . $url) ?>" class="btn btn-primary">Verifikasi</a></p> -->
                                     </div>
                                 </td>
                             </tr>

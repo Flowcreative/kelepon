@@ -7,7 +7,7 @@
         <!-- * * * * * * When using an image, we recommend the SVG format.-->
         <!-- * * * * * * Dimensions: Maximum height: 32px, maximum width: 240px-->
         <a class="navbar-brand pe-3 ps-4 ps-lg-2" href="<?= base_url('landing') ?>">
-            <img src="<?= base_url('src/dashboard/') ?>assets/img/tittleb.png" alt="" style="width:100px;height:32px;">
+            <img src="<?= base_url('src/dashboard/') ?>assets/img/tittleb.png" alt="" style="width:90px;height:32px;">
         </a>
 
         <!-- Navbar Items-->
