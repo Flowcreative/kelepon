@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 01, 2021 at 06:13 PM
+-- Generation Time: Nov 02, 2021 at 05:58 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -20,6 +20,95 @@ SET time_zone = "+00:00";
 --
 -- Database: `klepon`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `datadiri`
+--
+
+CREATE TABLE `datadiri` (
+  `id` int(11) NOT NULL,
+  `id_pangkalan` int(10) NOT NULL,
+  `id_golongan` int(10) NOT NULL,
+  `id_user` varchar(20) NOT NULL,
+  `kartu_identitas` varchar(100) NOT NULL,
+  `suratmandat` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `datapangkalan`
+--
+
+CREATE TABLE `datapangkalan` (
+  `id` int(3) NOT NULL,
+  `namapangkalan` varchar(100) NOT NULL,
+  `kota` varchar(50) NOT NULL,
+  `provinsi` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `golongan`
+--
+
+CREATE TABLE `golongan` (
+  `id` int(3) NOT NULL,
+  `golongan` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `golongan`
+--
+
+INSERT INTO `golongan` (`id`, `golongan`) VALUES
+(1, 'siaga'),
+(2, 'penggalang'),
+(5, 'penegak'),
+(6, 'pandega'),
+(7, 'umum');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `log_activity`
+--
+
+CREATE TABLE `log_activity` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_datadiri` int(11) NOT NULL,
+  `id_lomba` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lomba`
+--
+
+CREATE TABLE `lomba` (
+  `id` int(11) NOT NULL,
+  `id_golongan` int(10) NOT NULL,
+  `matalomba` varchar(50) NOT NULL,
+  `biaya` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payment`
+--
+
+CREATE TABLE `payment` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `total` int(11) NOT NULL,
+  `status` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -79,6 +168,30 @@ INSERT INTO `user_activation` (`id`, `id_user`, `token`, `url`, `date`, `time`) 
 --
 
 --
+-- Indexes for table `datadiri`
+--
+ALTER TABLE `datadiri`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `golongan`
+--
+ALTER TABLE `golongan`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `log_activity`
+--
+ALTER TABLE `log_activity`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `lomba`
+--
+ALTER TABLE `lomba`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -93,6 +206,30 @@ ALTER TABLE `user_activation`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `datadiri`
+--
+ALTER TABLE `datadiri`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `golongan`
+--
+ALTER TABLE `golongan`
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `log_activity`
+--
+ALTER TABLE `log_activity`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `lomba`
+--
+ALTER TABLE `lomba`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user_activation`
