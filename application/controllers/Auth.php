@@ -56,7 +56,7 @@ class Auth extends CI_Controller
                 $data['url'] = base64_encode(random_bytes(32));
                 $pass = password_hash($data['password'], PASSWORD_DEFAULT);
 
-                $data['user'] = array(
+                $user = array(
                     'id' => $data['id'],
                     'nama' => htmlspecialchars($data['nama'], true),
                     'email' => htmlspecialchars($data['email'], true),
@@ -79,8 +79,8 @@ class Auth extends CI_Controller
                     'time' => date("h:i:sa")
                 );
 
-                $this->_sendemailregist($data, $tokenect);
-                $hasil = $this->auth_model->dataregister($data);
+                $this->_sendemailregist($user, $tokenect);
+                $this->auth_model->dataregister($user);
                 $this->auth_model->activatecode($tokenect);
                 $this->session->set_userdata('id', $data['id']);
                 redirect('auth');
@@ -88,47 +88,29 @@ class Auth extends CI_Controller
         }
     }
 
-    public function sendemail()
+
+    public function _sendemailregist($user, $tokenect)
     {
         $config = $this->_emailparam();
 
         $this->email->initialize($config);
 
-        // $link = base_url() . 'auth/verify?email=' . $data['email'] . '&token=' . urlencode($tokenect['url']);
-        // $isiemail = array(
-        //     'url' => $link,
-        //     'token' => $tokenect['token']
-        // );
-
-        // $isi = $this->load->view('auth/emailregist', $isiemail);
-
-        $this->email->from('Noreplyemail@prabu.com', 'Klepon Pramuka Unib');
-        // $this->email->to($data['email']);
-        $this->email->to('seiyang.kamu@gmail.com');
-        $this->email->subject('Account Verification');
-        $this->email->message('masuk dak sayangku?????');
-
-        if ($this->email->send()) {
-            return true;
-        }
-    }
-
-    private function _sendemailregist($data, $tokenect)
-    {
-        $config = $this->_emailparam();
-
-        $this->email->initialize($config);
-
-        $link = base_url() . 'auth/verify?email=' . $data['email'] . '&token=' . urlencode($tokenect['url']);
+        // var_dump($isiemail['url']);
+        // die;
         $isiemail = array(
-            'url' => $link,
-            'token' => $tokenect['token']
+            'url' => $tokenect['url'],
+            'token' => $tokenect['token'],
+            'nama' => $user['nama'],
+            'id' => $user['id']
         );
 
-        $isi = $this->load->view('auth/emailregist', $isiemail);
+        // $data['link'] = base_url() . 'auth/verify?email=' . $user['id'] . '&token=' . urlencode($tokenect['url']);
+        $isi = $this->load->view('auth/emailregist', $isiemail, TRUE);
 
-        $this->email->from('Noreplyemail@prabu.com', 'Klepon Pramuka Unib');
-        $this->email->to($data['email']);
+        // $code = $this->load->view('auth/emailregist', $isiemail);
+
+        $this->email->from('contact@klepon.online', 'Klepon Pramuka Unib');
+        $this->email->to($user['email']);
         $this->email->subject('Account Verification');
         $this->email->message($isi);
 
@@ -137,8 +119,45 @@ class Auth extends CI_Controller
         }
     }
 
-    private function _resendemailregist()
+    public function resendemailregist()
     {
+        aktif_cek();
+        $user = $this->auth_model->idsession();
+        $data['token'] = random_int(100000, 999999);
+        $data['url'] = base64_encode(random_bytes(32));
+        $this->auth_model->resendemailregist($data);
+        $this->_resendemailregist($data, $user);
+        redirect('auth/aktivasi');
+    }
+
+    private function _resendemailregist($data, $user)
+    {
+        $config = $this->_emailparam();
+
+        $this->email->initialize($config);
+
+        // var_dump($isiemail['url']);
+        // die;
+        $isiemail = array(
+            'url' => $data['url'],
+            'token' => $data['token'],
+            'nama' => $user['nama'],
+            'id' => $user['email']
+        );
+
+        // $data['link'] = base_url() . 'auth/verify?email=' . $user['id'] . '&token=' . urlencode($tokenect['url']);
+        $isi = $this->load->view('auth/emailregist', $isiemail, TRUE);
+
+        // $code = $this->load->view('auth/emailregist', $isiemail);
+
+        $this->email->from('contact@klepon.online', 'Klepon Pramuka Unib');
+        $this->email->to($user['email']);
+        $this->email->subject('Account Verification');
+        $this->email->message($isi);
+
+        if ($this->email->send()) {
+            return true;
+        }
     }
 
     private function _emailparam()
@@ -156,8 +175,16 @@ class Auth extends CI_Controller
         return $config;
     }
 
+    public function verifikasi()
+    {
+        $get = $this->input->get();
+        $this->auth_model->urlregist($get);
+        redirect('auth');
+    }
+
     public function aktivasi()
     {
+        aktif_cek();
         $this->form_validation->set_rules('token', 'Token', 'required|trim');
 
         if ($this->form_validation->run() == false) {
