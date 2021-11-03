@@ -9,10 +9,6 @@ class Auth extends CI_Controller
         $this->load->model('auth_model');
     }
 
-    public function welcome()
-    {
-        echo "nanti yaaaa";
-    }
     public function index()
     {
         login_cek();
@@ -304,9 +300,22 @@ class Auth extends CI_Controller
 
     public function lupapasswordganti()
     {
-        $post = $this->input->post();
-        $this->auth_model->gantipassword($post);
-        redirect('auth/login');
+        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[5]|matches[password2]', [
+            'matches' => 'Password dont match!',
+            'min_length' => 'Password too short!'
+        ]);
+        $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
+        if ($this->form_validation->run() == false) {
+            $kode = $this->input->post();
+            $data['judul'] = 'Ganti Password - KLEPON PRAMUKA UNIB';
+            $this->load->view('auth/head', $data);
+            $this->load->view('auth/lupapasswordganti', $kode);
+            $this->load->view('auth/foot');
+        } else {
+            $post = $this->input->post();
+            $this->auth_model->gantipassword($post);
+            redirect('auth/login');
+        }
     }
 
     public function error_404()

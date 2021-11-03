@@ -4,6 +4,10 @@
                             <div class="col-xl-8 col-lg-9">
                                 <!-- Social registration form-->
                                 <div class="card my-5">
+                                    <a class="btn btn-sm btn-light text-primary" href="<?= base_url('landing') ?>">
+                                        <i class="me-1" data-feather="arrow-left"></i>
+                                        Back to Home
+                                    </a>
                                     <div class="card-body p-5 text-center">
                                         <div class="h3 fw-light fw-800 mb-3">Buat Akun Baru</div>
                                     </div>

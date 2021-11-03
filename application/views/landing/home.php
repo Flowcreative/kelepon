@@ -15,9 +15,9 @@
                           <p>Menjunjung tinggi sportifitas dan meningkatkan Solidaritas untuk Pramuka OKE (Optimis Kreatif Edikatif)</p>
                           <?php $id = $this->session->userdata('id');
                             if ($id) { ?>
-                              <a class="banner_btn" href="<?= base_url('auth') ?>">Dashboard</a>
+                              <a class="banner_btn" href="<?= base_url('auth/login') ?>">Dashboard</a>
                           <?php } else { ?>
-                              <a class="banner_btn" href="<?= base_url('auth/welcome') ?>">Registrasi</a>
+                              <a class="banner_btn" href="<?= base_url('auth/login') ?>">Registrasi</a>
                           <?php } ?>
                       </div>
                   </div>
@@ -43,7 +43,14 @@
                   </div>
               </div>
               <div class="col-lg-6  col-sm-12">
-                  <?= timeline() ?>
+                  <div class="card card-header-actions h-100">
+                      <div class="card-body">
+                          <p class="text-lg fw-800">Timeline Kelepon</p>
+                          <div class="timeline timeline-xs">
+                              <?= timeline() ?>
+                          </div>
+                      </div>
+                  </div>
               </div>
           </div>
       </div>

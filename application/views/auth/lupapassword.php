@@ -4,6 +4,10 @@
             <div class="col-xl-5 col-lg-6 col-md-8 col-sm-11">
                 <!-- Social forgot password form-->
                 <div class="card my-5">
+                    <a class="btn btn-sm btn-light text-primary" href="<?= base_url('landing') ?>">
+                        <i class="me-1" data-feather="arrow-left"></i>
+                        Back to Home
+                    </a>
                     <div class="card-body p-5 text-center">
                         <div class="h3 fw-light mb-0 fw-800">Lupa Password</div>
                     </div>
@@ -31,7 +35,7 @@
                     <div class="card-body px-5 py-4">
                         <div class="small text-center">
                             Belum memiliki akun??
-                            <a href="<?= base_url('auth/logout') ?>">Sign up yuk!!</a>
+                            <a href="<?= base_url('auth') ?>">Sign up yuk!!</a>
                         </div>
                     </div>
                 </div>

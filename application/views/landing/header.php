@@ -13,7 +13,7 @@
                  <!-- Collect the nav links, forms, and other content for toggling -->
                  <div class="collapse navbar-collapse offset mr-4" id="navbarSupportedContent">
                      <ul class="nav navbar-nav menu_nav ml-auto">
-                         <li class="nav-item active"><a class="nav-link" href="index.html">Home</a></li>
+                         <li class="nav-item active"><a class="nav-link" href="<?= base_url('') ?>">Home</a></li>
                          <li class="nav-item submenu dropdown">
                              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About</a>
                              <ul class="dropdown-menu">
@@ -23,13 +23,16 @@
                              </ul>
                          </li>
                          <li class="nav-item submenu dropdown">
-                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Juklak Juknis </a>
+                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Unduh</a>
                              <ul class="dropdown-menu">
-                                 <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-                                 <li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
+                                 <li class="nav-item"><a class="nav-link" href="">Logo</a></li>
+                                 <li class="nav-item"><a class="nav-link" href="">Siaga (SD)</a></li>
+                                 <li class="nav-item"><a class="nav-link" href="">Penggalang (SMP)</a></li>
+                                 <li class="nav-item"><a class="nav-link" href="">Penegak (SMA)</a></li>
+                                 <li class="nav-item"><a class="nav-link" href="">Pandega/Mahasiswa</a></li>
                              </ul>
                          </li>
-                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                         <li class="nav-item"><a class="nav-link" href="https://api.whatsapp.com/send/?phone=6283142904130&text&app_absent=0">Contact</a></li>
                      </ul>
                  </div>
              </div>

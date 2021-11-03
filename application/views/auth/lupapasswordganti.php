@@ -4,6 +4,10 @@
             <div class="col-xl-5 col-lg-6 col-md-8 col-sm-11">
                 <!-- Social forgot password form-->
                 <div class="card my-5">
+                    <a class="btn btn-sm btn-light text-primary" href="<?= base_url('landing') ?>">
+                        <i class="me-1" data-feather="arrow-left"></i>
+                        Back to Home
+                    </a>
                     <div class="card-body p-5 text-center">
                         <div class="h3 fw-light mb-0 fw-800">Password Baru</div>
                     </div>
@@ -14,8 +18,12 @@
                             <!-- Form Group (email address)-->
                             <div class="mb-3">
                                 <input type="hidden" value="<?= $email ?>" name="email" />
-                                <input class="form-control form-control-solid text-center" name="password2" type="password" placeholder="Password baru" aria-label="Email Address" aria-describedby="emailExample" />
-                                <?= form_error('email', '<small class="text-danger text-center">', '</small>'); ?>
+                                <input class="form-control form-control-solid text-center" name="password1" type="password" placeholder="Password baru" aria-label="Email Address" aria-describedby="emailExample" />
+                                <?= form_error('password1', '<small class="text-danger text-center">', '</small>'); ?>
+                            </div>
+                            <div class="mb-3">
+                                <input class="form-control form-control-solid text-center" name="password2" type="password" placeholder="Konfirmasi Password baru" aria-label="Email Address" aria-describedby="emailExample" />
+                                <?= form_error('password2', '<small class="text-danger text-center">', '</small>'); ?>
                             </div>
                             <!-- Form Group (reset password button)    -->
                             <div class="d-flex align-items-center justify-content-center mt-4 mb-0">

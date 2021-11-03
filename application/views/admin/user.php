@@ -22,12 +22,11 @@
     <!-- Main page content-->
     <div class="container-fluid px-4">
         <div class="card">
+            <button class="btn btn-sm btn-primary text-light" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter"><i class="me-1" data-feather="user-plus"></i>
+                Add New User
+            </button>
             <div class="card-body">
                 <div class="row mb-2 col-2">
-
-                    <button class="btn btn-sm btn-primary text-light" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter"><i class="me-1" data-feather="user-plus"></i>
-                        Add New User
-                    </button>
                 </div>
                 <?= $this->session->flashdata('flash'); ?>
                 <table id="datatablesSimple">
