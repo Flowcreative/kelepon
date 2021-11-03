@@ -9,6 +9,6 @@ class Peserta extends CI_Controller
     }
     public function index()
     {
-        echo "aku Peserta";
+        $this->load->view('peserta/nanti');
     }
 }

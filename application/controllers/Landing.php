@@ -14,7 +14,12 @@ class Landing extends CI_Controller
         $this->load->view('landing/foot');
     }
 
-    public function about()
+    public function contact()
     {
+        $data['tittle'] = 'Contact - KLEPON Pramuka UNIB';
+        $this->load->view('landing/head', $data);
+        $this->load->view('landing/header');
+        $this->load->view('landing/contact');
+        $this->load->view('landing/foot');
     }
 }

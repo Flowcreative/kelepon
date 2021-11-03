@@ -330,6 +330,6 @@ class Auth extends CI_Controller
         $this->session->unset_userdata('role');
         $this->session->unset_userdata('nama');
         $this->session->unset_userdata('id');
-        redirect('auth/login');
+        redirect('landing');
     }
 }
