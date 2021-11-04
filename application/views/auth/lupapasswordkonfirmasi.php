@@ -30,7 +30,11 @@
                             </div>
                         </form>
                         <div class="d-flex align-items-center justify-content-center mt-4 mb-0">
-                            <a class="small" href="<?= base_url('auth/resendemailregist') ?>">Belum menerima e-mail</a>
+                            <?php if ($req > 0) { ?>
+                                <div class="small text-blue" id="pesan"></div>
+                            <?php } else { ?>
+                                <a class="small" href="<?= base_url('auth/resendemaillupa?mail=' . $email) ?>">Belum menerima e-mail</a>
+                            <?php } ?>
                         </div>
                     </div>
                     <hr class="my-0" />
@@ -45,3 +49,20 @@
         </div>
     </div>
 </main>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+    var url = "<?= base_url('auth/lupaemailrequestdelete/?mail=' . $email) ?>"; // url tujuan
+    var count = 60; // dalam detik
+    function countDown() {
+        if (count > 0) {
+            count--;
+            var waktu = count + 1;
+            $('#pesan').html('Resend email dalam ' + waktu + ' detik.');
+            setTimeout("countDown()", 1000);
+        } else {
+            window.location.href = url;
+        }
+    }
+    countDown();
+</script>

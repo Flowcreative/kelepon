@@ -26,10 +26,10 @@
                              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Panduan</a>
                              <ul class="dropdown-menu">
                                  <li class="nav-item"><a class="nav-link" href="https://drive.google.com/folderview?id=1ZQXrB85Xtb5XEW-mBkqx6ec7tDMZG9rl" target="_blank">Unduh Logo</a></li>
-                                 <li class="nav-item"><a class="nav-link" href="https://drive.google.com/file/d/1Bcc41B0TGjDevLIiBgcNMKVcqIiiwHIt/view?usp=sharing" target="_blank">Siaga (SD)</a></li>
-                                 <li class="nav-item"><a class="nav-link" href="https://drive.google.com/file/d/1wWq6T2XW9gDgcICks5AgOWlITyhzAbJo/view?usp=sharing" target="_blank">Penggalang (SMP)</a></li>
-                                 <li class="nav-item"><a class="nav-link" href="https://drive.google.com/file/d/1tbisJjiH25AFIcG-_Gn8sOsHKG7b6sb0/view?usp=sharing" target="_blank">Penegak (SMA)</a></li>
-                                 <li class="nav-item"><a class="nav-link" href="https://drive.google.com/file/d/1BKrHLw7Fgdyz1Wl_VHFLL5ssTANEU8a5/view?usp=sharing" target="_blank">Pandega (Mahasiswa)</a></li>
+                                 <li class="nav-item"><a class="nav-link" href="https://drive.google.com/file/d/1_AkLJ_0a-USaCAjSOUlEe_SO6LeYufiR/view?usp=sharing" target="_blank">Siaga (SD)</a></li>
+                                 <li class="nav-item"><a class="nav-link" href="https://drive.google.com/file/d/1_APHU47DR1S9kzmt677TYx_knaWo7TCY/view?usp=sharing" target="_blank">Penggalang (SMP)</a></li>
+                                 <li class="nav-item"><a class="nav-link" href="https://drive.google.com/file/d/1_62iYa4CFxww2h9HzSgajhVylxZb050i/view?usp=sharing" target="_blank">Penegak (SMA)</a></li>
+                                 <li class="nav-item"><a class="nav-link" href="https://drive.google.com/file/d/1_54XuwumXdtr5vZ5cMrPbhvsoI86OsAx/view?usp=sharing" target="_blank">Pandega (Mahasiswa)</a></li>
                              </ul>
                          </li>
                          <li class="nav-item"><a class="nav-link" href="<?= base_url('landing/contact') ?>">Kontak</a></li>

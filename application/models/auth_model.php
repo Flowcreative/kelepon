@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class auth_model extends CI_Model
+class Auth_model extends CI_Model
 {
     public function register($post)
     {
@@ -65,6 +65,50 @@ class auth_model extends CI_Model
     {
         $data = $this->db->get_where('user', ['email' => $email])->row_array();
         return $data;
+    }
+
+    public function cekrequest()
+    {
+        $user = $this->idsession();
+        $req = $this->db->get_where('emailrequest', ['email' => $user['email']])->row_array();
+        return $req;
+    }
+
+    public function setemailrequest($user)
+    {
+        $this->db->insert('emailrequest', ['email' => $user['email']]);
+    }
+
+    public function deleterequest()
+    {
+        $user = $this->idsession();
+        $this->db->where('email', $user['email']);
+        $this->db->delete('emailrequest');
+    }
+
+    public function resendemaillupa($data, $email)
+    {
+        $this->db->set('url', $data['url']);
+        $this->db->set('token', $data['token']);
+        $this->db->where('email', $email);
+        $this->db->update('user');
+    }
+
+    public function cekreqlupa($mail)
+    {
+        $req = $this->db->get_where('emailrequest', ['email' => $mail])->row_array();
+        return $req;
+    }
+
+    public function setemailrequestlupa($cekemail)
+    {
+        $this->db->insert('emailrequest', ['email' => $cekemail['email']]);
+    }
+
+    public function luparequestdelete($email)
+    {
+        $this->db->where('email', $email);
+        $this->db->delete('emailrequest');
     }
 
     public function lupapassword($data, $user)
