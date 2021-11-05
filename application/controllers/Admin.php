@@ -23,6 +23,7 @@ class Admin extends CI_Controller
         $this->load->view('admin/footer');
     }
 
+
     public function userlist()
     {
         $session = $this->_session();

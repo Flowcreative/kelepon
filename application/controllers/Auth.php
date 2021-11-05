@@ -6,7 +6,7 @@ class Auth extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('auth_model');
+        $this->load->model('Auth_model');
     }
 
     public function index()
@@ -34,7 +34,7 @@ class Auth extends CI_Controller
 
     private function _registrasi($post)
     {
-        $cek = $this->auth_model->register($post);
+        $cek = $this->Auth_model->register($post);
 
         if ($cek['email']) {
             $this->session->set_flashdata('pesan_error', '<div class="alert alert-danger" role="alert">Email sudah terdaftar!</div>');
@@ -79,8 +79,8 @@ class Auth extends CI_Controller
                 );
 
                 $this->_sendemailregist($user, $tokenect);
-                $this->auth_model->dataregister($user);
-                $this->auth_model->activatecode($tokenect);
+                $this->Auth_model->dataregister($user);
+                $this->Auth_model->activatecode($tokenect);
                 $this->session->set_userdata('id', $data['id']);
                 redirect('auth/login');
             }
@@ -94,17 +94,9 @@ class Auth extends CI_Controller
 
         $this->email->initialize($config);
 
-        // var_dump($isiemail['url']);
-        // die;
-        $isiemail = array(
-            'url' => $tokenect['url'],
-            'token' => $tokenect['token'],
-            'nama' => $user['nama'],
-            'id' => $user['id']
-        );
 
-        // $data['link'] = base_url() . 'auth/verify?email=' . $user['id'] . '&token=' . urlencode($tokenect['url']);
-        $isi = $this->load->view('auth/registrasiemail', $isiemail, TRUE);
+
+        $isi = $this->_emailsend($user, $tokenect);
 
         // $code = $this->load->view('auth/emailregist', $isiemail);
 
@@ -121,33 +113,25 @@ class Auth extends CI_Controller
     public function resendemailregist()
     {
         aktif_cek();
-        $user = $this->auth_model->idsession();
+        $user = $this->Auth_model->idsession();
         $data['token'] = random_int(100000, 999999);
         $data['url'] = base64_encode(random_bytes(32));
-        $this->auth_model->resendemailregist($data);
+        $this->Auth_model->resendemailregist($data);
+        $this->Auth_model->setemailrequest($user);
         $this->_resendemailregist($data, $user);
         redirect('auth/aktivasi');
     }
 
     private function _resendemailregist($data, $user)
     {
+
+
         $config = smtpemail();
 
         $this->email->initialize($config);
 
-        // var_dump($isiemail['url']);
-        // die;
-        $isiemail = array(
-            'url' => $data['url'],
-            'token' => $data['token'],
-            'nama' => $user['nama'],
-            'id' => $user['email']
-        );
+        $isi = $this->_emailsend($user, $data);
 
-        // $data['link'] = base_url() . 'auth/verify?email=' . $user['id'] . '&token=' . urlencode($tokenect['url']);
-        $isi = $this->load->view('auth/registrasiemail', $isiemail, TRUE);
-
-        // $code = $this->load->view('auth/emailregist', $isiemail);
 
         $this->email->from('contact@klepon.online', 'Klepon Pramuka Unib');
         $this->email->to($user['email']);
@@ -159,10 +143,12 @@ class Auth extends CI_Controller
         }
     }
 
+
+
     public function verifikasi()
     {
         $get = $this->input->get();
-        $this->auth_model->urlregist($get);
+        $this->Auth_model->urlregist($get);
         redirect('auth/login');
     }
 
@@ -170,24 +156,30 @@ class Auth extends CI_Controller
     {
         aktif_cek();
         $this->form_validation->set_rules('token', 'Token', 'required|trim');
-
         if ($this->form_validation->run() == false) {
             // view activation page
+            $data['req'] = $this->Auth_model->cekrequest();
             $data['judul'] = 'Aktivasi Akun - KLEPON PRAMUKA UNIB';
             $this->load->view('auth/head', $data);
-            $this->load->view('auth/aktivasi');
+            $this->load->view('auth/aktivasi', $data);
             $this->load->view('auth/foot');
         } else {
             $post = $this->input->post();
-            $data = $this->auth_model->idsession();
+            $data = $this->Auth_model->idsession();
             if ($data['token'] == $post['token']) {
-                $this->auth_model->aktivasi();
+                $this->Auth_model->aktivasi();
                 login_cek();
             } else {
                 $this->session->set_flashdata('pesan_error', '<div class="alert alert-red" role="alert">Token yang anda masukan salah.</div>');
                 login_cek();
             }
         }
+    }
+
+    public function aktivasiemailrequestdelete()
+    {
+        $this->Auth_model->deleterequest();
+        redirect('auth/aktivasi');
     }
 
     public function login()
@@ -204,7 +196,7 @@ class Auth extends CI_Controller
             $this->load->view('auth/foot');
         } else {
             $post = $this->input->post();
-            $user = $this->auth_model->login($post);
+            $user = $this->Auth_model->login($post);
 
             if ($user) {
                 if (password_verify($post['password'], $user['password'])) {
@@ -233,48 +225,50 @@ class Auth extends CI_Controller
 
     public function lupapassword()
     {
-        $this->form_validation->set_rules('email', 'Email', 'required|trim');
+        $data['judul'] = 'Lupa Password - KLEPON PRAMUKA UNIB';
+        $this->load->view('auth/head', $data);
+        $this->load->view('auth/lupapassword');
+        $this->load->view('auth/foot');
+    }
 
-        if ($this->form_validation->run() == false) {
-            $data['judul'] = 'Lupa Password - KLEPON PRAMUKA UNIB';
-            $this->load->view('auth/head', $data);
-            $this->load->view('auth/lupapassword');
-            $this->load->view('auth/foot');
+    public function carilupapassword()
+    {
+        $email = $this->input->post('email');
+        $cekemail = $this->Auth_model->cekemail($email);
+        $data['token'] = random_int(100000, 999999);
+        $data['url'] = base64_encode(random_bytes(32));
+        if ($cekemail) {
+            $this->Auth_model->lupapassword($data, $cekemail);
+            $this->_sendemaillupapassword($data, $cekemail);
+            redirect('auth/konfirmasilupa/?mail=' . $cekemail['email']);
         } else {
-            $email = $this->input->post('email');
-            $cekemail = $this->auth_model->cekemail($email);
-            if ($cekemail) {
-                $data['token'] = random_int(100000, 999999);
-                $data['url'] = base64_encode(random_bytes(32));
-                $this->_sendemaillupapassword($data, $cekemail);
-                $this->auth_model->lupapassword($data, $cekemail);
-                $data['judul'] = 'Konfirmasi Lupa Password - KLEPON PRAMUKA UNIB';
-                $this->load->view('auth/head', $data);
-                $this->load->view('auth/lupapasswordkonfirmasi', $cekemail);
-                $this->load->view('auth/foot');
-            } else {
-                $this->session->set_flashdata('pesan_error', '<div class="alert alert-red text-center" role="alert">Yaaah emailnya ga ada.</div>');
-                redirect('auth/lupapassword');
-            }
+            $this->session->set_flashdata('pesan_error', '<div class="alert alert-red text-center" role="alert">Yaaah emailnya ga ada.</div>');
+            redirect('auth/carilupapassword');
         }
     }
 
-    private function _sendemaillupapassword($data, $user)
+    public function konfirmasilupa()
+    {
+        $mail = $this->input->get('mail');
+        $data['email'] = $mail;
+        $data['req']   = $this->Auth_model->cekreqlupa($mail);
+        $data['judul'] = 'Konfirmasi Lupa Password - KLEPON PRAMUKA UNIB';
+        $this->load->view('auth/head', $data);
+        $this->load->view('auth/lupapasswordkonfirmasi', $data);
+        $this->load->view('auth/foot');
+    }
+
+    private function _sendemaillupapassword($data, $cekemail)
     {
         $config = smtpemail();
 
         $this->email->initialize($config);
 
-        $isiemail = array(
-            'url' => $data['url'],
-            'token' => $data['token'],
-            'nama' => $user['nama'],
-            'id' => $user['email']
-        );
-        $isi = $this->load->view('auth/lupapasswordemail', $isiemail, TRUE);
+
+        $isi = $this->_emailsendforgot($data, $cekemail);
 
         $this->email->from('contact@klepon.online', 'Klepon Pramuka Unib');
-        $this->email->to($user['email']);
+        $this->email->to($cekemail['email']);
         $this->email->subject('Password Recovery');
         $this->email->message($isi);
 
@@ -286,7 +280,7 @@ class Auth extends CI_Controller
     public function konfirmasilupapassword()
     {
         $kode = $this->input->post();
-        $hasil = $this->auth_model->checkrecovery($kode);
+        $hasil = $this->Auth_model->checkrecovery($kode);
         if ($hasil) {
             $data['judul'] = 'Ganti Password - KLEPON PRAMUKA UNIB';
             $this->load->view('auth/head', $data);
@@ -313,9 +307,63 @@ class Auth extends CI_Controller
             $this->load->view('auth/foot');
         } else {
             $post = $this->input->post();
-            $this->auth_model->gantipassword($post);
+            $this->Auth_model->gantipassword($post);
             redirect('auth/login');
         }
+    }
+    public function resendemaillupa()
+    {
+        $email = $this->input->get('mail');
+        $cekemail = $this->Auth_model->cekemail($email);
+
+        $data['token'] = random_int(100000, 999999);
+        $data['url'] = base64_encode(random_bytes(32));
+        $this->Auth_model->resendemaillupa($data, $email);
+        $this->Auth_model->setemailrequestlupa($cekemail);
+        $this->_resendemaillupa($data, $cekemail);
+        redirect('auth/konfirmasilupa/?mail=' . $email);
+    }
+
+    private function _resendemaillupa($data, $cekemail)
+    {
+        $config = smtpemail();
+
+        $this->email->initialize($config);
+
+
+        $isi = $this->_emailsendforgot($data, $cekemail);
+
+        $this->email->from('contact@klepon.online', 'Klepon Pramuka Unib');
+        $this->email->to($cekemail['email']);
+        $this->email->subject('Password Recovery');
+        $this->email->message($isi);
+
+        if ($this->email->send()) {
+            return true;
+        }
+    }
+
+    public function lupaemailrequestdelete()
+    {
+        $email = $this->input->get('email');
+        $this->Auth_model->luparequestdelete($email);
+        redirect('auth/konfirmasilupa/?mail=' . $email);
+    }
+
+    private function _emailsend($user, $data)
+    {
+        header("Content-type: text/plain");
+        echo "Halo " . $user['nama'] . ", silahkan masukan kode di bawah ini untuk mengaktifkan akun anda.";
+        echo  "\r\n";
+        echo "Kode verifikasi: " . $data['token'];
+    }
+
+    private function _emailsendforgot($data, $cekemail)
+    {
+        header("Content-type: text/plain");
+        echo "Halo " . $cekemail['nama'] . ", silahkan masukan kode di bawah ini untuk mengganti password anda.";
+        echo  "\r\n";
+        echo "Kode verifikasi: " . $data['token'];
     }
 
     public function error_404()

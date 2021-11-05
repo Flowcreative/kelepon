@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 02, 2021 at 05:58 AM
+-- Generation Time: Nov 04, 2021 at 05:41 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -33,6 +33,7 @@ CREATE TABLE `datadiri` (
   `id_golongan` int(10) NOT NULL,
   `id_user` varchar(20) NOT NULL,
   `kartu_identitas` varchar(100) NOT NULL,
+  `foto` text NOT NULL,
   `suratmandat` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -47,6 +48,17 @@ CREATE TABLE `datapangkalan` (
   `namapangkalan` varchar(100) NOT NULL,
   `kota` varchar(50) NOT NULL,
   `provinsi` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `emailrequest`
+--
+
+CREATE TABLE `emailrequest` (
+  `id` int(10) NOT NULL,
+  `email` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -136,7 +148,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `nama`, `email`, `telepon`, `password`, `time_reg`, `tgl_reg`, `foto_profile`, `status`, `token`, `url`, `role`) VALUES
-('sZBhbcg1C', 'SI Popon', 'dev.rafin@gmail.com', '082377936674', '$2y$10$v.hh7a8OOLj8RCg9mYNrmekWdNwJtsQkfMRR0lwly4KD/g/BXJab2', '1635700712', '2021-10-31', 'popon.png', 1, 716701, 'B4baXCoeGdjeoKVEFqjCpLYKkG63EpfDr7A9Vn4VAuM=', 1);
+('a5ePO9fhj', 'peserta', 'peserta@mail.com', '082375332212', '$2y$10$oYh2kD3ABdzI1o8kUOAxk.pBRXnFqtuZgLX9Oz3koMofPdCZilUYq', '04:19:01pm', '2021-11-03', 'default.png', 1, 557928, 'bcd4j9K4aPE0txI8D4ZX5j3eRckp1/U113ybYnF2kuc=', 2),
+('C7B1DVtcE', 'Flow Creative', 'socia.rafin@gmail.com', '08123949294', '$2y$10$qRQwbPCkc.xaWvwCSAwzzucaBQKUIuDyNO2s8.d/wsMlw.M6.xS8W', '02:51:18pm', '2021-11-04', 'default.png', 2, 900259, '2AwE3GAn+CcX4rUYlCgZ0H1MeitB3KAzC2nECk+bP+E=', 2),
+('sZBhbcg1C', 'SI Popon', 'dev.rafin@gmail.com', '082377936674', '$2y$10$gFoFAEvFk/d4Yw6SYamlgedI57JVDk3YKV3sXQjXbREnM0aZZ6X1K', '1635700712', '2021-10-31', 'popon.png', 1, 596216, '5DJ6uGKZc+cLsj9FZcNegucFahhFRo4Zu0Ws2Ss3Rvk=', 1),
+('vAJE6dTMe', 'Rafin Annnnn', 'coba@mail.com', '082373889803', '$2y$10$rMxNpC9IP7dL/l8TKwL6U.cqkpc8MTJSOBPsU5VoHuCvZ2Vehpqcm', '04:04:43pm', '2021-11-04', 'default.png', 2, 993947, 'HVa8T/iT5oSFmJsztdgpFVfVZxehRFmq/mpuVtwyPMs=', 2);
 
 -- --------------------------------------------------------
 
@@ -158,10 +173,10 @@ CREATE TABLE `user_activation` (
 --
 
 INSERT INTO `user_activation` (`id`, `id_user`, `token`, `url`, `date`, `time`) VALUES
-(1, 'eHYDniKV5', 901493, '/E+Br1a6wKgMgJ7Watnvn4lSj1UOlE3HogSlvIcqbp8=', '2021-11-01', '04:54:49pm'),
-(2, '5HCm84wqe', 622789, 'Frd4DzHJyDzqjvrWshjrQvyLdOes2WhqqroJtuAoI68=', '2021-11-01', '05:38:23pm'),
-(3, 'Dcy7hw6ox', 179850, 'JeXRL90FyCzv9gsQzD1HEBABg64K3T2eZry4nEw/E6U=', '2021-11-01', '05:41:12pm'),
-(4, 'wcRPH9zkv', 775976, '0jjBx4f4rAgcQ9gdZnzMBteGFYoguWR1Pynx6bTfLEA=', '2021-11-01', '05:46:28pm');
+(21, 'X2aivx3R1', 549181, 'ZpPB98f+TbK5FE8QXVPKXuRZMSXLf9oLnWw53FAgcw8=', '2021-11-03', '01:56:08pm'),
+(23, '9VCxHqArP', 388170, 'tAQ1/4icnY5xW4tNIC+ChQtisxNes2ORvKIhoPeqyRU=', '2021-11-04', '10:44:19am'),
+(24, 'C7B1DVtcE', 726216, 'j8DJKKzEOcbJMNtlhLP34aAPMQKEOJsWswOV1ys0ADg=', '2021-11-04', '02:51:18pm'),
+(25, 'vAJE6dTMe', 287898, '2h7BDSZg7J2KBmqENyP2boxQKP13vPhhFcp+T88UFW8=', '2021-11-04', '04:04:43pm');
 
 --
 -- Indexes for dumped tables
@@ -171,6 +186,12 @@ INSERT INTO `user_activation` (`id`, `id_user`, `token`, `url`, `date`, `time`) 
 -- Indexes for table `datadiri`
 --
 ALTER TABLE `datadiri`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `emailrequest`
+--
+ALTER TABLE `emailrequest`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -214,6 +235,12 @@ ALTER TABLE `datadiri`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `emailrequest`
+--
+ALTER TABLE `emailrequest`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `golongan`
 --
 ALTER TABLE `golongan`
@@ -235,7 +262,7 @@ ALTER TABLE `lomba`
 -- AUTO_INCREMENT for table `user_activation`
 --
 ALTER TABLE `user_activation`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
