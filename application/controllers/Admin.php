@@ -6,8 +6,8 @@ class Admin extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('admin_model');
-        $role = $this->admin_model->blockaccess();
+        $this->load->model('Admin_model');
+        $role = $this->Admin_model->blockaccess();
         if ($role != 1) {
             redirect('auth/error_404');
         }
@@ -27,7 +27,7 @@ class Admin extends CI_Controller
     public function userlist()
     {
         $session = $this->_session();
-        $data['user'] = $this->admin_model->getuser();
+        $data['user'] = $this->Admin_model->getuser();
         $data['judul'] = 'User Management - KLEPON PRAMUKA UNIB';
         $this->load->view('admin/header', $data);
         $this->load->view('admin/navbar', $session);
@@ -64,7 +64,7 @@ class Admin extends CI_Controller
             'url' => $url
         );
 
-        $this->admin_model->adduser($data);
+        $this->Admin_model->adduser($data);
         $this->session->set_flashdata('flash', '<div class="alert alert-success">User berhasil ditambahkan!!</div>');
         redirect(base_url('admin/userlist'));
     }
@@ -72,7 +72,7 @@ class Admin extends CI_Controller
     public function userdetail()
     {
         $id = $this->uri->segment('3');
-        $detail = $this->admin_model->userdetail($id);
+        $detail = $this->Admin_model->userdetail($id);
         $session = $this->_session();
         $data['judul'] = 'Detail User - KLEPON PRAMUKA UNIB';
         $this->load->view('admin/header', $data);
@@ -89,7 +89,7 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('telepon', 'telepon', 'required|trim');
         if ($this->form_validation->run() == false) {
             $id = $this->uri->segment('3');
-            $detail = $this->admin_model->userdetail($id);
+            $detail = $this->Admin_model->userdetail($id);
             $session = $this->_session();
             $data['judul'] = 'edit User - KLEPON PRAMUKA UNIB';
             $this->load->view('admin/header', $data);
@@ -99,7 +99,7 @@ class Admin extends CI_Controller
             $this->load->view('admin/footer');
         } else {
             $post = $this->input->post();
-            $this->admin_model->edituser($post);
+            $this->Admin_model->edituser($post);
             redirect('admin/userlist');
         }
     }
@@ -107,14 +107,14 @@ class Admin extends CI_Controller
     public function deleteuser()
     {
         $id = $this->uri->segment('3');
-        $this->admin_model->deleteuser($id);
+        $this->Admin_model->deleteuser($id);
         $this->session->set_flashdata('flash', '<div class="alert alert-success">User berhasil dihapus!!</div>');
         redirect('admin/userlist');
     }
 
     private function _session()
     {
-        $user = $this->admin_model->session();
+        $user = $this->Admin_model->session();
         $data['user'] = array(
             'nama' => $user['nama'],
             'email' => $user['email'],
