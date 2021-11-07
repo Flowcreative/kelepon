@@ -7,17 +7,18 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Admin_model');
+        $data['page'] = $this->uri->segment('2');
         admin_cek();
     }
 
     // ===================================Dashboard Area ============================================
     public function index()
     {
-        $session = $this->_session();
+        $data = $this->_session();
         $data['judul'] = 'Dashboard Admin - KLEPON PRAMUKA UNIB';
         $this->load->view('admin/header', $data);
-        $this->load->view('admin/navbar', $session);
-        $this->load->view('admin/sidebar', $session);
+        $this->load->view('admin/navbar', $data);
+        $this->load->view('admin/sidebar', $data);
         $this->load->view('admin/dashboard');
         $this->load->view('admin/footer');
     }
@@ -27,18 +28,12 @@ class Admin extends CI_Controller
 
     public function userlist()
     {
-        $session = $this->_session();
-        $data['user'] = $this->Admin_model->getuser();
+        $data = $this->_session();
+        $data['userlist'] = $this->Admin_model->getuser();
         $data['judul'] = 'User Management - KLEPON PRAMUKA UNIB';
         $this->load->view('admin/header', $data);
-        $this->load->view(
-            'admin/navbar',
-            $session
-        );
-        $this->load->view(
-            'admin/sidebar',
-            $session
-        );
+        $this->load->view('admin/navbar', $data);
+        $this->load->view('admin/sidebar', $data);
         $this->load->view('admin/user', $data);
         $this->load->view('admin/footer');
     }
@@ -74,6 +69,19 @@ class Admin extends CI_Controller
         $this->Admin_model->adduser($data);
         $this->session->set_flashdata('flash', '<div class="alert alert-success">User berhasil ditambahkan!!</div>');
         redirect(base_url('admin/userlist'));
+    }
+
+    public function userdetail()
+    {
+        $id = $this->uri->segment('3');
+        $detail = $this->Admin_model->userdetail($id);
+        $session = $this->_session();
+        $data['judul'] = 'Detail User - KLEPON PRAMUKA UNIB';
+        $this->load->view('admin/header', $data);
+        $this->load->view('admin/navbar', $session);
+        $this->load->view('admin/sidebar', $session);
+        $this->load->view('admin/userdetail', $detail);
+        $this->load->view('admin/footer');
     }
 
     public function edituser()

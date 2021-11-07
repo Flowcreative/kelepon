@@ -25,7 +25,7 @@
                     <!-- Sidenav Accordion (Dashboard)-->
                     <a class="nav-link" href="<?= base_url('admin') ?>">
                         <div class="nav-link-icon"><i data-feather="activity"></i></div>
-                        Dashboards
+                        Dashboard
                     </a>
                     <!-- Sidenav Heading (Custom)-->
                     <div class="sidenav-menu-heading">User & Peserta</div>

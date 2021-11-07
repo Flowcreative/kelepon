@@ -21,14 +21,14 @@
                         <span class="badge bg-success-soft text-success ms-auto">2 New!</span>
                     </a> -->
                     <!-- Sidenav Menu Heading (Core)-->
-                    <div class="sidenav-menu-heading">Core</div>
+                    <!-- <div class="sidenav-menu-heading">Core</div> -->
                     <!-- Sidenav Accordion (Dashboard)-->
-                    <a class="nav-link" href="<?= base_url('peserta') ?>">
+                    <!-- <a class="nav-link" href="<?= base_url('peserta') ?>">
                         <div class="nav-link-icon"><i data-feather="activity"></i></div>
-                        Dashboards
-                    </a>
+                        Dashboard
+                    </a> -->
                     <!-- Sidenav Heading (Custom)-->
-                    <div class="sidenav-menu-heading">Data Diri</div>
+                    <div class="sidenav-menu-heading">Data Peserta</div>
                     <!-- Sidenav Accordion (Pages)-->
                     <a class="nav-link" href="<?= base_url('peserta/datadiri') ?>">
                         <div class="nav-link-icon"><i data-feather="users"></i></div>
@@ -37,17 +37,17 @@
                     <!-- Sidenav Heading (UI Toolkit)-->
                     <div class="sidenav-menu-heading">Lomba Management</div>
                     <!-- Sidenav Accordion (Utilities)-->
-                    <a class="nav-link" href="<?= base_url('admin/userlist') ?>">
+                    <a class="nav-link" href="<?= base_url('peserta/matalomba') ?>" disabled>
                         <div class="nav-link-icon"><i class="fas fa-flag-checkered"></i></div>
                         Pilih Mata Lomba
                     </a>
                     <!-- Sidenav Heading (Addons)-->
-                    <div class="sidenav-menu-heading">Plugins</div>
+                    <!-- <div class="sidenav-menu-heading">Plugins</div> -->
                     <!-- Sidenav Link (Charts)-->
-                    <a class="nav-link" href="#">
+                    <!-- <a class="nav-link" href="#">
                         <div class="nav-link-icon"><i class="fas fa-money-bill-wave"></i></div>
                         Pembayaran
-                    </a>
+                    </a> -->
                 </div>
             </div>
             <!-- Sidenav Footer-->

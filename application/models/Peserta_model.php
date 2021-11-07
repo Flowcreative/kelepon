@@ -19,4 +19,82 @@ class Peserta_model extends CI_Model
         $user = $this->db->get_where('user', ['id' => $id])->row_array();
         return $user;
     }
+
+    // ============================= Data Peserta Model =========================================
+    public function getdatadiri()
+    {
+        $id = $this->session->userdata('id');
+        $this->db->select('*');
+        $this->db->from('datadiri');
+        $this->db->where('id_user', $id);
+        $this->db->join('user', 'user.id = datadiri.id_user');
+        $this->db->join('golongan', 'golongan.id = datadiri.id_golongan');
+        $data = $this->db->get()->row_array();
+        // $data = $this->db->get_where('datadiri', ['id_user' => $id])->row_array();
+        return $data;
+    }
+
+    public function getdatapangkalan()
+    {
+        $id = $this->session->userdata('id');
+        $this->db->select('*');
+        $this->db->from('datadiri');
+        $this->db->where('id_user', $id);
+        $this->db->join('datapangkalan', 'datapangkalan.id_pangkalan = datadiri.id_pangkalan');
+        $data = $this->db->get()->row_array();
+        // $data = $this->db->get_where('datadiri', ['id_user' => $id])->row_array();
+        return $data;
+    }
+    public function cekdatadiri()
+    {
+        $id = $this->session->userdata('id');
+        $data = $this->db->get_where('datadiri', ['id_user' => $id])->row_array();
+        return $data;
+    }
+
+    public function golongan()
+    {
+        $this->db->order_by('id', 'asc');
+        $data = $this->db->get('golongan')->result_array();
+        return $data;
+    }
+
+    public function inputdatadiri($data)
+    {
+        $this->db->insert('datadiri', $data);
+    }
+    public function inputdatapangkalan($data)
+    {
+        $id = $this->session->userdata('id');
+
+        $this->db->set('id_pangkalan', $data['id_pangkalan']);
+        $this->db->where('id_user', $id);
+        $this->db->update('datadiri');
+
+        $this->db->insert('datapangkalan', $data);
+    }
+
+    public function uploadfoto($post)
+    {
+        $id = $this->session->userdata('id');
+        $this->db->set('foto', $post);
+        $this->db->where('id_user', $id);
+        $this->db->update('datadiri');
+    }
+    public function uploadidentitas($post)
+    {
+        $id = $this->session->userdata('id');
+        $this->db->set('kartu_identitas', $post);
+        $this->db->where('id_user', $id);
+        $this->db->update('datadiri');
+    }
+
+    public function uploadsuratmandat($post)
+    {
+        $id = $this->session->userdata('id');
+        $this->db->set('suratmandat', $post);
+        $this->db->where('id_user', $id);
+        $this->db->update('datadiri');
+    }
+    // ============================= end Data Peserta Model =====================================
 }
