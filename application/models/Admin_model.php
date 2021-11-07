@@ -1,14 +1,16 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class admin_model extends CI_Model
+class Admin_model extends CI_Model
 {
-    public function blockaccess()
+    public function aksesadmin()
     {
         $id = $this->session->userdata('id');
-        $user = $this->db->get_where('user', ['id' => $id])->row_array();
-        $role = $user['role'];
-        return $role;
+        if ($id) {
+            $user = $this->db->get_where('user', ['id' => $id])->row_array();
+            $role = $user['role'];
+            return $role;
+        }
     }
 
     public function session()
@@ -18,12 +20,24 @@ class admin_model extends CI_Model
         return $user;
     }
 
+    // ==================User list Area ===========================
     public function getuser()
     {
         $this->db->order_by('role', 'asc');
         $this->db->order_by('tgl_reg', 'asc');
         $this->db->order_by('time_reg', 'asc');
         return $this->db->get('user')->result_array();
+    }
+
+    public function adduser($data)
+    {
+        $this->db->insert('user', $data);
+    }
+
+    public function userdetail($id)
+    {
+        $detail = $this->db->get_where('user', ['id' => $id])->row_array();
+        return $detail;
     }
 
     public function edituser($post)
@@ -42,20 +56,10 @@ class admin_model extends CI_Model
         $this->db->update('user');
     }
 
-    public function userdetail($id)
-    {
-        $detail = $this->db->get_where('user', ['id' => $id])->row_array();
-        return $detail;
-    }
-
-    public function adduser($data)
-    {
-        $this->db->insert('user', $data);
-    }
-
     public function deleteuser($id)
     {
         $this->db->where('id', $id);
         $this->db->delete('user');
     }
+    // ==================end User list Area ===========================
 }

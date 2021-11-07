@@ -3,6 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Auth_model extends CI_Model
 {
+    // Register Area ===================================================================================
     public function register($post)
     {
         $cek['email'] = $this->db->get_where('user', ['email' => $post['email']])->row_array();
@@ -17,8 +18,16 @@ class Auth_model extends CI_Model
 
     public function activatecode($tokenect)
     {
-
         $this->db->insert('user_activation', $tokenect);
+    }
+    //end Register Area ===================================================================================
+
+    // Aktivasi Area =====================================================================================
+    public function cekkodeaktivasi()
+    {
+        $id = $this->idsession();
+        $user = $this->db->get_where('user_activation', ['id_user' => $id['id']])->row_array();
+        return $user;
     }
 
     public function aktivasi()
@@ -33,23 +42,11 @@ class Auth_model extends CI_Model
         $this->db->delete('user_activation');
     }
 
-    public function urlregist($get)
+    public function cekrequest()
     {
-
-        $verify = $get['verify'];
-        $user = $get['user'];
-        $data = $this->db->get_where('user_activation', ['url' => $verify])->row_array();
-
-        if ($data) {
-            $this->db->set('status', 1);
-            $this->db->where('email', $user);
-            $this->db->update('user');
-
-            $this->db->where('id_user', $user);
-            $this->db->delete('user_activation');
-        } else {
-            redirect('auth');
-        }
+        $user = $this->idsession();
+        $req = $this->db->get_where('emailrequest', ['email' => $user['email']])->row_array();
+        return $req;
     }
 
     public function resendemailregist($data)
@@ -59,19 +56,6 @@ class Auth_model extends CI_Model
         $this->db->set('token', $data['token']);
         $this->db->where('id_user', $id);
         $this->db->update('user_activation');
-    }
-
-    public function cekemail($email)
-    {
-        $data = $this->db->get_where('user', ['email' => $email])->row_array();
-        return $data;
-    }
-
-    public function cekrequest()
-    {
-        $user = $this->idsession();
-        $req = $this->db->get_where('emailrequest', ['email' => $user['email']])->row_array();
-        return $req;
     }
 
     public function setemailrequest($user)
@@ -85,12 +69,29 @@ class Auth_model extends CI_Model
         $this->db->where('email', $user['email']);
         $this->db->delete('emailrequest');
     }
+    // End Aktivasi Area =================================================================================
 
-    public function resendemaillupa($data, $email)
+    // Login Area========================================================================================
+    public function login($post)
     {
-        $this->db->set('url', $data['url']);
+        $email = $post['email'];
+        $user = $this->db->get_where('user', ['email' => $email])->row_array();
+        return $user;
+    }
+    // end Login Area ====================================================================================
+
+    // Lupa password Area=================================================================================
+    public function cekemail($email)
+    {
+        $data = $this->db->get_where('user', ['email' => $email])->row_array();
+        return $data;
+    }
+
+    public function lupapassword($data, $user)
+    {
         $this->db->set('token', $data['token']);
-        $this->db->where('email', $email);
+        $this->db->set('url', $data['url']);
+        $this->db->where('id', $user['id']);
         $this->db->update('user');
     }
 
@@ -98,6 +99,14 @@ class Auth_model extends CI_Model
     {
         $req = $this->db->get_where('emailrequest', ['email' => $mail])->row_array();
         return $req;
+    }
+
+    public function resendemaillupa($data, $email)
+    {
+        $this->db->set('url', $data['url']);
+        $this->db->set('token', $data['token']);
+        $this->db->where('email', $email);
+        $this->db->update('user');
     }
 
     public function setemailrequestlupa($cekemail)
@@ -109,14 +118,6 @@ class Auth_model extends CI_Model
     {
         $this->db->where('email', $email);
         $this->db->delete('emailrequest');
-    }
-
-    public function lupapassword($data, $user)
-    {
-        $this->db->set('token', $data['token']);
-        $this->db->set('url', $data['url']);
-        $this->db->where('id', $user['id']);
-        $this->db->update('user');
     }
 
     public function checkrecovery($kode)
@@ -134,19 +135,14 @@ class Auth_model extends CI_Model
         $this->db->where('email', $email);
         $this->db->update('user');
     }
+    // Lupa password Area=================================================================================
 
+    // Public Area =======================================================================================
     public function idsession()
     {
         $id = $this->session->userdata('id');
         $data = $this->db->get_where('user', ['id' => $id])->row_array();
         return $data;
     }
-
-    public function login($post)
-    {
-
-        $email = $post['email'];
-        $user = $this->db->get_where('user', ['email' => $email])->row_array();
-        return $user;
-    }
+    //end Public Area =======================================================================================
 }

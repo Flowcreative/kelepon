@@ -7,11 +7,10 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Admin_model');
-        $role = $this->Admin_model->blockaccess();
-        if ($role != 1) {
-            redirect('auth/error_404');
-        }
+        admin_cek();
     }
+
+    // ===================================Dashboard Area ============================================
     public function index()
     {
         $session = $this->_session();
@@ -22,7 +21,9 @@ class Admin extends CI_Controller
         $this->load->view('admin/dashboard');
         $this->load->view('admin/footer');
     }
+    // ===================================end Dashboard Area ============================================
 
+    // ===================================User list Area ============================================
 
     public function userlist()
     {
@@ -30,8 +31,14 @@ class Admin extends CI_Controller
         $data['user'] = $this->Admin_model->getuser();
         $data['judul'] = 'User Management - KLEPON PRAMUKA UNIB';
         $this->load->view('admin/header', $data);
-        $this->load->view('admin/navbar', $session);
-        $this->load->view('admin/sidebar', $session);
+        $this->load->view(
+            'admin/navbar',
+            $session
+        );
+        $this->load->view(
+            'admin/sidebar',
+            $session
+        );
         $this->load->view('admin/user', $data);
         $this->load->view('admin/footer');
     }
@@ -69,19 +76,6 @@ class Admin extends CI_Controller
         redirect(base_url('admin/userlist'));
     }
 
-    public function userdetail()
-    {
-        $id = $this->uri->segment('3');
-        $detail = $this->Admin_model->userdetail($id);
-        $session = $this->_session();
-        $data['judul'] = 'Detail User - KLEPON PRAMUKA UNIB';
-        $this->load->view('admin/header', $data);
-        $this->load->view('admin/navbar', $session);
-        $this->load->view('admin/sidebar', $session);
-        $this->load->view('admin/userdetail', $detail);
-        $this->load->view('admin/footer');
-    }
-
     public function edituser()
     {
         $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
@@ -111,6 +105,7 @@ class Admin extends CI_Controller
         $this->session->set_flashdata('flash', '<div class="alert alert-success">User berhasil dihapus!!</div>');
         redirect('admin/userlist');
     }
+    // ===================================end User list Area ============================================
 
     private function _session()
     {

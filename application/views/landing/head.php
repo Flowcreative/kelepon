@@ -16,6 +16,10 @@
     <link rel="stylesheet" href="<?= base_url('src/landing/') ?>vendors/nice-select/css/nice-select.css">
     <link rel="stylesheet" href="<?= base_url('src/landing/') ?>vendors/animate-css/animate.css">
     <link rel="stylesheet" href="<?= base_url('src/landing/') ?>vendors/flaticon/flaticon.css">
+
+    <!-- sbadmin -->
+    <link href="<?= base_url('src/dashboard/') ?>css/styles.css" rel="stylesheet" />
+
     <!-- main css -->
     <link rel="stylesheet" href="<?= base_url('src/landing/') ?>css/style.css">
     <link rel="stylesheet" href="<?= base_url('src/landing/') ?>css/responsive.css">

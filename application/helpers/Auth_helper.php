@@ -1,5 +1,4 @@
 <?php
-
 function login_cek()
 {
     $klepon = get_instance();
@@ -37,12 +36,8 @@ function aktif_cek()
     }
 }
 
-function smtpemail()
+function smtp_email()
 {
-
-    // $klepon = get_instance();
-    // $klepon->load->helper('email');
-
     $config = [
         'protocol'  => 'smtp',
         'smtp_host' => 'ssl://smtp.googlemail.com',
@@ -54,11 +49,4 @@ function smtpemail()
         'newline'   => "\r\n"
     ];
     return $config;
-}
-
-function timeline()
-{
-    $klepon = get_instance();
-    $klepon->load->view('admin/header');
-    $klepon->load->view('admin/timeline');
 }
