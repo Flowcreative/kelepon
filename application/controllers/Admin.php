@@ -118,14 +118,38 @@ class Admin extends CI_Controller
     // ===================================data Diri Peserta Area ============================================
     public function datadiripeserta()
     {
+        $uri = $this->uri->segment('3');
+        if ($uri) {
+            $this->_detaildatadiri($uri);
+        } else {
+            $data = $this->_session();
+            $data['userlist'] = $this->Admin_model->getdatadiri();
+            $data['judul'] = 'Data Diri Peserta - KLEPON PRAMUKA UNIB';
+            $this->load->view('admin/header', $data);
+            $this->load->view('admin/navbar', $data);
+            $this->load->view('admin/sidebar', $data);
+            $this->load->view('admin/datadiripeserta', $data);
+            $this->load->view('admin/footer');
+        }
+    }
+
+    private function _detaildatadiri($uri)
+    {
         $data = $this->_session();
-        $data['userlist'] = $this->Admin_model->getdatadiri();
+        $data['datadiri'] = $this->Admin_model->getdetaildatadiri($uri);
         $data['judul'] = 'Data Diri Peserta - KLEPON PRAMUKA UNIB';
         $this->load->view('admin/header', $data);
         $this->load->view('admin/navbar', $data);
         $this->load->view('admin/sidebar', $data);
-        $this->load->view('admin/datadiripeserta', $data);
+        $this->load->view('admin/datadiripesertadetail', $data);
         $this->load->view('admin/footer');
+    }
+
+    public function printdatadiripeserta()
+    {
+        $uri = $this->uri->segment('3');
+        $data['datadiri'] = $this->Admin_model->getdetaildatadiri($uri);
+        $this->load->view('admin/datadiripesertaprint', $data);
     }
     // ===================================end data Diri Peserta Area ============================================
 

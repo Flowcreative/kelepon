@@ -1,26 +1,26 @@
 <main>
-    <header class="page-header page-header-compact page-header-light border-bottom bg-white mb-4">
-        <div class="container-fluid px-4">
-            <div class="page-header-content">
-                <div class="row align-items-center justify-content-between pt-3">
-                    <div class="col-auto mb-3">
+    <header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
+        <div class="container-xl px-4">
+            <div class="page-header-content pt-4">
+                <div class="row align-items-center justify-content-between">
+                    <div class="col-auto mt-4">
                         <h1 class="page-header-title">
-                            <div class="page-header-icon"><i data-feather="user"></i></div>
-                            Users List
+                            <div class="page-header-icon"><i data-feather="layout"></i></div>
+                            Data Peserta
                         </h1>
-                    </div>
-                    <div class="col-12 col-xl-auto mb-3">
-                        <!-- <a class="btn btn-sm btn-light text-primary" href="user-management-groups-list.html">
-                            <i class="me-1" data-feather="users"></i>
-                            Manage Groups
-                        </a> -->
+                        <div class="page-header-subtitle">Seluruh user yang sudah mengisi data diri</div>
                     </div>
                 </div>
+                <nav class="mt-4 rounded" aria-label="breadcrumb">
+                    <ol class="breadcrumb px-3 py-2 rounded mb-0">
+                        <li class="breadcrumb-item active">Data diri</li>
+                    </ol>
+                </nav>
             </div>
         </div>
     </header>
     <!-- Main page content-->
-    <div class="container-fluid px-4">
+    <div class="container-xl px-4 mt-n10">
         <div class="card">
             <div class="card-body">
                 <div class="row mb-2 col-2">
@@ -53,9 +53,8 @@
                                 <td class="text-center"><?= $usr['kotapangkalan'] ?></td>
                                 <td class="text-center"><?= $usr['provinsipangkalan'] ?></td>
                                 <td class="text-center">
-                                    <a class="btn btn-datatable btn-icon btn-transparent-dark me-2" href="<?= base_url('admin/userdetail/' . $usr['id']) ?>"><i data-feather="more-vertical"></i></a>
-                                    <a class="btn btn-datatable btn-icon btn-transparent-dark me-2" href="<?= base_url('admin/edituser/' . $usr['id']) ?> "><i class="text-warning" data-feather="edit"></i></a>
-                                    <a class="btn btn-datatable btn-icon btn-transparent-dark " href="<?= base_url('admin/deleteuser/' . $usr['id']) ?> "><i class="text-danger" data-feather="trash-2"></i></a>
+                                    <a class="btn btn-datatable btn-icon btn-transparent-dark me-2" href="<?= base_url('admin/datadiripeserta/' . $usr['id']) ?>"><i class="text-blue" data-feather="more-vertical"></i></a>
+                                    <!-- <a class="btn btn-datatable btn-icon btn-transparent-dark me-2" href="javascript:window.print(<?= base_url('admin/datadiripesertaprint/' . $usr['id']) ?>" )><i class="text-red fas fa-print"></i></a> -->
                                 </td>
                             </tr>
                         <?php } ?>
