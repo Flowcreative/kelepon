@@ -62,4 +62,18 @@ class Admin_model extends CI_Model
         $this->db->delete('user');
     }
     // ==================end User list Area ===========================
+
+    // ==================Data diri peserta Area ===========================
+    public function getdatadiri()
+    {
+        $this->db->select('*');
+        $this->db->from('datadiri');
+        $this->db->order_by('id_golongan', 'asc');
+        $this->db->join('user', 'user.id = datadiri.id_user');
+        $this->db->join('golongan', 'golongan.idgolongan = datadiri.id_golongan');
+        $this->db->join('datapangkalan', 'datapangkalan.id_pangkalan = datadiri.id_pangkalan');
+        $data = $this->db->get()->result_array();
+        return $data;
+    }
+    // ==================end Data diri peserta Area ===========================
 }

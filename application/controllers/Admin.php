@@ -115,6 +115,20 @@ class Admin extends CI_Controller
     }
     // ===================================end User list Area ============================================
 
+    // ===================================data Diri Peserta Area ============================================
+    public function datadiripeserta()
+    {
+        $data = $this->_session();
+        $data['userlist'] = $this->Admin_model->getdatadiri();
+        $data['judul'] = 'Data Diri Peserta - KLEPON PRAMUKA UNIB';
+        $this->load->view('admin/header', $data);
+        $this->load->view('admin/navbar', $data);
+        $this->load->view('admin/sidebar', $data);
+        $this->load->view('admin/datadiripeserta', $data);
+        $this->load->view('admin/footer');
+    }
+    // ===================================end data Diri Peserta Area ============================================
+
     private function _session()
     {
         $user = $this->Admin_model->session();

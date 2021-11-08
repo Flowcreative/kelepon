@@ -21,12 +21,12 @@
                         <span class="badge bg-success-soft text-success ms-auto">2 New!</span>
                     </a> -->
                     <!-- Sidenav Menu Heading (Core)-->
-                    <!-- <div class="sidenav-menu-heading">Core</div> -->
+                    <div class="sidenav-menu-heading">Core</div>
                     <!-- Sidenav Accordion (Dashboard)-->
-                    <!-- <a class="nav-link" href="<?= base_url('peserta') ?>">
+                    <a class="nav-link" href="<?= base_url('peserta') ?>">
                         <div class="nav-link-icon"><i data-feather="activity"></i></div>
                         Dashboard
-                    </a> -->
+                    </a>
                     <!-- Sidenav Heading (Custom)-->
                     <div class="sidenav-menu-heading">Data Peserta</div>
                     <!-- Sidenav Accordion (Pages)-->

@@ -31,6 +31,7 @@ class Peserta extends CI_Controller
             $data = $this->_session();
             // $user = $this->Peserta_model->getdatadiri();
             $data['datadiri'] = $this->Peserta_model->getdatadiri();
+            $data['golongan'] = $this->Peserta_model->golongan();
             $data['pangkalan'] = $this->Peserta_model->getdatapangkalan();
             $data['judul'] = "Data Diri - KELEPON PRAMUKA UNIB";
             $this->load->view('peserta/header', $data);
@@ -72,6 +73,28 @@ class Peserta extends CI_Controller
         redirect('peserta/datadiri');
     }
 
+    public function editdatadiri()
+    {
+        $post = $this->input->post();
+        $datadiri = array(
+            'tempatlahir' => $post['tempatlahir'],
+            'tanggallahir' => $post['tanggallahir'],
+            'alamat' => $post['alamat'],
+            'kota' => $post['kota'],
+            'provinsi' => $post['provinsi'],
+            'id_golongan' => $post['golongan']
+        );
+
+        $user = array(
+            'nama' => $post['nama'],
+            'email' => $post['email'],
+            'telepon' => $post['telepon']
+        );
+        $this->Peserta_model->editdatadiri($user);
+        $this->Peserta_model->_editdatadiri($datadiri);
+        redirect('peserta/datadiri');
+    }
+
     public function inputdatapangkalan()
     {
         $post = $this->input->post();
@@ -86,6 +109,14 @@ class Peserta extends CI_Controller
         $this->Peserta_model->inputdatapangkalan($data);
         redirect('peserta/datadiri');
     }
+
+    public function editdatapangkalan()
+    {
+        $post = $this->input->post();
+        $this->Peserta_model->editdatapangkalan($post);
+        redirect('peserta/datadiri');
+    }
+
 
     public function uploadfoto()
     {
@@ -153,7 +184,7 @@ class Peserta extends CI_Controller
     public function matalomba()
     {
         $data = $this->_session();
-        $data['judul'] = "Mata Lomba";
+        $data['judul'] = 'Mata Lomba - KELEPON PRAMUKA UNIB';
         $this->load->view('peserta/header', $data);
         $this->load->view('peserta/navbar', $data);
         $this->load->view('peserta/sidebar');

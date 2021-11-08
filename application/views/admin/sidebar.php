@@ -34,6 +34,10 @@
                         <div class="nav-link-icon"><i data-feather="users"></i></div>
                         User List
                     </a>
+                    <a class="nav-link" href="<?= base_url('admin/datadiripeserta') ?>">
+                        <div class="nav-link-icon"><i data-feather="users"></i></div>
+                        Data Diri Peserta
+                    </a>
                     <!-- Sidenav Heading (UI Toolkit)-->
                     <div class="sidenav-menu-heading">Lomba Management</div>
                     <!-- Sidenav Accordion (Utilities)-->
@@ -42,17 +46,17 @@
                         Mata Lomba
                     </a>
                     <!-- Sidenav Heading (Addons)-->
-                    <div class="sidenav-menu-heading">Plugins</div>
+                    <!-- <div class="sidenav-menu-heading">Plugins</div> -->
                     <!-- Sidenav Link (Charts)-->
-                    <a class="nav-link" href="charts.html">
+                    <!-- <a class="nav-link" href="charts.html">
                         <div class="nav-link-icon"><i data-feather="bar-chart"></i></div>
                         Charts
-                    </a>
+                    </a> -->
                     <!-- Sidenav Link (Tables)-->
-                    <a class="nav-link" href="tables.html">
+                    <!-- <a class="nav-link" href="tables.html">
                         <div class="nav-link-icon"><i data-feather="filter"></i></div>
                         Tables
-                    </a>
+                    </a> -->
                 </div>
             </div>
             <!-- Sidenav Footer-->

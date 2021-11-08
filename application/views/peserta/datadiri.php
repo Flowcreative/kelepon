@@ -20,10 +20,11 @@
           <div class="card">
               <div class="card-header row">
                   <div class="col-auto">Data Diri</div>
+
               </div>
-              <!-- <button class="btn btn-sm btn-warning text-light" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter"><i class="me-1" data-feather="edit"></i>
-                  edit data
-              </button> -->
+              <!-- Button trigger modal -->
+              <button class="btn btn-warning btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#editdatadiri">Edit Data Diri</button>
+
               <div class="card-body">
                   <div class="row mb-2">
                       <div class="col-3">Nama</div>
@@ -64,6 +65,9 @@
               <div class="card-header row">
                   <div class="col-auto">Data Pangkalan</div>
               </div>
+              <button class="btn btn-warning btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#editpangkalan">Edit pangkalan</button>
+
+
               <div class="card-body">
                   <?php if ($pangkalan) { ?>
                       <div class="row mb-2">
@@ -79,12 +83,12 @@
                       <div class="row mb-2">
                           <div class="col-3">Kota</div>
                           <div class="col-1">:</div>
-                          <div class="col-8"><?= $pangkalan['kota'] ?></div>
+                          <div class="col-8"><?= $pangkalan['kotapangkalan'] ?></div>
                       </div>
                       <div class="row mb-2">
                           <div class="col-3">Provinsi</div>
                           <div class="col-1">:</div>
-                          <div class="col-8"><?= $pangkalan['provinsi'] ?></div>
+                          <div class="col-8"><?= $pangkalan['provinsipangkalan'] ?></div>
                       </div>
                   <?php } else { ?>
                       <button class="btn btn-red btn-xl" type="button" data-bs-toggle="modal" data-bs-target="#inputdatapangkalan">Lengkapi data pangkalan</button>
@@ -321,6 +325,154 @@
                   <button class="btn btn-primary" type="submit">Simpan</button>
               </div>
               </form>
+          </div>
+      </div>
+  </div>
+
+  <!-- Modal edit data diri-->
+  <div class="modal fade" id="editdatadiri" tabindex="-1" role="dialog" aria-labelledby="editdatadiriTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="editdatadiriTitle">Edit Data Diri</h5>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <form action="<?= base_url('peserta/editdatadiri') ?>" method="post">
+                      <div class="mb-3">
+                          <label class="text-gray-600 small" for="emailExample">Nama Lengkap</label>
+                          <input class="form-control form-control-solid" name="nama" type="text" placeholder="Masukan nama" value="<?= $user['nama'] ?>" />
+                          <?= form_error('nama', '<small class="text-danger">', '</small>'); ?>
+                      </div>
+                      <div class="row gx-3">
+                          <div class="mb-3">
+                              <label class="text-gray-600 small" for="emailExample">Telepon</label>
+                              <input class="form-control form-control-solid" name="telepon" type="text" placeholder="Masukan nomor telepon" value="<?= $user['telepon'] ?>" />
+                              <?= form_error('telepon', '<small class="text-danger">', '</small>'); ?>
+                          </div>
+                      </div>
+
+                      <div class="mb-3">
+                          <label class="text-gray-600 small" for="emailexample">Alamat email</label>
+                          <input class="form-control form-control-solid" name="email" type="email" placeholder="Masukan alamat email" value="<?= $user['email'] ?>" />
+                          <?= form_error('email', '<small class="text-danger">', '</small>'); ?>
+                      </div>
+                      <!-- Form Row-->
+                      <div class="row gx-3">
+                          <div class="col-md-6">
+                              <!-- Form Group (choose password)-->
+                              <div class="mb-3">
+                                  <label class="text-gray-600 small" for="tempatLahir">Tempat lahir</label>
+                                  <input class="form-control form-control-solid" name="tempatlahir" type="text" placeholder="Tempat lahir" value="<?= $datadiri['tempatlahir'] ?>" />
+                                  <?= form_error('password1', '<small class="text-danger">', '</small>'); ?>
+                              </div>
+                          </div>
+                          <div class=" col-md-6">
+                              <!-- Form Group (confirm password)-->
+                              <div class="mb-3">
+                                  <label class="text-gray-600 small" for="confirmPasswordExample">Tanggal lahir</label>
+                                  <input class="form-control form-control-solid" name="tanggallahir" type="date" placeholder="" value="<?= $datadiri['tanggallahir'] ?>" />
+                                  <?= form_error('password2', '<small class="text-danger">', '</small>'); ?>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- Form Row-->
+                      <div class=" row gx-3">
+                          <div class="col-md-6">
+                              <!-- Form Group (choose password)-->
+                              <div class="mb-3">
+                                  <label class="text-gray-600 small" for="tempatLahir">Provinsi</label>
+                                  <input class="form-control form-control-solid" name="provinsi" type="text" placeholder="Provinsi tempat tinggal" value="<?= $datadiri['provinsi'] ?>" />
+                                  <?= form_error('password1', '<small class="text-danger">', '</small>'); ?>
+                              </div>
+                          </div>
+                          <div class=" col-md-6">
+                              <!-- Form Group (confirm password)-->
+                              <div class="mb-3">
+                                  <label class="text-gray-600 small" for="confirmPasswordExample">Kota/Kabupaten</label>
+                                  <input class="form-control form-control-solid" name="kota" type="text" placeholder="Kota tempat tinggal" value="<?= $datadiri['kota'] ?>" />
+                                  <?= form_error('password2', '<small class="text-danger">', '</small>'); ?>
+                              </div>
+                          </div>
+                      </div>
+                      <div class=" mb-3">
+                          <label class="text-gray-600 small" for="emailexample">Detail Alamat</label>
+                          <input class="form-control form-control-solid" name="alamat" placeholder="Masukan alamat lengkap" value="<?= $datadiri['alamat'] ?>" />
+                          <?= form_error('email', '<small class="text-danger">', '</small>'); ?>
+                      </div>
+
+                      <!-- Form Group (Roles)-->
+                      <div class="mb-3">
+                          <label class="small mb-1">Golongan</label>
+                          <select class="form-select form-control-solid" name="golongan" aria-label="Default select example">
+                              <option selected value="<?= $datadiri['idgolongan'] ?>"><?= $datadiri['golongan'] ?></option>
+                              <?php
+                                foreach ($golongan as $gol) {
+                                ?>
+                                  <option value="<?= $gol['idgolongan'] ?>"><?= $gol['golongan'] ?></option>
+                              <?php } ?>
+                          </select>
+                      </div>
+              </div>
+              <div class="modal-footer">
+                  <button class="btn btn-red btn-sm" type="button" data-bs-dismiss="modal">Tutup</button>
+                  <button class="btn btn-green btn-sm" type="submit">Simpan perubahan</button>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="editpangkalan" tabindex="-1" role="dialog" aria-labelledby="editpangkalanTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="editpangkalanTitle">Edit Data Pangkalan</h5>
+                  <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <form action="<?= base_url('peserta/editdatapangkalan') ?>" method="post">
+                      <!-- Form Row-->
+                      <div class="row gx-3">
+                          <div class="col-md-4 mt-3">
+                              <!-- Form Group (choose password)-->
+                              <h4 class="text-gray-600 small" for="emailExample">Nomor Gudep</h4>
+                          </div>
+                          <div class="col-md-3">
+                              <!-- Form Group (confirm password)-->
+                              <div class="mb-3">
+                                  <input name="idpangkalan" type="hidden" value="<?= $pangkalan['id_pangkalan'] ?>" />
+                                  <input class="form-control form-control-solid text-center" name="gudep" type="text" placeholder="**.***" value="<?= $pangkalan['nogudep'] ?>" />
+                              </div>
+                          </div>
+                          <div class="mb-3">
+                              <input class="form-control form-control-solid" name="nama" placeholder="Nama pangkalan" value="<?= $pangkalan['namapangkalan'] ?>" />
+                          </div>
+                      </div>
+                      <!-- Form Row-->
+                      <div class="row gx-3">
+                          <div class="col-md-6">
+                              <!-- Form Group (choose password)-->
+                              <div class="mb-3">
+                                  <label class="text-gray-600 small" for="tempatLahir">Provinsi</label>
+                                  <input class="form-control form-control-solid" name="provinsi" type="text" placeholder="Provinsi gudep" value="<?= $pangkalan['provinsipangkalan'] ?>" />
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <!-- Form Group (confirm password)-->
+                              <div class="mb-3">
+                                  <label class="text-gray-600 small" for="confirmPasswordExample">Kota/Kabupaten</label>
+                                  <input class="form-control form-control-solid" name="kota" type="text" placeholder="Kota/Kabupaten gudep" value="<?= $pangkalan['kotapangkalan'] ?>" />
+                              </div>
+                          </div>
+                      </div>
+              </div>
+              <div class="modal-footer">
+                  <button class="btn btn-red btn-sm" type="button" data-bs-dismiss="modal">Close</button>
+                  <button class="btn btn-green btn-sm" type="submit">Simpan Perubahan</button>
+                  </form>
+              </div>
           </div>
       </div>
   </div>

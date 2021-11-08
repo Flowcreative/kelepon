@@ -28,7 +28,7 @@ class Peserta_model extends CI_Model
         $this->db->from('datadiri');
         $this->db->where('id_user', $id);
         $this->db->join('user', 'user.id = datadiri.id_user');
-        $this->db->join('golongan', 'golongan.id = datadiri.id_golongan');
+        $this->db->join('golongan', 'golongan.idgolongan = datadiri.id_golongan');
         $data = $this->db->get()->row_array();
         // $data = $this->db->get_where('datadiri', ['id_user' => $id])->row_array();
         return $data;
@@ -54,7 +54,7 @@ class Peserta_model extends CI_Model
 
     public function golongan()
     {
-        $this->db->order_by('id', 'asc');
+        $this->db->order_by('idgolongan', 'asc');
         $data = $this->db->get('golongan')->result_array();
         return $data;
     }
@@ -63,6 +63,23 @@ class Peserta_model extends CI_Model
     {
         $this->db->insert('datadiri', $data);
     }
+
+    public function editdatadiri($user)
+    {
+        $id = $this->session->userdata('id');
+        $this->db->set($user);
+        $this->db->where('id', $id);
+        $this->db->update('user');
+    }
+
+    public function _editdatadiri($datadiri)
+    {
+        $id = $this->session->userdata('id');
+        $this->db->set($datadiri);
+        $this->db->where('id_user', $id);
+        $this->db->update('datadiri');
+    }
+
     public function inputdatapangkalan($data)
     {
         $id = $this->session->userdata('id');
@@ -72,6 +89,16 @@ class Peserta_model extends CI_Model
         $this->db->update('datadiri');
 
         $this->db->insert('datapangkalan', $data);
+    }
+
+    public function editdatapangkalan($post)
+    {
+        $this->db->set('nogudep', $post['gudep']);
+        $this->db->set('namapangkalan', $post['nama']);
+        $this->db->set('kotapangkalan', $post['kota']);
+        $this->db->set('provinsipangkalan', $post['provinsi']);
+        $this->db->where('id_pangkalan', $post['idpangkalan']);
+        $this->db->update('datapangkalan');
     }
 
     public function uploadfoto($post)

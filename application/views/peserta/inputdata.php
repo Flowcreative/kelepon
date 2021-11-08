@@ -96,7 +96,7 @@
                                               <?php
                                                 foreach ($golongan as $gol) {
                                                 ?>
-                                                  <option value="<?= $gol['id'] ?>"><?= $gol['golongan'] ?></option>
+                                                  <option value="<?= $gol['idgolongan'] ?>"><?= $gol['golongan'] ?></option>
                                               <?php } ?>
                                           </select>
                                       </div>
