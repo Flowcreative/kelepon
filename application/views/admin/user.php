@@ -53,7 +53,7 @@
                     </tfoot>
                     <tbody>
                         <?php
-                        foreach ($user as $usr) {
+                        foreach ($userlist as $usr) {
                         ?>
                             <tr>
                                 <td>

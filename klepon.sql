@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2021 at 05:41 PM
+-- Generation Time: Nov 08, 2021 at 06:32 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -29,13 +29,25 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `datadiri` (
   `id` int(11) NOT NULL,
-  `id_pangkalan` int(10) NOT NULL,
   `id_golongan` int(10) NOT NULL,
   `id_user` varchar(20) NOT NULL,
+  `id_pangkalan` varchar(50) NOT NULL,
+  `tempatlahir` varchar(50) NOT NULL,
+  `tanggallahir` date NOT NULL,
+  `provinsi` varchar(50) NOT NULL,
+  `kota` varchar(50) NOT NULL,
+  `alamat` varchar(200) NOT NULL,
+  `foto` varchar(100) NOT NULL,
   `kartu_identitas` varchar(100) NOT NULL,
-  `foto` text NOT NULL,
   `suratmandat` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `datadiri`
+--
+
+INSERT INTO `datadiri` (`id`, `id_golongan`, `id_user`, `id_pangkalan`, `tempatlahir`, `tanggallahir`, `provinsi`, `kota`, `alamat`, `foto`, `kartu_identitas`, `suratmandat`) VALUES
+(3, 3, 'znLaJlqiy', '61882eb6e8bc4', 'Tanjung Agung', '2000-11-29', 'Sumatera Selatan', 'Lubuklinggau', 'Jl. Nangka Lintas Rt.01 Kel. Ponorogo Kec. Lubuklinggau Utara II', 'Screenshot_21.jpg', 'BIODATA_TES_TOEFL.pdf', 'MAKALAH_SOSIOLOGI_OLAHRAGA.pdf');
 
 -- --------------------------------------------------------
 
@@ -44,11 +56,19 @@ CREATE TABLE `datadiri` (
 --
 
 CREATE TABLE `datapangkalan` (
-  `id` int(3) NOT NULL,
+  `id_pangkalan` varchar(50) NOT NULL,
+  `nogudep` varchar(12) NOT NULL,
   `namapangkalan` varchar(100) NOT NULL,
-  `kota` varchar(50) NOT NULL,
-  `provinsi` varchar(50) NOT NULL
+  `kotapangkalan` varchar(50) NOT NULL,
+  `provinsipangkalan` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `datapangkalan`
+--
+
+INSERT INTO `datapangkalan` (`id_pangkalan`, `nogudep`, `namapangkalan`, `kotapangkalan`, `provinsipangkalan`) VALUES
+('61882eb6e8bc4', '02.001', 'Universitas Bengkulu', 'Bengkulu', 'Bengkulu');
 
 -- --------------------------------------------------------
 
@@ -61,6 +81,13 @@ CREATE TABLE `emailrequest` (
   `email` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `emailrequest`
+--
+
+INSERT INTO `emailrequest` (`id`, `email`) VALUES
+(9, 'dev.rafin@gmail.com');
+
 -- --------------------------------------------------------
 
 --
@@ -68,7 +95,7 @@ CREATE TABLE `emailrequest` (
 --
 
 CREATE TABLE `golongan` (
-  `id` int(3) NOT NULL,
+  `idgolongan` int(3) NOT NULL,
   `golongan` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -76,12 +103,12 @@ CREATE TABLE `golongan` (
 -- Dumping data for table `golongan`
 --
 
-INSERT INTO `golongan` (`id`, `golongan`) VALUES
-(1, 'siaga'),
-(2, 'penggalang'),
-(5, 'penegak'),
-(6, 'pandega'),
-(7, 'umum');
+INSERT INTO `golongan` (`idgolongan`, `golongan`) VALUES
+(1, 'Siaga'),
+(2, 'Penggalang'),
+(3, 'Penegak'),
+(4, 'Pandega'),
+(5, 'Umum');
 
 -- --------------------------------------------------------
 
@@ -148,10 +175,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `nama`, `email`, `telepon`, `password`, `time_reg`, `tgl_reg`, `foto_profile`, `status`, `token`, `url`, `role`) VALUES
-('a5ePO9fhj', 'peserta', 'peserta@mail.com', '082375332212', '$2y$10$oYh2kD3ABdzI1o8kUOAxk.pBRXnFqtuZgLX9Oz3koMofPdCZilUYq', '04:19:01pm', '2021-11-03', 'default.png', 1, 557928, 'bcd4j9K4aPE0txI8D4ZX5j3eRckp1/U113ybYnF2kuc=', 2),
-('C7B1DVtcE', 'Flow Creative', 'socia.rafin@gmail.com', '08123949294', '$2y$10$qRQwbPCkc.xaWvwCSAwzzucaBQKUIuDyNO2s8.d/wsMlw.M6.xS8W', '02:51:18pm', '2021-11-04', 'default.png', 2, 900259, '2AwE3GAn+CcX4rUYlCgZ0H1MeitB3KAzC2nECk+bP+E=', 2),
-('sZBhbcg1C', 'SI Popon', 'dev.rafin@gmail.com', '082377936674', '$2y$10$gFoFAEvFk/d4Yw6SYamlgedI57JVDk3YKV3sXQjXbREnM0aZZ6X1K', '1635700712', '2021-10-31', 'popon.png', 1, 596216, '5DJ6uGKZc+cLsj9FZcNegucFahhFRo4Zu0Ws2Ss3Rvk=', 1),
-('vAJE6dTMe', 'Rafin Annnnn', 'coba@mail.com', '082373889803', '$2y$10$rMxNpC9IP7dL/l8TKwL6U.cqkpc8MTJSOBPsU5VoHuCvZ2Vehpqcm', '04:04:43pm', '2021-11-04', 'default.png', 2, 993947, 'HVa8T/iT5oSFmJsztdgpFVfVZxehRFmq/mpuVtwyPMs=', 2);
+('sZBhbcg1C', 'SI Popon', 'sipoponprabu@kelepon.online', '082377936674', '$2y$10$gFoFAEvFk/d4Yw6SYamlgedI57JVDk3YKV3sXQjXbREnM0aZZ6X1K', '1635700712', '2021-10-31', 'popon.png', 1, 596216, '5DJ6uGKZc+cLsj9FZcNegucFahhFRo4Zu0Ws2Ss3Rvk=', 1),
+('znLaJlqiy', 'Rafin Andika', 'dev.rafin@gmail.com', '082375332212', '$2y$10$szVTrySg7Qd0X9VMpMvR9ebOrffKuvhPOzVqVuF0G3R.xfO62Ax4S', '12:06:47pm', '2021-11-06', 'default.png', 1, 579368, 'wwvKqau+lrOM82qRq7INEk5s0vagbuIqfP3CY0FewlA=', 2);
 
 -- --------------------------------------------------------
 
@@ -167,16 +192,6 @@ CREATE TABLE `user_activation` (
   `date` varchar(12) NOT NULL,
   `time` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `user_activation`
---
-
-INSERT INTO `user_activation` (`id`, `id_user`, `token`, `url`, `date`, `time`) VALUES
-(21, 'X2aivx3R1', 549181, 'ZpPB98f+TbK5FE8QXVPKXuRZMSXLf9oLnWw53FAgcw8=', '2021-11-03', '01:56:08pm'),
-(23, '9VCxHqArP', 388170, 'tAQ1/4icnY5xW4tNIC+ChQtisxNes2ORvKIhoPeqyRU=', '2021-11-04', '10:44:19am'),
-(24, 'C7B1DVtcE', 726216, 'j8DJKKzEOcbJMNtlhLP34aAPMQKEOJsWswOV1ys0ADg=', '2021-11-04', '02:51:18pm'),
-(25, 'vAJE6dTMe', 287898, '2h7BDSZg7J2KBmqENyP2boxQKP13vPhhFcp+T88UFW8=', '2021-11-04', '04:04:43pm');
 
 --
 -- Indexes for dumped tables
@@ -198,7 +213,7 @@ ALTER TABLE `emailrequest`
 -- Indexes for table `golongan`
 --
 ALTER TABLE `golongan`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`idgolongan`);
 
 --
 -- Indexes for table `log_activity`
@@ -232,19 +247,19 @@ ALTER TABLE `user_activation`
 -- AUTO_INCREMENT for table `datadiri`
 --
 ALTER TABLE `datadiri`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `emailrequest`
 --
 ALTER TABLE `emailrequest`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `golongan`
 --
 ALTER TABLE `golongan`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idgolongan` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `log_activity`
@@ -262,7 +277,7 @@ ALTER TABLE `lomba`
 -- AUTO_INCREMENT for table `user_activation`
 --
 ALTER TABLE `user_activation`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

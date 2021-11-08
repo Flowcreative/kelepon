@@ -6,32 +6,34 @@ class Admin extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('admin_model');
-        $role = $this->admin_model->blockaccess();
-        if ($role != 1) {
-            redirect('auth/error_404');
-        }
+        $this->load->model('Admin_model');
+        $data['page'] = $this->uri->segment('2');
+        admin_cek();
     }
+
+    // ===================================Dashboard Area ============================================
     public function index()
     {
-        $session = $this->_session();
+        $data = $this->_session();
         $data['judul'] = 'Dashboard Admin - KLEPON PRAMUKA UNIB';
         $this->load->view('admin/header', $data);
-        $this->load->view('admin/navbar', $session);
-        $this->load->view('admin/sidebar', $session);
+        $this->load->view('admin/navbar', $data);
+        $this->load->view('admin/sidebar', $data);
         $this->load->view('admin/dashboard');
         $this->load->view('admin/footer');
     }
+    // ===================================end Dashboard Area ============================================
 
+    // ===================================User list Area ============================================
 
     public function userlist()
     {
-        $session = $this->_session();
-        $data['user'] = $this->admin_model->getuser();
+        $data = $this->_session();
+        $data['userlist'] = $this->Admin_model->getuser();
         $data['judul'] = 'User Management - KLEPON PRAMUKA UNIB';
         $this->load->view('admin/header', $data);
-        $this->load->view('admin/navbar', $session);
-        $this->load->view('admin/sidebar', $session);
+        $this->load->view('admin/navbar', $data);
+        $this->load->view('admin/sidebar', $data);
         $this->load->view('admin/user', $data);
         $this->load->view('admin/footer');
     }
@@ -64,7 +66,7 @@ class Admin extends CI_Controller
             'url' => $url
         );
 
-        $this->admin_model->adduser($data);
+        $this->Admin_model->adduser($data);
         $this->session->set_flashdata('flash', '<div class="alert alert-success">User berhasil ditambahkan!!</div>');
         redirect(base_url('admin/userlist'));
     }
@@ -72,7 +74,7 @@ class Admin extends CI_Controller
     public function userdetail()
     {
         $id = $this->uri->segment('3');
-        $detail = $this->admin_model->userdetail($id);
+        $detail = $this->Admin_model->userdetail($id);
         $session = $this->_session();
         $data['judul'] = 'Detail User - KLEPON PRAMUKA UNIB';
         $this->load->view('admin/header', $data);
@@ -89,7 +91,7 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('telepon', 'telepon', 'required|trim');
         if ($this->form_validation->run() == false) {
             $id = $this->uri->segment('3');
-            $detail = $this->admin_model->userdetail($id);
+            $detail = $this->Admin_model->userdetail($id);
             $session = $this->_session();
             $data['judul'] = 'edit User - KLEPON PRAMUKA UNIB';
             $this->load->view('admin/header', $data);
@@ -99,7 +101,7 @@ class Admin extends CI_Controller
             $this->load->view('admin/footer');
         } else {
             $post = $this->input->post();
-            $this->admin_model->edituser($post);
+            $this->Admin_model->edituser($post);
             redirect('admin/userlist');
         }
     }
@@ -107,14 +109,53 @@ class Admin extends CI_Controller
     public function deleteuser()
     {
         $id = $this->uri->segment('3');
-        $this->admin_model->deleteuser($id);
+        $this->Admin_model->deleteuser($id);
         $this->session->set_flashdata('flash', '<div class="alert alert-success">User berhasil dihapus!!</div>');
         redirect('admin/userlist');
     }
+    // ===================================end User list Area ============================================
+
+    // ===================================data Diri Peserta Area ============================================
+    public function datadiripeserta()
+    {
+        $uri = $this->uri->segment('3');
+        if ($uri) {
+            $this->_detaildatadiri($uri);
+        } else {
+            $data = $this->_session();
+            $data['userlist'] = $this->Admin_model->getdatadiri();
+            $data['judul'] = 'Data Diri Peserta - KLEPON PRAMUKA UNIB';
+            $this->load->view('admin/header', $data);
+            $this->load->view('admin/navbar', $data);
+            $this->load->view('admin/sidebar', $data);
+            $this->load->view('admin/datadiripeserta', $data);
+            $this->load->view('admin/footer');
+        }
+    }
+
+    private function _detaildatadiri($uri)
+    {
+        $data = $this->_session();
+        $data['datadiri'] = $this->Admin_model->getdetaildatadiri($uri);
+        $data['judul'] = 'Data Diri Peserta - KLEPON PRAMUKA UNIB';
+        $this->load->view('admin/header', $data);
+        $this->load->view('admin/navbar', $data);
+        $this->load->view('admin/sidebar', $data);
+        $this->load->view('admin/datadiripesertadetail', $data);
+        $this->load->view('admin/footer');
+    }
+
+    public function printdatadiripeserta()
+    {
+        $uri = $this->uri->segment('3');
+        $data['datadiri'] = $this->Admin_model->getdetaildatadiri($uri);
+        $this->load->view('admin/datadiripesertaprint', $data);
+    }
+    // ===================================end data Diri Peserta Area ============================================
 
     private function _session()
     {
-        $user = $this->admin_model->session();
+        $user = $this->Admin_model->session();
         $data['user'] = array(
             'nama' => $user['nama'],
             'email' => $user['email'],

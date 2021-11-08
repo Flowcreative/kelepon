@@ -14,6 +14,7 @@ Changelog
 - Perbaikan Sistem Verifikasi<br>
 
 Next Feature
+===
 - Penambahan Payment Gateway<br>
 - Penambahan Data Diri<br>
 - Penambahan Data Lomba<br>
