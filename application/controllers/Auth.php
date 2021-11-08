@@ -100,7 +100,7 @@ class Auth extends CI_Controller
 
         // $code = $this->load->view('auth/emailregist', $isiemail);
 
-        $this->email->from('contact@klepon.online', 'Klepon Pramuka Unib');
+        $this->email->from('admin@kelepon.online', 'Klepon Pramuka Unib');
         $this->email->to($user['email']);
         $this->email->subject('Account Verification');
         $this->email->message($isi);
@@ -133,7 +133,7 @@ class Auth extends CI_Controller
         $isi = $this->_emailsend($user, $data);
 
 
-        $this->email->from('contact@klepon.online', 'Klepon Pramuka Unib');
+        $this->email->from('admin@kelepon.online', 'Klepon Pramuka Unib');
         $this->email->to($user['email']);
         $this->email->subject('Account Verification');
         $this->email->message($isi);
@@ -267,7 +267,7 @@ class Auth extends CI_Controller
 
         $isi = $this->_emailsendforgot($data, $cekemail);
 
-        $this->email->from('contact@klepon.online', 'Klepon Pramuka Unib');
+        $this->email->from('admin@kelepon.online', 'Klepon Pramuka Unib');
         $this->email->to($cekemail['email']);
         $this->email->subject('Password Recovery');
         $this->email->message($isi);
@@ -333,7 +333,7 @@ class Auth extends CI_Controller
 
         $isi = $this->_emailsendforgot($data, $cekemail);
 
-        $this->email->from('contact@klepon.online', 'Klepon Pramuka Unib');
+        $this->email->from('admin@kelepon.online', 'Klepon Pramuka Unib');
         $this->email->to($cekemail['email']);
         $this->email->subject('Password Recovery');
         $this->email->message($isi);
@@ -352,18 +352,14 @@ class Auth extends CI_Controller
 
     private function _emailsend($user, $data)
     {
-        header("Content-type: text/plain");
-        echo "Halo " . $user['nama'] . ", silahkan masukan kode di bawah ini untuk mengaktifkan akun anda.";
-        echo  "\r\n";
-        echo "Kode verifikasi: " . $data['token'];
+        $a = "Halo <br>". $user['nama'] .", silahkan masukan kode di bawah ini untuk mengaktifkan akun anda.<br><br>Kode verifikasi: <br><strong>" . $data['token']."</strong>";
+        return $a;
     }
 
     private function _emailsendforgot($data, $cekemail)
     {
-        header("Content-type: text/plain");
-        echo "Halo " . $cekemail['nama'] . ", silahkan masukan kode di bawah ini untuk mengganti password anda.";
-        echo  "\r\n";
-        echo "Kode verifikasi: " . $data['token'];
+        $a =  "Halo ". $cekemail['nama'] . ", silahkan masukan kode di bawah ini untuk mengganti password anda.<br><br>Kode verifikasi: <br><strong>" . $data['token']."</strong>";
+        return $a;
     }
 
     public function error_404()

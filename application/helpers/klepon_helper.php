@@ -48,6 +48,7 @@ function smtpemail()
         'smtp_host' => 'smtp.hostinger.com',
         'smtp_user' => 'admin@kelepon.online',
         'smtp_pass' => 'Acouster02',
+        'smtp_crypto' => 'ssl',
         'smtp_port' => 465,
         'mailtype'  => 'html',
         'charset'   => 'utf-8',
