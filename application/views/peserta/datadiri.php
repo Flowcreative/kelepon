@@ -182,6 +182,7 @@
                   <div class="row mb-4">
                       <i class="text-red">Bagi anggota Pramuka pas foto diwajibkan menggunakan SPL</i>
                   </div>
+                  <input type="hidden" name="hapus" value="<?= $datadiri['foto'] ?>">
                   <input type="file" class="form-control form-control-sm" id="image" name="image" value="<?= $datadiri['foto'] ?>">
                   <i class="text-red text-xs">*File Format .png|.jpg</i>
               </div>
@@ -231,7 +232,8 @@
                   </div>
 
 
-                  <input type="file" class="form-control form-control-sm" id="identitas" name="identitas" value="<?= $datadiri['foto'] ?>">
+                  <input type="hidden" name="hapus" value="<?= $datadiri['kartu_identitas'] ?>">
+                  <input type="file" class="form-control form-control-sm" id="identitas" name="identitas" value="<?= $datadiri['kartu_identitas'] ?>">
                   <i class="text-red text-xs">*File Format .pdf|.png|.jpg</i>
               </div>
               <div class="modal-footer">
@@ -257,6 +259,7 @@
                       <i class="fw-300">Surat mandat dari Gugus depan untuk anggota pramuka</i>
                       <i class="fw-300">Surat mandat dari Instansi untuk Peserta umum</i>
                   </div>
+                  <input type="hidden" name="hapus" value="<?= $datadiri['suratmandat'] ?>">
                   <input type="file" class="form-control form-control-sm" id="suratmandat" name="suratmandat" value="<?= $datadiri['suratmandat'] ?>">
                   <i class="text-red text-xs">*File Format .pdf|.png|.jpg</i>
               </div>

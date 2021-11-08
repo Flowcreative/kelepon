@@ -120,11 +120,17 @@ class Peserta extends CI_Controller
 
     public function uploadfoto()
     {
+        $post = $this->input->post();
+        $id = $this->session->userdata('id');
         $upload = $_FILES['image']['name'];
+        $ext = pathinfo($upload, PATHINFO_EXTENSION);
+
         if ($upload) {
             $config['allowed_types']        = 'jpg|png';
-            $config['max_size']             = 10240;
+            $config['max_size']             = 5000;
             $config['upload_path']          = './src/dashboard/assets/berkas/foto';
+            $config['file_name']            = $id . '.' . $ext;
+            unlink($config['upload_path'] . '/' . $post['hapus']);
             $this->load->library('upload', $config);
 
             if ($this->upload->do_upload('image')) {
@@ -140,11 +146,19 @@ class Peserta extends CI_Controller
 
     public function uploadidentitas()
     {
+        $post = $this->input->post();
+        $id = $this->session->userdata('id');
+        $upload = $_FILES['identitas']['name'];
+        $ext = pathinfo($upload, PATHINFO_EXTENSION);
+
         $upload = $_FILES['identitas']['name'];
         if ($upload) {
             $config['allowed_types']        = 'jpg|png|pdf';
-            $config['max_size']             = 10240;
+            $config['max_size']             = 5000;
             $config['upload_path']          = './src/dashboard/assets/berkas/identitas';
+            $config['file_name']            = $id . '.' . $ext;
+
+            unlink($config['upload_path'] . '/' . $post['hapus']);
             $this->load->library('upload', $config);
 
             if ($this->upload->do_upload('identitas')) {
@@ -160,12 +174,20 @@ class Peserta extends CI_Controller
 
     public function uploadsuratmandat()
     {
+        $post = $this->input->post();
         $id = $this->session->userdata('id');
+
         $upload = $_FILES['suratmandat']['name'];
+        $ext = pathinfo($upload, PATHINFO_EXTENSION);
+
         if ($upload) {
             $config['allowed_types']        = 'jpg|png|pdf';
-            $config['max_size']             = 10240;
+            $config['max_size']             = 5000;
             $config['upload_path']          = './src/dashboard/assets/berkas/mandat';
+            $config['file_name']            = $id . '.' . $ext;
+
+            unlink($config['upload_path'] . '/' . $post['hapus']);
+
             $this->load->library('upload', $config);
 
             if ($this->upload->do_upload('suratmandat')) {
