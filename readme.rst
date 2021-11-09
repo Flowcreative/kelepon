@@ -17,6 +17,9 @@ Changelog
 - Fix bug upload file rename "$id.$ext"
 - Fix max size
 
+09 Nov 2021 15.08 WIB
+- .htaccess / Folder handler
+
 
 Next Feature
 ===
@@ -27,4 +30,4 @@ Next Feature
 - Penambahan print & export<br>
 
 08 Nov 2021 23:11 WIB
--.htaccess (bingung cara buat blok access file assets)
+-.htaccess (bingung cara buat blok access file assets) (FIX)

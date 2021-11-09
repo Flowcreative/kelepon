@@ -109,7 +109,7 @@
                       <div class="col-1">:</div>
                       <div class="col-6">
                           <?php if ($datadiri['foto'] > 0) { ?>
-                              <i class="text-green"><?= $datadiri['foto'] ?></i>
+                              <a href="<?= base_url('src/dashboard/assets/berkas/foto/' . $datadiri['foto']) ?>"><i class="text-green">Lihat foto</i></a>
                           <?php } else { ?>
                               <i class="text-red">Pas foto belum di upload</i>
                           <?php }  ?>
