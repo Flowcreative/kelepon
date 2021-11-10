@@ -11,9 +11,7 @@ Project By
 - Pramuka Universitas Bengkulu
 
 
-**************************
-Changelog
-**************************
+# Akses Login
 - Penambahan Landing page
 - Penambahan Sistem Registrasi
 - Penambahan Sistem Verifikasi
@@ -27,7 +25,7 @@ Changelog
 09 Nov 2021 15.08 WIB
 - htaccess / Folder handler
 
-08 Nov 2021 23:11 WIB<br>
+08 Nov 2021 23:11 WIB
 - Fix bug upload file rename "$id.$ext"
 - Fix max size
 
