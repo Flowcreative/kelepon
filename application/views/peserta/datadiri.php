@@ -108,17 +108,17 @@
                       </div>
                       <div class="col-1">:</div>
                       <div class="col-6">
-                          <?php if ($datadiri['foto'] > 0) { ?>
-                              <a href="<?= base_url('src/dashboard/assets/berkas/foto/' . $datadiri['foto']) ?>"><i class="text-green">Lihat foto</i></a>
-                          <?php } else { ?>
+                          <?php if (empty($datadiri['foto'])) { ?>
                               <i class="text-red">Pas foto belum di upload</i>
+                          <?php } else { ?>
+                              <a href="<?= base_url('src/dashboard/assets/berkas/foto/' . $datadiri['foto']) ?>"><i class="text-green">Lihat foto</i></a>
                           <?php }  ?>
                       </div>
                       <div class="col-2 text-center">
-                          <?php if ($datadiri['foto'] > 0) { ?>
-                              <button class="btn btn-success btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#uploadfoto">Ubah foto</button>
-                          <?php } else { ?>
+                          <?php if (empty($datadiri['foto'])) { ?>
                               <button class="btn btn-red btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#uploadfoto">Unggah foto</button>
+                          <?php } else { ?>
+                              <button class="btn btn-success btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#uploadfoto">Ubah foto</button>
                           <?php }  ?>
                       </div>
                   </div>
@@ -128,17 +128,17 @@
                       </div>
                       <div class="col-1">:</div>
                       <div class="col-6">
-                          <?php if ($datadiri['kartu_identitas'] > 0) { ?>
-                              <i class="text-green"><?= $datadiri['kartu_identitas'] ?></i>
-                          <?php } else { ?>
+                          <?php if (empty($datadiri['kartu_identitas'])) { ?>
                               <i class="text-red">Kartu identitas belum di upload</i>
+                          <?php } else { ?>
+                             <i class="text-green"><?= $datadiri['kartu_identitas'] ?></i>
                           <?php }  ?>
                       </div>
                       <div class="col-2 text-center">
-                          <?php if ($datadiri['kartu_identitas'] > 0) { ?>
-                              <button class="btn btn-success btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#uploadIdentitas">Ubah Identitas</button>
-                          <?php } else { ?>
+                          <?php if (empty($datadiri['kartu_identitas'])) { ?>
                               <button class="btn btn-red btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#uploadIdentitas">Unggah Identitas</button>
+                          <?php } else { ?>
+                              <button class="btn btn-success btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#uploadIdentitas">Ubah Identitas</button>
                           <?php }  ?>
                       </div>
                   </div>
@@ -148,18 +148,17 @@
                       </div>
                       <div class="col-1">:</div>
                       <div class="col-6">
-                          <?php if ($datadiri['suratmandat'] > 0) { ?>
-                              <i class="text-green"><?= $datadiri['suratmandat'] ?></i>
-                          <?php } else { ?>
+                          <?php if (empty($datadiri['suratmandat'])) { ?>
                               <i class="text-red">Surat pengantar belum di upload</i>
+                          <?php } else { ?>
+                              <i class="text-green"><?= $datadiri['suratmandat'] ?></i>
                           <?php }  ?>
                       </div>
                       <div class="col-2 text-center">
-                          <?php if ($datadiri['suratmandat'] > 0) { ?>
-                              <button class="btn btn-success btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#suratmandat">Ubah surat</button>
-                          <?php } else { ?>
+                          <?php if (empty($datadiri['suratmandat'])) { ?>
                               <button class="btn btn-red btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#suratmandat">Unggah surat</button>
-
+                          <?php } else { ?>
+                              <button class="btn btn-success btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#suratmandat">Ubah surat</button>
                           <?php }  ?>
                       </div>
                   </div>

@@ -104,12 +104,8 @@ class Auth extends CI_Controller
         $config = smtp_email();
 
         $this->email->initialize($config);
-
-
-
+        $this->email->from('admin@kelepon.online', 'Klepon Pramuka Unib');
         $isi = $this->_emailsend($user, $tokenect);
-
-        $this->email->from('contact@klepon.online', 'Klepon Pramuka Unib');
         $this->email->to($user['email']);
         $this->email->subject('Account Verification');
         $this->email->message($isi);
@@ -123,18 +119,16 @@ class Auth extends CI_Controller
     {
         $html = "
 
-<body>
-    <h2>
-        Halo <b>" . $user['nama'] . "</b>
-        </h2>
-        </br>
-        <b>Masukan kode dibawah ini untuk mengatifkan akun anda!</b>
-        Kode verifikasi : " . $tokenect['token'] . "
-</body>";
+        <body>
+            <h2>
+                Halo <b>" . $user['nama'] . "</b>
+                </h2>
+                </br>
+                <b>Masukan kode dibawah ini untuk mengatifkan akun anda!</b>
+                Kode verifikasi : " . $tokenect['token'] . "
+        </body>";
 
         $a = strip_tags($html);
-
-
 
         return $a;
     }
@@ -248,7 +242,7 @@ class Auth extends CI_Controller
 
         $isi = $this->_emailsendforgot($data, $cekemail);
 
-        $this->email->from('contact@klepon.online', 'Klepon Pramuka Unib');
+        $this->email->from('admin@kelepon.online', 'Klepon Pramuka Unib');
         $this->email->to($cekemail['email']);
         $this->email->subject('Password Recovery');
         $this->email->message($isi);
@@ -262,18 +256,16 @@ class Auth extends CI_Controller
     {
         $html = "
 
-<body>
-    <h2>
-        Halo <b>" . $cekemail['nama'] . "</b>
-        </h2>
-        </br>
-        <b>Masukan kode dibawah ini untuk mengganti password anda.!</b>
-        Kode verifikasi : " . $data['token'] . "
-</body>";
+        <body>
+            <h2>
+                Halo <b>" . $cekemail['nama'] . "</b>
+                </h2>
+                </br>
+                <b>Masukan kode dibawah ini untuk mengganti password anda.!</b>
+                Kode verifikasi : " . $data['token'] . "
+        </body>";
 
         $a = strip_tags($html);
-
-
 
         return $a;
     }
@@ -311,7 +303,7 @@ class Auth extends CI_Controller
 
         $isi = $this->_emailsendforgot($data, $cekemail);
 
-        $this->email->from('contact@klepon.online', 'Klepon Pramuka Unib');
+        $this->email->from('admin@kelepon.online', 'Klepon Pramuka Unib');
         $this->email->to($cekemail['email']);
         $this->email->subject('Password Recovery');
         $this->email->message($isi);
