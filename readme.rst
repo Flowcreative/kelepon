@@ -7,40 +7,39 @@ Pada Kegiatan ini perencanaan peserta terdiri dari berbagai golongan dari golong
 **************************
 Project By
 **************************
-- Prabu Tim Underground<br>
-- Pramuka Universitas Bengkulu<br>
+- Prabu Tim Underground
+- Pramuka Universitas Bengkulu
 
 
 **************************
 Changelog
 **************************
-- Penambahan Landing page<br>
-- Penambahan Sistem Registrasi<br>
-- Penambahan Sistem Verifikasi<br>
-- Perbaikan Sistem Verifikasi<br>
+- Penambahan Landing page
+- Penambahan Sistem Registrasi
+- Penambahan Sistem Verifikasi
+- Perbaikan Sistem Verifikasi
 
-10 Nov 2021 <br>
--fix readme file<br>
--fix view data diri bagian upload data<br>
--fix .htaccess<br><br>
+- 10 Nov 2021
+- fix readme file
+- fix view data diri bagian upload data
+- fix .htaccess
 
+- 09 Nov 2021 15.08 WIB
+- htaccess / Folder handler
 
-09 Nov 2021 15.08 WIB<br>
-- .htaccess / Folder handler<br><br>
+- 08 Nov 2021 23:11 WIB<br>
+- Fix bug upload file rename "$id.$ext"
+- Fix max size
 
-08 Nov 2021 23:11 WIB<br>
-- Fix bug upload file rename "$id.$ext"<br>
-- Fix max size<br><br>
-
-08 Nov 2021 23:11 WIB<br>
--.htaccess (bingung cara buat blok access file assets) (FIX)<br><br>
+- 08 Nov 2021 23:11 WIB
+- htaccess (bingung cara buat blok access file assets) (FIX)
 
 
 **************************
 Next Feature
 **************************
-- Penambahan Payment Gateway<br>
-- Penambahan Data Diri<br>
-- Penambahan Data Lomba<br>
-- Penambahan kirim email<br>
-- Penambahan print & export<br>
+- Penambahan Payment Gateway
+- Penambahan Data Diri
+- Penambahan Data Lomba
+- Penambahan kirim email
+- Penambahan print & export
