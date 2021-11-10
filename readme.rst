@@ -13,6 +13,14 @@ Changelog
 - Penambahan Sistem Verifikasi<br>
 - Perbaikan Sistem Verifikasi<br>
 
+08 Nov 2021 23:11 WIB
+- Fix bug upload file rename "$id.$ext"
+- Fix max size
+
+09 Nov 2021 15.08 WIB
+- .htaccess / Folder handler
+
+
 Next Feature
 ===
 - Penambahan Payment Gateway<br>
@@ -20,3 +28,6 @@ Next Feature
 - Penambahan Data Lomba<br>
 - Penambahan kirim email<br>
 - Penambahan print & export<br>
+
+08 Nov 2021 23:11 WIB
+-.htaccess (bingung cara buat blok access file assets) (FIX)
