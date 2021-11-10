@@ -123,7 +123,7 @@ class Peserta extends CI_Controller
         $upload = $_FILES['image']['name'];
         if ($upload) {
             $config['allowed_types']        = 'jpg|png';
-            $config['max_size']             = 10240;
+            $config['max_size']             = 2048;
             $config['upload_path']          = './src/dashboard/assets/berkas/foto';
             $this->load->library('upload', $config);
 
@@ -143,7 +143,7 @@ class Peserta extends CI_Controller
         $upload = $_FILES['identitas']['name'];
         if ($upload) {
             $config['allowed_types']        = 'jpg|png|pdf';
-            $config['max_size']             = 10240;
+            $config['max_size']             = 5120;
             $config['upload_path']          = './src/dashboard/assets/berkas/identitas';
             $this->load->library('upload', $config);
 
@@ -164,7 +164,7 @@ class Peserta extends CI_Controller
         $upload = $_FILES['suratmandat']['name'];
         if ($upload) {
             $config['allowed_types']        = 'jpg|png|pdf';
-            $config['max_size']             = 10240;
+            $config['max_size']             = 5120;
             $config['upload_path']          = './src/dashboard/assets/berkas/mandat';
             $this->load->library('upload', $config);
 
