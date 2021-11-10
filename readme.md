@@ -22,7 +22,7 @@ Pada Kegiatan ini perencanaan peserta terdiri dari berbagai golongan dari golong
 - htaccess / Folder handler
 
 08 Nov 2021 23:11 WIB<br>
-- Fix bug upload file rename "$id.$ext"
+- Fix bug upload file rename `$id.$ext`
 - Fix max size
 
 08 Nov 2021 23:11 WIB
