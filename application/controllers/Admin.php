@@ -153,6 +153,27 @@ class Admin extends CI_Controller
     }
     // ===================================end data Diri Peserta Area ============================================
 
+    // ==================================== Input Data Lomba ====================================================
+    public function inputlomba()
+    {
+        $post = $this->input->post();
+        if ($post) {
+            $this->_inputlomba($post);
+        } else {
+            $data = $this->_session();
+            $data['judul'] = "Mata Lomba - KELEPON PRAMUKA UNIB";
+            $this->load->view('admin/header', $data);
+            $this->load->view('admin/navbar', $data);
+            $this->load->view('admin/sidebar', $data);
+            $this->load->view('admin/matalomba', $data);
+            $this->load->view('admin/footer');
+        }
+    }
+
+    private function _inputlomba($posts)
+    {
+    }
+    // ==================================== end Input Data Lomba ================================================
     private function _session()
     {
         $user = $this->Admin_model->session();
