@@ -19,19 +19,19 @@ Changelog
 - Penambahan Sistem Verifikasi
 - Perbaikan Sistem Verifikasi
 
-- 10 Nov 2021
+10 Nov 2021
 - fix readme file
 - fix view data diri bagian upload data
 - fix .htaccess
 
-- 09 Nov 2021 15.08 WIB
+09 Nov 2021 15.08 WIB
 - htaccess / Folder handler
 
-- 08 Nov 2021 23:11 WIB<br>
+08 Nov 2021 23:11 WIB<br>
 - Fix bug upload file rename "$id.$ext"
 - Fix max size
 
-- 08 Nov 2021 23:11 WIB
+08 Nov 2021 23:11 WIB
 - htaccess (bingung cara buat blok access file assets) (FIX)
 
 
