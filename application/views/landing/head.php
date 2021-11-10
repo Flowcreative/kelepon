@@ -6,6 +6,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="<?= base_url('src/landing/') ?>img/faviprabu.png" type="image/png">
+    <meta property="og:title" content="Web Registrasi KELEPON.ONLINE"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:description" content="Official Registrasi Online Kegiatan KELEPON 2021 Universitas Bengkulu"/>
+    <meta property="og:url" content="https://kelepon.online/"/>
+    <meta property="og:site_name" content="kelepon.online"/>
+    <meta property="og:image" content="<?= base_url('src/landing/') ?>img/logo1.png" />
+
+    <meta content='#0B95B9' name='theme-color'/>
+    <!-- URL Theme Color untuk Windows Phone -->
+    <meta content='#0B95B9' name='msapplication-navbutton-color'/>
+    <!-- URL Theme Color untuk iOS Safari -->
+    <meta content='yes' name='apple-mobile-web-app-capable'/>
+    <meta content='#0B95B9' name='apple-mobile-web-app-status-bar-style'/>
     <title><?= $tittle ?></title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<?= base_url('src/landing/') ?>css/bootstrap.css">

@@ -40,9 +40,10 @@ function smtp_email()
 {
     $config = [
         'protocol'  => 'smtp',
-        'smtp_host' => 'ssl://smtp.googlemail.com',
-        'smtp_user' => 'sipoponprabu@gmail.com',
-        'smtp_pass' => '0200102002',
+        'smtp_host' => 'smtp.hostinger.com',
+        'smtp_user' => 'admin@kelepon.online',
+        'smtp_pass' => 'Acouster02',
+        'smtp_crypto' => 'ssl',
         'smtp_port' => 465,
         'mailtype'  => 'html',
         'charset'   => 'utf-8',
