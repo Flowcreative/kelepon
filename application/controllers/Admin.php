@@ -161,6 +161,8 @@ class Admin extends CI_Controller
             $this->_inputlomba($post);
         } else {
             $data = $this->_session();
+            $data['golongan'] = $this->Admin_model->getallgolongan();
+            $data['lomba'] = $this->Admin_model->getlistlomba();
             $data['judul'] = "Mata Lomba - KELEPON PRAMUKA UNIB";
             $this->load->view('admin/header', $data);
             $this->load->view('admin/navbar', $data);
@@ -170,8 +172,67 @@ class Admin extends CI_Controller
         }
     }
 
-    private function _inputlomba($posts)
+    private function _inputlomba($post)
     {
+        $id = random_int(1000, 9999);
+
+        $data = array(
+            'id' => $id,
+            'id_golongan' => $post['golongan'],
+            'matalomba' => $post['nama'],
+            'biaya' => $post['biaya'],
+            'status' => $post['status'],
+            'tim' => $post['tim']
+        );
+
+        $this->Admin_model->inputlomba($data);
+        $this->session->set_flashdata('info', '<div class="alert alert-success alert-solid" role="alert">Lomba berhasil di tambahkan!</div>');
+
+        redirect('admin/inputlomba');
+    }
+
+    public function editlomba()
+    {
+        $post = $this->input->post();
+        if (!$post) {
+            $data = $this->_session();
+            $id = $this->uri->segment('3');
+            $data['lomba'] = $this->Admin_model->getlomba($id);
+            $data['golongan'] = $this->Admin_model->getallgolongan();
+            $data['judul'] = "Edit Mata Lomba - KELEPON PRAMUKA UNIB";
+            $this->load->view('admin/header', $data);
+            $this->load->view('admin/navbar', $data);
+            $this->load->view('admin/sidebar', $data);
+            $this->load->view('admin/matalombaedit', $data);
+            $this->load->view('admin/footer');
+        } else {
+            $this->_editlomba($post);
+        }
+    }
+
+    private function _editlomba($post)
+    {
+        $id = $post['id'];
+        $data = array(
+            'id_golongan' => $post['golongan'],
+            'matalomba' => $post['nama'],
+            'biaya' => $post['biaya'],
+            'status' => $post['status'],
+            'tim' => $post['tim']
+        );
+
+        $this->Admin_model->editlomba($id, $data);
+        $this->session->set_flashdata('info', '<div class="alert alert-success alert-solid" role="alert">Lomba berhasil di update!</div>');
+        redirect('admin/inputlomba');
+    }
+
+    public function deletelomba()
+    {
+        $id = $this->uri->segment('3');
+        $this->Admin_model->deletelomba($id);
+        $this->session->set_flashdata('info', '<div class="alert alert-success alert-solid" role="alert">Lomba berhasil di hapus!</div>');
+
+        redirect('admin/inputlomba');
     }
     // ==================================== end Input Data Lomba ================================================
     private function _session()

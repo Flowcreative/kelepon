@@ -41,7 +41,7 @@
                     <!-- Sidenav Heading (UI Toolkit)-->
                     <div class="sidenav-menu-heading">Lomba Management</div>
                     <!-- Sidenav Accordion (Utilities)-->
-                    <a class="nav-link" href="<?= base_url('admin/userlist') ?>">
+                    <a class="nav-link" href="<?= base_url('admin/inputlomba') ?>">
                         <div class="nav-link-icon"><i class="fas fa-flag-checkered"></i></div>
                         Mata Lomba
                     </a>

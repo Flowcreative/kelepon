@@ -88,5 +88,56 @@ class Admin_model extends CI_Model
         $data = $this->db->get()->row_array();
         return $data;
     }
-    // ==================end Data diri peserta Area ===========================
+    // ================== end Data diri peserta Area ===========================
+
+    // ================== Input Mata Lomba Area ===============================
+
+    public function inputlomba($data)
+    {
+        $this->db->insert('lomba', $data);
+    }
+
+    public function editlomba($id, $data)
+    {
+
+
+        $this->db->set($data);
+        $this->db->where('id', $id);
+        $this->db->update('lomba');
+    }
+
+    public function deletelomba($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('lomba');
+    }
+
+    public function getlistlomba()
+    {
+        $this->db->select('*');
+        $this->db->from('lomba');
+        $this->db->order_by('id_golongan', 'asc');
+        $this->db->join('golongan', 'golongan.idgolongan = lomba.id_golongan');
+        $data = $this->db->get()->result_array();
+        return $data;
+    }
+
+    public function getlomba($id)
+    {
+        $this->db->select('*');
+        $this->db->where('id', $id);
+        $this->db->from('lomba');
+        $this->db->order_by('id_golongan', 'asc');
+        $this->db->join('golongan', 'golongan.idgolongan = lomba.id_golongan');
+        $data = $this->db->get()->row_array();
+        return $data;
+    }
+    // ================== end Input Mata Lomba Area ===========================
+
+
+    public function getallgolongan()
+    {
+        $golongan = $this->db->get('golongan')->result_array();
+        return $golongan;
+    }
 }

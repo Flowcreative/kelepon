@@ -206,12 +206,64 @@ class Peserta extends CI_Controller
     public function matalomba()
     {
         $data = $this->_session();
+        $data['lomba'] = $this->Peserta_model->getmatalomba();
         $data['judul'] = 'Mata Lomba - KELEPON PRAMUKA UNIB';
         $this->load->view('peserta/header', $data);
         $this->load->view('peserta/navbar', $data);
         $this->load->view('peserta/sidebar');
-        $this->load->view('peserta/matalomba');
+        $this->load->view('peserta/matalomba', $data);
         $this->load->view('peserta/footer');
+    }
+
+    public function pilihmatalomba()
+    {
+        $idlomba = $this->uri->segment('3');
+        $this->Peserta_model->pilihlomba($idlomba);
+        redirect('peserta/matalomba');
+    }
+
+    public function batalmatalomba()
+    {
+        $idlomba = $this->uri->segment('3');
+        $this->Peserta_model->batallomba($idlomba);
+        redirect('peserta/matalomba');
+    }
+
+    public function matalombadipilih()
+    {
+        $data = $this->_session();
+        $data['lomba'] = $this->Peserta_model->getmatalomba();
+        $data['log'] = $this->Peserta_model->getlogid();
+        $data['judul'] = 'Mata Lomba Dipilih - KELEPON PRAMUKA UNIB';
+        $this->load->view('peserta/header', $data);
+        $this->load->view('peserta/navbar', $data);
+        $this->load->view('peserta/sidebar');
+        $this->load->view('peserta/matalombadipilih', $data);
+        $this->load->view('peserta/footer');
+    }
+
+    public function matalombaupload()
+    {
+        $post = $this->input->post();
+        if ($post) {
+            $data['uri'] = $this->uri->segment('3');
+            $data['id'] = $this->input->get('user');
+            $this->_matalombaupload($data);
+        } else {
+            $data['uri'] = $this->uri->segment('3');
+            $data['id'] = $this->input->get('user');
+            $data = $this->_session();
+            $data['judul'] = 'Upload Data Peserta - KELEPON PRAMUKA UNIB';
+            $this->load->view('peserta/header', $data);
+            $this->load->view('peserta/navbar', $data);
+            $this->load->view('peserta/sidebar');
+            $this->load->view('peserta/matalombaupload', $data);
+            $this->load->view('peserta/footer');
+        }
+    }
+
+    private function _matalombaupload($data)
+    {
     }
     // ================================= end Mata Lomba Area ================================
 

@@ -124,4 +124,54 @@ class Peserta_model extends CI_Model
         $this->db->update('datadiri');
     }
     // ============================= end Data Peserta Model =====================================
+    public function getmatalomba()
+    {
+        $data = $this->getdatadiri();
+        $this->db->where('id_golongan', $data['id_golongan']);
+        $lomba = $this->db->get('lomba')->result_array();
+        return $lomba;
+    }
+
+    public function pilihlomba($idlomba)
+    {
+        $id = $this->session->userdata('id');
+        $data = array(
+            'id' => time(),
+            'id_user' => $id,
+            'id_lomba' => $idlomba
+        );
+        $this->db->insert('log_activity', $data);
+    }
+
+    public function batallomba($idlomba)
+    {
+        $id = $this->session->userdata('id');
+        $data = array(
+            'id_user' => $id,
+            'id_lomba' => $idlomba
+        );
+        $this->db->where($data);
+        $this->db->delete('log_activity');
+    }
+
+    public function getlog($lom)
+    {
+        $id = $this->session->userdata('id');
+        $this->db->where('id_lomba', $lom);
+        $this->db->where('id_user', $id);
+        $data = $this->db->get('log_activity')->row_array();
+
+        return $data;
+    }
+
+    public function getlogid()
+    {
+        $id = $this->session->userdata('id');
+        $this->db->select('*');
+        $this->db->from('log_activity');
+        $this->db->where('id_user', $id);
+        $this->db->join('lomba', 'lomba.id = log_activity.id_lomba');
+        $data = $this->db->get()->result_array();
+        return $data;
+    }
 }
