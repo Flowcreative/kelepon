@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 08, 2021 at 06:32 AM
+-- Generation Time: Nov 12, 2021 at 03:18 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -47,7 +47,8 @@ CREATE TABLE `datadiri` (
 --
 
 INSERT INTO `datadiri` (`id`, `id_golongan`, `id_user`, `id_pangkalan`, `tempatlahir`, `tanggallahir`, `provinsi`, `kota`, `alamat`, `foto`, `kartu_identitas`, `suratmandat`) VALUES
-(3, 3, 'znLaJlqiy', '61882eb6e8bc4', 'Tanjung Agung', '2000-11-29', 'Sumatera Selatan', 'Lubuklinggau', 'Jl. Nangka Lintas Rt.01 Kel. Ponorogo Kec. Lubuklinggau Utara II', 'Screenshot_21.jpg', 'BIODATA_TES_TOEFL.pdf', 'MAKALAH_SOSIOLOGI_OLAHRAGA.pdf');
+(3, 3, 'znLaJlqiy', '61882eb6e8bc4', 'Tanjung Agung', '2000-11-29', 'Sumatera Selatan', 'Lubuklinggau', 'Jl. Nangka Lintas Rt.01 Kel. Ponorogo Kec. Lubuklinggau Utara II', 'znLaJlqiy.jpg', 'znLaJlqiy.pdf', 'znLaJlqiy.pdf'),
+(7, 2, 'Ri2flUNL7', '6188bd1b06a01', 'Seluma', '2000-10-30', 'Bengkulu', 'Seluma', 'Jl. Nangka Lintas Rt.01 Kel. Ponorogo Kec. Lubuklinggau Utara II', 'Ri2flUNL7.jpg', 'Ri2flUNL7.pdf', 'Ri2flUNL7.pdf');
 
 -- --------------------------------------------------------
 
@@ -68,7 +69,8 @@ CREATE TABLE `datapangkalan` (
 --
 
 INSERT INTO `datapangkalan` (`id_pangkalan`, `nogudep`, `namapangkalan`, `kotapangkalan`, `provinsipangkalan`) VALUES
-('61882eb6e8bc4', '02.001', 'Universitas Bengkulu', 'Bengkulu', 'Bengkulu');
+('61882eb6e8bc4', '02.001', 'Universitas Bengkulu', 'Bengkulu', 'Bengkulu'),
+('6188bd1b06a01', '02.001', 'Universitas Bengkulu', 'Bengkulu', 'Bengkulu');
 
 -- --------------------------------------------------------
 
@@ -117,11 +119,20 @@ INSERT INTO `golongan` (`idgolongan`, `golongan`) VALUES
 --
 
 CREATE TABLE `log_activity` (
-  `id` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `id_datadiri` int(11) NOT NULL,
-  `id_lomba` int(11) NOT NULL
+  `id` int(16) NOT NULL,
+  `id_user` varchar(9) NOT NULL,
+  `id_lomba` int(11) NOT NULL,
+  `identitas` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `log_activity`
+--
+
+INSERT INTO `log_activity` (`id`, `id_user`, `id_lomba`, `identitas`) VALUES
+(1636620726, 'znLaJlqiy', 4737, ''),
+(1636621198, 'znLaJlqiy', 8337, ''),
+(1636621199, 'znLaJlqiy', 9182, '');
 
 -- --------------------------------------------------------
 
@@ -133,8 +144,28 @@ CREATE TABLE `lomba` (
   `id` int(11) NOT NULL,
   `id_golongan` int(10) NOT NULL,
   `matalomba` varchar(50) NOT NULL,
-  `biaya` varchar(50) NOT NULL
+  `biaya` varchar(50) NOT NULL,
+  `status` int(11) NOT NULL,
+  `tim` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `lomba`
+--
+
+INSERT INTO `lomba` (`id`, `id_golongan`, `matalomba`, `biaya`, `status`, `tim`) VALUES
+(1547, 4, 'Essai', '30000', 1, 1),
+(2789, 3, 'Syahril Qur\'an', '40000', 1, 2),
+(4328, 1, 'Membaca Puisi', '25000', 1, 1),
+(4737, 3, 'Fotografi', '30000', 1, 1),
+(6791, 5, 'Essai', '30000', 1, 1),
+(7542, 2, 'Tilawah', '30000', 1, 1),
+(7745, 2, 'Video Edukasi Pramuka', '30000', 1, 1),
+(8147, 1, 'Membaca Dongeng', '25000', 1, 1),
+(8337, 3, 'Film Pendek', '40000', 1, 2),
+(8359, 2, 'Olimpiade Pramuka Online', '30000', 1, 1),
+(9182, 3, 'Stand Up Comedy', '30000', 1, 1),
+(9647, 4, 'Video Pembelajaran Pramuka', '30000', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -247,7 +278,7 @@ ALTER TABLE `user_activation`
 -- AUTO_INCREMENT for table `datadiri`
 --
 ALTER TABLE `datadiri`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `emailrequest`
@@ -265,19 +296,19 @@ ALTER TABLE `golongan`
 -- AUTO_INCREMENT for table `log_activity`
 --
 ALTER TABLE `log_activity`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(16) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1636621200;
 
 --
 -- AUTO_INCREMENT for table `lomba`
 --
 ALTER TABLE `lomba`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9648;
 
 --
 -- AUTO_INCREMENT for table `user_activation`
 --
 ALTER TABLE `user_activation`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
