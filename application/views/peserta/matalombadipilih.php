@@ -32,9 +32,9 @@
                              <div class="card-body d-flex flex-column">
                                  <p class="text-dark fw-500"><i class="fas fa-pay"></i> <?= rupiah($loging['biaya']) ?> </p>
                                  <?php if (!empty($loging['identitas'])) { ?>
-                                     <a href="<?= base_url('peserta/matalombaupload/') . $loging['id_lomba']  ?>?user=<?= $loging['id_user'] ?>" class="btn btn-success btn-sm">Ubah Identitas</a>
+                                     <a href="<?= base_url('peserta/matalombaupload/') . $loging['id_lomba']  ?>" class="btn btn-success btn-sm">Ubah Identitas</a>
                                  <?php } else { ?>
-                                     <a href="<?= base_url('peserta/matalombaupload/') . $loging['id_lomba']  ?>?user=<?= $loging['id_user'] ?>" class="btn btn-red btn-sm">Unggah Identitas</a>
+                                     <a href="<?= base_url('peserta/matalombaupload/') . $loging['id_lomba']  ?>" class="btn btn-red btn-sm">Unggah Identitas</a>
                                  <?php } ?>
                              </div>
                          </div>

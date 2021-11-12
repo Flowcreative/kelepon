@@ -42,7 +42,7 @@
                         Pilih Mata Lomba
                     </a>
                     <a class="nav-link" href="<?= base_url('peserta/matalombadipilih') ?>" disabled>
-                        <div class="nav-link-icon"><i class="fas fa-flag-checkered"></i></div>
+                        <div class="nav-link-icon"><i class="fas fa-flag"></i></div>
                         Mata Lomba Dipilih
                     </a>
                     <!-- Sidenav Heading (Addons)-->

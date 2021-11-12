@@ -154,6 +154,16 @@ class Peserta_model extends CI_Model
         $this->db->delete('log_activity');
     }
 
+    public function uploadpeserta($newimage, $data)
+    {
+        $id = $this->session->userdata('id');
+        $this->db->set('identitas', $newimage);
+        $this->db->where('id_user', $id);
+        $this->db->where('id_lomba', $data);
+        $this->db->update('log_activity');
+    }
+    // ================================ end Peserta pilih Lomba=====================================
+
     public function getlog($lom)
     {
         $id = $this->session->userdata('id');

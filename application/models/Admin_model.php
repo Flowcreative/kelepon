@@ -134,6 +134,13 @@ class Admin_model extends CI_Model
     }
     // ================== end Input Mata Lomba Area ===========================
 
+    // ======================= Pendaftar Lomba peserta =================================
+    public function pesertasiaga()
+    {
+    }
+
+    // ======================= end Pendaftar Lomba peserta =============================
+
 
     public function getallgolongan()
     {

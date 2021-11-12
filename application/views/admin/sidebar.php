@@ -45,6 +45,22 @@
                         <div class="nav-link-icon"><i class="fas fa-flag-checkered"></i></div>
                         Mata Lomba
                     </a>
+                    <a class="nav-link" href="<?= base_url('admin/siaga') ?>">
+                        <div class="nav-link-icon"><i class="fas fa-flag"></i></div>
+                        Peserta Siaga
+                    </a>
+                    <a class="nav-link" href="<?= base_url('admin/penggalang') ?>">
+                        <div class="nav-link-icon"><i class="fas fa-flag"></i></div>
+                        Peserta Penggalang
+                    </a>
+                    <a class="nav-link" href="<?= base_url('admin/penegak') ?>">
+                        <div class="nav-link-icon"><i class="fas fa-flag"></i></div>
+                        Peserta Penegak
+                    </a>
+                    <a class="nav-link" href="<?= base_url('admin/pandega') ?>">
+                        <div class="nav-link-icon"><i class="fas fa-flag"></i></div>
+                        Peserta Pandega (Umum)
+                    </a>
                     <!-- Sidenav Heading (Addons)-->
                     <!-- <div class="sidenav-menu-heading">Plugins</div> -->
                     <!-- Sidenav Link (Charts)-->

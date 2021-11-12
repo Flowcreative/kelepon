@@ -246,13 +246,12 @@ class Peserta extends CI_Controller
     {
         $post = $this->input->post();
         if ($post) {
-            $data['uri'] = $this->uri->segment('3');
-            $data['id'] = $this->input->get('user');
-            $this->_matalombaupload($data);
+            $idlomba = $this->uri->segment('3');
+            $this->_matalombaupload($idlomba);
         } else {
-            $data['uri'] = $this->uri->segment('3');
-            $data['id'] = $this->input->get('user');
+            $lom = $this->uri->segment('3');
             $data = $this->_session();
+            $data['log'] = $this->Peserta_model->getlog($lom);
             $data['judul'] = 'Upload Data Peserta - KELEPON PRAMUKA UNIB';
             $this->load->view('peserta/header', $data);
             $this->load->view('peserta/navbar', $data);
@@ -264,6 +263,31 @@ class Peserta extends CI_Controller
 
     private function _matalombaupload($data)
     {
+        $post = $this->input->post();
+        $id = $this->session->userdata('id');
+
+        $upload = $_FILES['identitas']['name'];
+        $ext = pathinfo($upload, PATHINFO_EXTENSION);
+
+        if ($upload) {
+            $config['allowed_types']        = 'pdf';
+            $config['max_size']             = 5000;
+            $config['upload_path']          = './src/dashboard/assets/berkas/pesertaidentitas';
+            $config['file_name']            = $id . $data . '.' . $ext;
+            $this->load->library('upload', $config);
+
+            unlink($config['upload_path'] . '/' . $post['hapus']);
+
+
+            if ($this->upload->do_upload('identitas')) {
+                $newimage = $this->upload->data('file_name');
+                $this->Peserta_model->uploadpeserta($newimage, $data);
+            } else {
+                echo $this->upload->display_errors();
+            }
+        }
+
+        redirect('peserta/matalombadipilih');
     }
     // ================================= end Mata Lomba Area ================================
 

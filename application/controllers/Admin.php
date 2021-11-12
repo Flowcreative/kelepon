@@ -235,6 +235,53 @@ class Admin extends CI_Controller
         redirect('admin/inputlomba');
     }
     // ==================================== end Input Data Lomba ================================================
+
+    // ===================================== Data pendaftar Lomba ==================================================
+    public function siaga()
+    {
+        $data = $this->_session();
+        $data['judul'] = "Pendaftar Siaga - KELEPON PRAMUKA UNIB";
+        $this->load->view('admin/header', $data);
+        $this->load->view('admin/navbar', $data);
+        $this->load->view('admin/sidebar', $data);
+        $this->load->view('admin/pesertasiaga', $data);
+        $this->load->view('admin/footer');
+    }
+    public function penggalang()
+    {
+        $data = $this->_session();
+        $data['judul'] = "Pendaftar Penggalang - KELEPON PRAMUKA UNIB";
+        $this->load->view('admin/header', $data);
+        $this->load->view('admin/navbar', $data);
+        $this->load->view('admin/sidebar', $data);
+        $this->load->view('admin/pesertapenggalang', $data);
+        $this->load->view('admin/footer');
+    }
+    public function penegak()
+    {
+        $data = $this->_session();
+        $data['judul'] = "Pendaftar Penegak - KELEPON PRAMUKA UNIB";
+        $this->load->view('admin/header', $data);
+        $this->load->view('admin/navbar', $data);
+        $this->load->view('admin/sidebar', $data);
+        $this->load->view('admin/pesertapenegak', $data);
+        $this->load->view('admin/footer');
+    }
+    public function pandega()
+    {
+        $data = $this->_session();
+        $data['judul'] = "Pendaftar Siaga - KELEPON PRAMUKA UNIB";
+        $this->load->view('admin/header', $data);
+        $this->load->view('admin/navbar', $data);
+        $this->load->view('admin/sidebar', $data);
+        $this->load->view('admin/pesertapandega', $data);
+        $this->load->view('admin/footer');
+    }
+    // ===================================== end Data pendaftar Lomba ==============================================
+
+
+
+
     private function _session()
     {
         $user = $this->Admin_model->session();
