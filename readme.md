@@ -28,6 +28,10 @@ Pada Kegiatan ini perencanaan peserta terdiri dari berbagai golongan dari golong
 08 Nov 2021 23:11 WIB
 - htaccess (bingung cara buat blok access file assets) (FIX)
 
+12 Nov 2021 23:14 WIB
+- fik Feature Pilih Lomba Peserta (Peserta)
+- fik Feature Management Pilih Lomba Peserta (Admin)
+
 ### Next Feature
 - Penambahan Payment Gateway
 - Penambahan Data Diri

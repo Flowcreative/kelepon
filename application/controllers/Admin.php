@@ -240,6 +240,7 @@ class Admin extends CI_Controller
     public function siaga()
     {
         $data = $this->_session();
+        $data['peserta'] = $this->Admin_model->pesertasiaga();
         $data['judul'] = "Pendaftar Siaga - KELEPON PRAMUKA UNIB";
         $this->load->view('admin/header', $data);
         $this->load->view('admin/navbar', $data);
@@ -250,6 +251,7 @@ class Admin extends CI_Controller
     public function penggalang()
     {
         $data = $this->_session();
+        $data['peserta'] = $this->Admin_model->pesertapenggalang();
         $data['judul'] = "Pendaftar Penggalang - KELEPON PRAMUKA UNIB";
         $this->load->view('admin/header', $data);
         $this->load->view('admin/navbar', $data);
@@ -260,6 +262,7 @@ class Admin extends CI_Controller
     public function penegak()
     {
         $data = $this->_session();
+        $data['peserta'] = $this->Admin_model->pesertapenegak();
         $data['judul'] = "Pendaftar Penegak - KELEPON PRAMUKA UNIB";
         $this->load->view('admin/header', $data);
         $this->load->view('admin/navbar', $data);
@@ -270,6 +273,7 @@ class Admin extends CI_Controller
     public function pandega()
     {
         $data = $this->_session();
+        $data['peserta'] = $this->Admin_model->pesertapandega();
         $data['judul'] = "Pendaftar Siaga - KELEPON PRAMUKA UNIB";
         $this->load->view('admin/header', $data);
         $this->load->view('admin/navbar', $data);

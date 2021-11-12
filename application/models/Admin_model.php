@@ -137,8 +137,59 @@ class Admin_model extends CI_Model
     // ======================= Pendaftar Lomba peserta =================================
     public function pesertasiaga()
     {
+        $this->db->select('*');
+        $this->db->from('log_activity');
+        $this->db->join('user', 'user.id = log_activity.id_user');
+        $this->db->join('datadiri', 'datadiri.id_user = user.id');
+        $this->db->join('datapangkalan', 'datapangkalan.id_pangkalan = datadiri.id_pangkalan');
+        $this->db->join('lomba', 'lomba.id = log_activity.id_lomba');
+        $this->db->order_by('lomba.matalomba', 'asc');
+        $this->db->where('lomba.id_golongan', 1);
+        $data = $this->db->get()->result_array();
+        return $data;
     }
 
+    public function pesertapenggalang()
+    {
+        $this->db->select('*');
+        $this->db->from('log_activity');
+        $this->db->join('user', 'user.id = log_activity.id_user');
+        $this->db->join('datadiri', 'datadiri.id_user = user.id');
+        $this->db->join('datapangkalan', 'datapangkalan.id_pangkalan = datadiri.id_pangkalan');
+        $this->db->join('lomba', 'lomba.id = log_activity.id_lomba');
+        $this->db->order_by('lomba.matalomba', 'asc');
+        $this->db->where('lomba.id_golongan', 2);
+        $data = $this->db->get()->result_array();
+        return $data;
+    }
+
+    public function pesertapenegak()
+    {
+        $this->db->select('*');
+        $this->db->from('log_activity');
+        $this->db->join('user', 'user.id = log_activity.id_user');
+        $this->db->join('datadiri', 'datadiri.id_user = user.id');
+        $this->db->join('datapangkalan', 'datapangkalan.id_pangkalan = datadiri.id_pangkalan');
+        $this->db->join('lomba', 'lomba.id = log_activity.id_lomba');
+        $this->db->order_by('lomba.matalomba', 'asc');
+        $this->db->where('lomba.id_golongan', 3);
+        $data = $this->db->get()->result_array();
+        return $data;
+    }
+
+    public function pesertapandega()
+    {
+        $this->db->select('*');
+        $this->db->from('log_activity');
+        $this->db->join('user', 'user.id = log_activity.id_user');
+        $this->db->join('datadiri', 'datadiri.id_user = user.id');
+        $this->db->join('datapangkalan', 'datapangkalan.id_pangkalan = datadiri.id_pangkalan');
+        $this->db->join('lomba', 'lomba.id = log_activity.id_lomba');
+        $this->db->order_by('lomba.matalomba', 'asc');
+        $this->db->where('lomba.id_golongan', 4, 5);
+        $data = $this->db->get()->result_array();
+        return $data;
+    }
     // ======================= end Pendaftar Lomba peserta =============================
 
 

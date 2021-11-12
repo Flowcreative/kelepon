@@ -31,7 +31,7 @@
                                          <?php if ($lom['tim'] == 1) { ?>
                                              <i class="fas fa-user"></i> Individu
                                          <?php } else { ?>
-                                             <i class="fas fa-users"></i> Individu
+                                             <i class="fas fa-users"></i> Kelompok
                                          <?php } ?>
                                      </p>
                                  </div>
