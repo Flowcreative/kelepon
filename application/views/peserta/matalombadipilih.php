@@ -30,7 +30,20 @@
                          <div class="card h-100">
                              <div class="card-header text-center"><?= $loging['matalomba'] ?></div>
                              <div class="card-body d-flex flex-column">
-                                 <p class="text-dark fw-500"><i class="fas fa-pay"></i> <?= rupiah($loging['biaya']) ?> </p>
+                                 <div class="row text-center">
+                                     <div class="col-6">
+                                         <?php if ($loging['tim'] == 1) { ?>
+                                             <p class="text-dark fw-500"><i class="fas fa-user"></i> Individu</p>
+                                         <?php } else { ?>
+                                             <p class="text-dark fw-500"><i class="fas fa-users"></i> Berkelompok</p>
+
+                                         <?php } ?>
+                                     </div>
+                                     <div class="col-6">
+                                         <p class="text-muted fw-500"><i class="fas fa-money-bill-wave"></i> <?= rupiah($loging['biaya']) ?> </p>
+                                         </p>
+                                     </div>
+                                 </div>
                                  <?php if (!empty($loging['identitas'])) { ?>
                                      <a href="<?= base_url('peserta/matalombaupload/') . $loging['id_lomba']  ?>" class="btn btn-success btn-sm">Ubah Identitas</a>
                                  <?php } else { ?>

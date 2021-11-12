@@ -46,12 +46,12 @@
                         Mata Lomba Dipilih
                     </a>
                     <!-- Sidenav Heading (Addons)-->
-                    <!-- <div class="sidenav-menu-heading">Plugins</div> -->
+                    <div class="sidenav-menu-heading">Pembayaran</div>
                     <!-- Sidenav Link (Charts)-->
-                    <!-- <a class="nav-link" href="#">
+                    <a class="nav-link disabled" href="#">
                         <div class="nav-link-icon"><i class="fas fa-money-bill-wave"></i></div>
-                        Pembayaran
-                    </a> -->
+                        Total Pembayaran
+                    </a>
                 </div>
             </div>
             <!-- Sidenav Footer-->
