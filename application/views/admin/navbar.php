@@ -127,7 +127,7 @@
                         </div>
                     </h6>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="<?= base_url('user/akunlogin') ?>">
+                    <a class="dropdown-item" href="<?= base_url('admin/profile') ?>">
                         <div class="dropdown-item-icon"><i data-feather="settings"></i></div>
                         Account
                     </a>

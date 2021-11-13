@@ -58,7 +58,7 @@
                                     <?php if (empty($usr['identitas'])) { ?>
                                         <i class="text-danger">Belum Upload</i>
                                     <?php } else { ?>
-                                        <a href="<?= base_url('src/dashboard/assets/berkas/identitas/' . $usr['identitas']) ?>">Di Upload</a>
+                                        <a href="<?= base_url('src/dashboard/assets/berkas/pesertaidentitas/' . $usr['identitas']) ?>">Di Upload</a>
                                     <?php } ?>
                                 </td>
                                 <td class="text-center"></td>

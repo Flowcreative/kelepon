@@ -187,9 +187,11 @@ class Auth extends CI_Controller
                     if ($user['status'] == 1) {
                         if ($user['role'] == 1) {
                             $this->session->set_userdata('id', $user['id']);
+                            $this->session->set_userdata('role', $user['role']);
                             redirect('Admin');
                         } else if ($user['role'] == 2) {
                             $this->session->set_userdata('id', $user['id']);
+                            $this->session->set_userdata('role', $user['role']);
                             redirect('Peserta');
                         }
                     } else if ($user['status'] == 2) {
@@ -357,12 +359,105 @@ class Auth extends CI_Controller
     }
     // End Lupa password area ===========================================================================
 
-    // Acout Area =======================================================================================
-    public function akun()
+    //Profile Change ==================================================
+    public function gantipp()
     {
-    }
-    // end Acout Area ===================================================================================
+        $post = $this->input->post();
+        $id = $this->session->userdata('id');
 
+        $upload = $_FILES['pp']['name'];
+        $ext = pathinfo($upload, PATHINFO_EXTENSION);
+
+        if ($upload) {
+            $config['allowed_types']        = 'jpg|png';
+            $config['max_size']             = 5000;
+            $config['upload_path']          = './src/dashboard/assets/img/user';
+            $config['file_name']            = $id . '.' . $ext;
+            $this->load->library('upload', $config);
+
+            if ($post['hapus'] == 'default.png') {
+                //tidak ada aktivitas
+            } else {
+                unlink($config['upload_path'] . '/' . $post['hapus']);
+            }
+
+            $role = $this->session->userdata('role');
+
+            if ($this->upload->do_upload('pp')) {
+                $newimage = $this->upload->data('file_name');
+                $this->Auth_model->gantipp($newimage);
+            } else {
+                $this->session->set_flashdata('uploadpp', '<div class="alert alert-red text-center" role="alert">Upload gagal, perhatikan lagi ukuran file dan ekstensi file!</div>');
+                if ($role == 1) {
+                    redirect('admin/profile');
+                } else {
+                    redirect('peserta/profile');
+                }
+            }
+        }
+
+        $this->session->set_flashdata('uploadpp', '<div class="alert alert-success text-center" role="alert">Foto berhasil diganti :)</div>');
+        if ($role == 1) {
+            redirect('admin/profile');
+        } else {
+            redirect('peserta/profile');
+        }
+    }
+
+    public function updateprofile()
+    {
+        $post = $this->input->post();
+        $this->Auth_model->updateprofile($post);
+        $this->session->set_flashdata('update', '<div class="alert alert-success text-center" role="alert">Berhasil update profile :)</div>');
+        $role = $this->session->userdata('role');
+        if ($role == 1) {
+            redirect('admin/profile');
+        } else {
+            redirect('peserta/profile');
+        }
+    }
+
+    public function updatepassword()
+    {
+        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[5]|matches[password2]', [
+            'matches' => 'Password dont match!',
+            'min_length' => 'Password too short!'
+        ]);
+        $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
+        $role = $this->session->userdata('role');
+        if ($this->form_validation->run() == false) {
+            if ($role == 1) {
+                $this->session->set_flashdata('pwd', '<i class="text-danger">Password tidak sama</i>');
+                redirect('admin/profile');
+            } else {
+                $this->session->set_flashdata('pwd', '<i class="text-danger">Password tidak sama</i>');
+                redirect('peserta/profile');
+            }
+        } else {
+            $post = $this->input->post();
+            $user = $this->Auth_model->cekpwd();
+            if (password_verify($post['password'], $user['password'])) {
+                $pwd = password_hash($post['password2'], PASSWORD_DEFAULT);
+                $this->Auth_model->updatepassword($pwd);
+                if ($role == 1) {
+                    $this->session->set_flashdata('yeay', '<div class="alert alert-success text-center" role="alert">Password berhasil diganti :)</div>');
+                    redirect('admin/profile');
+                } else {
+                    $this->session->set_flashdata('yeay', '<div class="alert alert-success text-center" role="alert">Password berhasil diganti :)</div>');
+                    redirect('peserta/profile');
+                }
+            } else {
+                if ($role == 1) {
+                    $this->session->set_flashdata('yeay', '<div class="alert alert-danger text-center" role="alert">Password lama salah :)</div>');
+                    redirect('admin/profile');
+                } else {
+                    $this->session->set_flashdata('yeay', '<div class="alert alert-danger text-center" role="alert">Password lama salah :)</div>');
+                    redirect('peserta/profile');
+                }
+            }
+        }
+    }
+    //end Profile Change ===============================================
     public function logout()
     {
         $this->session->unset_userdata('email');

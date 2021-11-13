@@ -288,7 +288,19 @@ class Admin extends CI_Controller
     }
     // ===================================== end Data pendaftar Lomba ==============================================
 
-
+    //================================== Account Management =====================================
+    public function profile()
+    {
+        $role = $this->session->userdata('role');
+        $data = $this->_session();
+        $data['judul'] = 'Account Settings - KELEPON PRAMUKA UNIB';
+        $this->load->view('admin/header', $data);
+        $this->load->view('admin/navbar', $data);
+        $this->load->view('admin/sidebar');
+        $this->load->view('all/userprofile', $data);
+        $this->load->view('admin/footer');
+    }
+    //================================== end Account Management =================================
 
 
     private function _session()
@@ -297,6 +309,7 @@ class Admin extends CI_Controller
         $data['user'] = array(
             'nama' => $user['nama'],
             'email' => $user['email'],
+            'telepon' => $user['telepon'],
             'pp' => $user['foto_profile']
         );
         return $data;

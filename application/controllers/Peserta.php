@@ -291,6 +291,18 @@ class Peserta extends CI_Controller
     }
     // ================================= end Mata Lomba Area ================================
 
+    //================================== Account Management =====================================
+    public function profile()
+    {
+        $data = $this->_session();
+        $data['judul'] = 'Account Settings - KELEPON PRAMUKA UNIB';
+        $this->load->view('peserta/header', $data);
+        $this->load->view('peserta/navbar', $data);
+        $this->load->view('peserta/sidebar');
+        $this->load->view('all/userprofile', $data);
+        $this->load->view('peserta/footer');
+    }
+    //================================== end Account Management =================================
     private function _session()
     {
         $user = $this->Peserta_model->session();
