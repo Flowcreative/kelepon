@@ -1,5 +1,4 @@
 <main>
-    <?= var_dump($lomba['id_golongan']) ?>
     <header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
         <div class="container-xl px-4">
             <div class="page-header-content pt-4">

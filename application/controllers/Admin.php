@@ -240,45 +240,50 @@ class Admin extends CI_Controller
     public function siaga()
     {
         $data = $this->_session();
-        $data['peserta'] = $this->Admin_model->pesertasiaga();
+        $data['peserta'] = $this->Admin_model->peserta(1);
+        $data['gol'] = 'Siaga';
         $data['judul'] = "Pendaftar Siaga - KELEPON PRAMUKA UNIB";
         $this->load->view('admin/header', $data);
         $this->load->view('admin/navbar', $data);
         $this->load->view('admin/sidebar', $data);
-        $this->load->view('admin/pesertasiaga', $data);
+        $this->load->view('admin/pesertadaftar', $data);
         $this->load->view('admin/footer');
     }
     public function penggalang()
     {
         $data = $this->_session();
-        $data['peserta'] = $this->Admin_model->pesertapenggalang();
+        $data['peserta'] = $this->Admin_model->peserta(2);
+        $data['gol'] = 'Penggalang';
         $data['judul'] = "Pendaftar Penggalang - KELEPON PRAMUKA UNIB";
         $this->load->view('admin/header', $data);
         $this->load->view('admin/navbar', $data);
         $this->load->view('admin/sidebar', $data);
-        $this->load->view('admin/pesertapenggalang', $data);
+        $this->load->view('admin/pesertadaftar', $data);
         $this->load->view('admin/footer');
     }
     public function penegak()
     {
         $data = $this->_session();
-        $data['peserta'] = $this->Admin_model->pesertapenegak();
+        $data['peserta'] = $this->Admin_model->peserta(3);
+        $data['gol'] = 'Penegak';
         $data['judul'] = "Pendaftar Penegak - KELEPON PRAMUKA UNIB";
         $this->load->view('admin/header', $data);
         $this->load->view('admin/navbar', $data);
         $this->load->view('admin/sidebar', $data);
-        $this->load->view('admin/pesertapenegak', $data);
+        $this->load->view('admin/pesertadaftar', $data);
         $this->load->view('admin/footer');
     }
+
     public function pandega()
     {
         $data = $this->_session();
-        $data['peserta'] = $this->Admin_model->pesertapandega();
+        $data['peserta'] = $this->Admin_model->peserta(4, 5);
+        $data['gol'] = 'Pandega & Umum';
         $data['judul'] = "Pendaftar Siaga - KELEPON PRAMUKA UNIB";
         $this->load->view('admin/header', $data);
         $this->load->view('admin/navbar', $data);
         $this->load->view('admin/sidebar', $data);
-        $this->load->view('admin/pesertapandega', $data);
+        $this->load->view('admin/pesertadaftar', $data);
         $this->load->view('admin/footer');
     }
     // ===================================== end Data pendaftar Lomba ==============================================
