@@ -302,6 +302,19 @@ class Admin extends CI_Controller
     }
     //================================== end Account Management =================================
 
+    //================================= Pembayaran Management ===================================
+    public function pembayaran()
+    {
+        $data = $this->_session();;
+        $data['bayar'] = $this->Admin_model->get_pembayaran();
+        $data['judul'] = 'Pembayaran - KELEPON PRAMUKA UNIB';
+        $this->load->view('admin/header', $data);
+        $this->load->view('admin/navbar', $data);
+        $this->load->view('admin/sidebar');
+        $this->load->view('admin/pembayaran', $data);
+        $this->load->view('admin/footer');
+    }
+    // ================================ end Pembayaran Management ===================================
 
     private function _session()
     {

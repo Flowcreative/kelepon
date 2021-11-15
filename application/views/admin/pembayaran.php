@@ -5,8 +5,8 @@
                 <div class="row align-items-center justify-content-between">
                     <div class="col-auto mt-4">
                         <h1 class="page-header-title">
-                            <div class="page-header-icon"><i data-feather="layout"></i></div>
-                            Peserta <?= $gol ?>
+                            <div class="page-header-icon"><i class="fas fa-money-bill-wave"></i></div>
+                            Management Pembayaran
                         </h1>
                     </div>
                 </div>
@@ -29,17 +29,17 @@
                     <thead>
                         <tr>
                             <th class="text-center">Nama</th>
-                            <th class="text-center">Lomba</th>
+                            <th class="text-center">Golongan</th>
                             <th class="text-center">Pangkalan</th>
                             <th class="text-center">Kota</th>
                             <th class="text-center">Provinsi</th>
-                            <th class="text-center">Identitas</th>
-                            <th class="text-center">Karya</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        foreach ($peserta as $usr) {
+                        foreach ($bayar as $usr) {
                         ?>
                             <tr>
                                 <td>
@@ -50,24 +50,26 @@
                                         <?= $usr['nama'] ?>
 
                                 </td>
-                                <td class="text-center"><?= $usr['matalomba'] ?></td>
+                                <td class="text-center"><?= $usr['golongan'] ?></td>
                                 <td class="text-center"><?= $usr['namapangkalan'] ?></td>
                                 <td class="text-center"><?= $usr['kotapangkalan'] ?></td>
                                 <td class="text-center"><?= $usr['provinsipangkalan'] ?></td>
                                 <td class="text-center">
-                                    <?php if (empty($usr['identitas'])) { ?>
-                                        <i class="text-danger">Belum Upload</i>
+
+                                    <?php if ($usr['status_payment'] == 1) { ?>
+                                        <i class="text-success">Check Out Progress</i>
+
+                                    <?php } elseif ($usr['status_payment'] == 2) { ?>
+
+                                        <i class="text-success">tripay.co.id progress</i>
+                                    <?php } elseif ($usr['status_payment'] == 3) { ?>
+
+                                        <i class="text-success">Pembayaran Success</i>
                                     <?php } else { ?>
-                                        <a href="<?= base_url('src/dashboard/assets/berkas/pesertaidentitas/' . $usr['identitas']) ?>">Lihat</a>
+                                        <i class="text-danger">Pembayaran Pending</i>
                                     <?php } ?>
                                 </td>
-                                <td class="text-center">
-                                    <?php if (empty($usr['karya'])) { ?>
-                                        <i class="text-danger">Belum Submit</i>
-                                    <?php } else { ?>
-                                        <a href="<?= $usr['karya'] ?>">Lihat Karya</a>
-                                    <?php } ?>
-                                </td>
+                                <td class="text-center">Nanti bisa Bayar via kestari</td>
                             </tr>
                         <?php } ?>
                     </tbody>

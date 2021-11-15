@@ -153,6 +153,20 @@ class Admin_model extends CI_Model
         return $data;
     }
     // ======================= end Pendaftar Lomba peserta =============================
+    // ======================= Pembayaran Management =================================
+    public function get_pembayaran()
+    {
+        $this->db->select('*');
+        $this->db->from('payment');
+        $this->db->join('user', 'user.id = payment.id_user');
+        $this->db->join('datadiri', 'datadiri.id_user = user.id');
+        $this->db->join('golongan', 'golongan.idgolongan = datadiri.id_golongan');
+        $this->db->join('datapangkalan', 'datapangkalan.id_pangkalan = datadiri.id_pangkalan');
+        $this->db->order_by('id_golongan', 'asc');
+        $data = $this->db->get()->result_array();
+        return $data;
+    }
+    // ======================= end Pembayaran Management =============================
 
 
     public function getallgolongan()

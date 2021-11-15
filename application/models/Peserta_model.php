@@ -141,6 +141,7 @@ class Peserta_model extends CI_Model
             'id_lomba' => $idlomba
         );
         $this->db->insert('log_activity', $data);
+        $this->_updatelomba();
     }
 
     public function batallomba($idlomba)
@@ -152,6 +153,18 @@ class Peserta_model extends CI_Model
         );
         $this->db->where($data);
         $this->db->delete('log_activity');
+        $this->_updatelomba();
+    }
+
+    private function _updatelomba()
+    {
+        $get = $this->get_pembayaran();
+        if ($get) {
+            $id = $this->session->userdata('id');
+            $this->db->where('id_user', $id);
+            $this->db->delete('payment');
+        } else {
+        }
     }
 
     public function uploadpeserta($newimage, $data)
@@ -183,5 +196,65 @@ class Peserta_model extends CI_Model
         $this->db->join('lomba', 'lomba.id = log_activity.id_lomba');
         $data = $this->db->get()->result_array();
         return $data;
+    }
+
+    public function countbiaya()
+    {
+        $id = $this->session->userdata('id');
+
+        $this->db->select_sum('biaya');
+        $this->db->from('log_activity');
+        $this->db->where('id_user', $id);
+        $this->db->join('lomba', 'lomba.id = log_activity.id_lomba');
+        $data = $this->db->get()->result_array();
+
+        // $a = $data);
+        return $data;
+    }
+
+    public function inputtotal($post)
+    {
+        $id = $this->session->userdata('id');
+        $data = array(
+            'id' => random_int(1111111, 9999988),
+            'id_user' => $id,
+            'total' => $post['total'],
+            'status_payment' => 1
+        );
+        $this->db->insert('payment', $data);
+    }
+
+    public function get_pembayaran()
+    {
+        $id = $this->session->userdata('id');
+        $this->db->select('*');
+        $this->db->from('payment');
+        $this->db->where('id_user', $id);
+        $data = $this->db->get()->row_array();
+
+        return $data;
+    }
+
+    public function get_chanel()
+    {
+        $this->db->order_by('chane', 'asc');
+        $data = $this->db->get('paymentmethod')->result_array();
+        return $data;
+    }
+
+    public function inputchanel($chanel)
+    {
+        $id = $this->session->userdata('id');
+        $chan = $this->db->get_where('paymentmethod', ['id' => $chanel])->row_array();
+
+        $data = array(
+            'chanel' => $chan['chanel'],
+            'admin' => $chan['admin'],
+            'kode_chanel' => $chan['kode']
+        );
+
+        $this->db->set($data);
+        $this->db->where('id_user', $id);
+        $this->db->update('payment');
     }
 }

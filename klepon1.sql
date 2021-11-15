@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 12, 2021 at 03:18 AM
+-- Generation Time: Nov 15, 2021 at 08:11 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -47,7 +47,7 @@ CREATE TABLE `datadiri` (
 --
 
 INSERT INTO `datadiri` (`id`, `id_golongan`, `id_user`, `id_pangkalan`, `tempatlahir`, `tanggallahir`, `provinsi`, `kota`, `alamat`, `foto`, `kartu_identitas`, `suratmandat`) VALUES
-(3, 3, 'znLaJlqiy', '61882eb6e8bc4', 'Tanjung Agung', '2000-11-29', 'Sumatera Selatan', 'Lubuklinggau', 'Jl. Nangka Lintas Rt.01 Kel. Ponorogo Kec. Lubuklinggau Utara II', 'znLaJlqiy.jpg', 'znLaJlqiy.pdf', 'znLaJlqiy.pdf'),
+(3, 3, 'znLaJlqiy', '61882eb6e8bc4', 'Tanjung Agung', '2000-11-29', 'Sumatera Selatan', 'Lubuklinggau', 'Jl. Nangka Lintas Rt.01 Kel. Ponorogo Kec. Lubuklinggau Utara II', 'znLaJlqiy.JPG', 'znLaJlqiy.png', 'znLaJlqiy.png'),
 (7, 2, 'Ri2flUNL7', '6188bd1b06a01', 'Seluma', '2000-10-30', 'Bengkulu', 'Seluma', 'Jl. Nangka Lintas Rt.01 Kel. Ponorogo Kec. Lubuklinggau Utara II', 'Ri2flUNL7.jpg', 'Ri2flUNL7.pdf', 'Ri2flUNL7.pdf');
 
 -- --------------------------------------------------------
@@ -88,7 +88,8 @@ CREATE TABLE `emailrequest` (
 --
 
 INSERT INTO `emailrequest` (`id`, `email`) VALUES
-(9, 'dev.rafin@gmail.com');
+(9, 'dev.rafin@gmail.com'),
+(10, 'seiyang.kamu@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -122,17 +123,17 @@ CREATE TABLE `log_activity` (
   `id` int(16) NOT NULL,
   `id_user` varchar(9) NOT NULL,
   `id_lomba` int(11) NOT NULL,
-  `identitas` varchar(25) NOT NULL
+  `identitas` varchar(25) NOT NULL,
+  `karya` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `log_activity`
 --
 
-INSERT INTO `log_activity` (`id`, `id_user`, `id_lomba`, `identitas`) VALUES
-(1636620726, 'znLaJlqiy', 4737, ''),
-(1636621198, 'znLaJlqiy', 8337, ''),
-(1636621199, 'znLaJlqiy', 9182, '');
+INSERT INTO `log_activity` (`id`, `id_user`, `id_lomba`, `identitas`, `karya`) VALUES
+(1637000120, 'znLaJlqiy', 4737, '', ''),
+(1637003211, 'znLaJlqiy', 2789, '', '');
 
 -- --------------------------------------------------------
 
@@ -144,7 +145,7 @@ CREATE TABLE `lomba` (
   `id` int(11) NOT NULL,
   `id_golongan` int(10) NOT NULL,
   `matalomba` varchar(50) NOT NULL,
-  `biaya` varchar(50) NOT NULL,
+  `biaya` int(6) NOT NULL,
   `status` int(11) NOT NULL,
   `tim` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -154,18 +155,18 @@ CREATE TABLE `lomba` (
 --
 
 INSERT INTO `lomba` (`id`, `id_golongan`, `matalomba`, `biaya`, `status`, `tim`) VALUES
-(1547, 4, 'Essai', '30000', 1, 1),
-(2789, 3, 'Syahril Qur\'an', '40000', 1, 2),
-(4328, 1, 'Membaca Puisi', '25000', 1, 1),
-(4737, 3, 'Fotografi', '30000', 1, 1),
-(6791, 5, 'Essai', '30000', 1, 1),
-(7542, 2, 'Tilawah', '30000', 1, 1),
-(7745, 2, 'Video Edukasi Pramuka', '30000', 1, 1),
-(8147, 1, 'Membaca Dongeng', '25000', 1, 1),
-(8337, 3, 'Film Pendek', '40000', 1, 2),
-(8359, 2, 'Olimpiade Pramuka Online', '30000', 1, 1),
-(9182, 3, 'Stand Up Comedy', '30000', 1, 1),
-(9647, 4, 'Video Pembelajaran Pramuka', '30000', 1, 1);
+(1547, 4, 'Essai', 30000, 1, 1),
+(2789, 3, 'Syahril Qur\'an', 40000, 1, 2),
+(4328, 1, 'Membaca Puisi', 25000, 1, 1),
+(4737, 3, 'Fotografi', 30000, 1, 1),
+(6791, 5, 'Essai', 30000, 1, 1),
+(7542, 2, 'Tilawah', 30000, 1, 1),
+(7745, 2, 'Video Edukasi Pramuka', 30000, 1, 1),
+(8147, 1, 'Membaca Dongeng', 25000, 1, 1),
+(8337, 3, 'Film Pendek', 40000, 1, 2),
+(8359, 2, 'Olimpiade Pramuka Online', 30000, 1, 1),
+(9182, 3, 'Stand Up Comedy', 30000, 1, 1),
+(9647, 4, 'Video Pembelajaran Pramuka', 30000, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -174,11 +175,57 @@ INSERT INTO `lomba` (`id`, `id_golongan`, `matalomba`, `biaya`, `status`, `tim`)
 --
 
 CREATE TABLE `payment` (
-  `id` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `total` int(11) NOT NULL,
-  `status` int(1) NOT NULL
+  `id` int(7) NOT NULL,
+  `id_user` varchar(9) NOT NULL,
+  `total` int(6) NOT NULL,
+  `status_payment` int(1) NOT NULL,
+  `kode_chanel` varchar(25) NOT NULL,
+  `chanel` varchar(50) NOT NULL,
+  `admin` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`id`, `id_user`, `total`, `status_payment`, `kode_chanel`, `chanel`, `admin`) VALUES
+(9422837, 'znLaJlqiy', 70000, 1, 'MYBVA', 'Maybank Virtual Account', 4250);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `paymentmethod`
+--
+
+CREATE TABLE `paymentmethod` (
+  `id` int(5) NOT NULL,
+  `chane` int(11) NOT NULL,
+  `kode` varchar(10) NOT NULL,
+  `chanel` varchar(50) NOT NULL,
+  `admin` int(5) NOT NULL,
+  `gambar` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `paymentmethod`
+--
+
+INSERT INTO `paymentmethod` (`id`, `chane`, `kode`, `chanel`, `admin`, `gambar`) VALUES
+(1, 0, 'MYBVA', 'Maybank Virtual Account', 4250, ''),
+(2, 0, 'PERMATAVA', 'Permata Virtual Account', 4250, ''),
+(3, 0, 'BNIVA', 'BNI Virtual Account', 4250, ''),
+(4, 0, 'BRIVA', 'BRI Virtual Account', 4250, ''),
+(5, 0, 'MANDIRIVA', 'Mandiri Virtual Account', 4250, ''),
+(6, 0, 'BCAVA', 'BCA Virtual Account', 4250, ''),
+(7, 0, 'SMSVA', 'Sinarmas Virtual Account', 4250, ''),
+(8, 0, 'MUAMALATVA', 'Muamalat Virtual Account', 4250, ''),
+(9, 0, 'CIMBVA', 'CIMB Virtual Account', 4250, ''),
+(10, 0, 'SAMPOERNAV', 'Sahabat Sampoerna Virtual Account', 4250, ''),
+(11, 2, 'ALFAMART', 'Alfamart', 3500, ''),
+(12, 2, 'INDOMARET', 'Indomaret', 3500, ''),
+(13, 2, 'ALFAMIDI', 'Alfamidi', 3500, ''),
+(14, 1, 'OVO', 'OVO', 2, ''),
+(15, 1, 'QRIS', 'QRIS', 750, '');
 
 -- --------------------------------------------------------
 
@@ -206,8 +253,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `nama`, `email`, `telepon`, `password`, `time_reg`, `tgl_reg`, `foto_profile`, `status`, `token`, `url`, `role`) VALUES
-('sZBhbcg1C', 'SI Popon', 'sipoponprabu@kelepon.online', '082377936674', '$2y$10$gFoFAEvFk/d4Yw6SYamlgedI57JVDk3YKV3sXQjXbREnM0aZZ6X1K', '1635700712', '2021-10-31', 'popon.png', 1, 596216, '5DJ6uGKZc+cLsj9FZcNegucFahhFRo4Zu0Ws2Ss3Rvk=', 1),
-('znLaJlqiy', 'Rafin Andika', 'dev.rafin@gmail.com', '082375332212', '$2y$10$szVTrySg7Qd0X9VMpMvR9ebOrffKuvhPOzVqVuF0G3R.xfO62Ax4S', '12:06:47pm', '2021-11-06', 'default.png', 1, 579368, 'wwvKqau+lrOM82qRq7INEk5s0vagbuIqfP3CY0FewlA=', 2);
+('sZBhbcg1C', 'SI Popon', 'sipoponprabu@kelepon.online', '082377936674', '$2y$10$L4NFnSHikrRgUDxlXvOtbOReI.x1pd5fS0ApoDexBewxoEPFOfY9C', '1635700712', '2021-10-31', 'sZBhbcg1C.png', 1, 596216, '5DJ6uGKZc+cLsj9FZcNegucFahhFRo4Zu0Ws2Ss3Rvk=', 1),
+('znLaJlqiy', 'Rafin Andika', 'dev.rafin@gmail.com', '082375332212', '$2y$10$1WjL7NdTXwRh8.PZetJ4mO3qjElQM7yLXQwSe7.MYfJtpDulUorQC', '12:06:47pm', '2021-11-06', 'znLaJlqiy.jpg', 1, 579368, 'wwvKqau+lrOM82qRq7INEk5s0vagbuIqfP3CY0FewlA=', 2);
 
 -- --------------------------------------------------------
 
@@ -223,6 +270,13 @@ CREATE TABLE `user_activation` (
   `date` varchar(12) NOT NULL,
   `time` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user_activation`
+--
+
+INSERT INTO `user_activation` (`id`, `id_user`, `token`, `url`, `date`, `time`) VALUES
+(29, 'Ep63hFSZb', 638110, 'TqxI1b7uR8eBj13IukMUrdbvg8t4VNbUCDGcOOX/I9A=', '2021-11-12', '02:09:24pm');
 
 --
 -- Indexes for dumped tables
@@ -259,6 +313,18 @@ ALTER TABLE `lomba`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `payment`
+--
+ALTER TABLE `payment`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `paymentmethod`
+--
+ALTER TABLE `paymentmethod`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -284,7 +350,7 @@ ALTER TABLE `datadiri`
 -- AUTO_INCREMENT for table `emailrequest`
 --
 ALTER TABLE `emailrequest`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `golongan`
@@ -296,7 +362,7 @@ ALTER TABLE `golongan`
 -- AUTO_INCREMENT for table `log_activity`
 --
 ALTER TABLE `log_activity`
-  MODIFY `id` int(16) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1636621200;
+  MODIFY `id` int(16) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1637003212;
 
 --
 -- AUTO_INCREMENT for table `lomba`
@@ -305,10 +371,16 @@ ALTER TABLE `lomba`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9648;
 
 --
+-- AUTO_INCREMENT for table `paymentmethod`
+--
+ALTER TABLE `paymentmethod`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+
+--
 -- AUTO_INCREMENT for table `user_activation`
 --
 ALTER TABLE `user_activation`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -46,17 +46,13 @@
                         Peserta Pandega (Umum)
                     </a>
                     <!-- Sidenav Heading (Addons)-->
-                    <!-- <div class="sidenav-menu-heading">Plugins</div> -->
-                    <!-- Sidenav Link (Charts)-->
-                    <!-- <a class="nav-link" href="charts.html">
-                        <div class="nav-link-icon"><i data-feather="bar-chart"></i></div>
-                        Charts
-                    </a> -->
-                    <!-- Sidenav Link (Tables)-->
-                    <!-- <a class="nav-link" href="tables.html">
-                        <div class="nav-link-icon"><i data-feather="filter"></i></div>
-                        Tables
-                    </a> -->
+                    <div class="sidenav-menu-heading">Plugins</div>
+                    <!-- Sidenav Link (Pembayran)-->
+                    <a class="nav-link" href="<?= base_url('admin/pembayaran') ?>">
+                        <div class="nav-link-icon"><i class="fas fa-money-bill-wave"></i></div>
+                        Pembayaran
+                    </a>
+
                 </div>
             </div>
             <!-- Sidenav Footer-->

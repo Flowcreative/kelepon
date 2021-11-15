@@ -21,7 +21,7 @@ Pada Kegiatan ini perencanaan peserta terdiri dari berbagai golongan dari golong
 09 Nov 2021 15.08 WIB
 - htaccess / Folder handler
 
-08 Nov 2021 23:11 WIB<br>
+08 Nov 2021 23:11 WIB
 - Fix bug upload file rename `$id.$ext`
 - Fix max size
 
@@ -36,6 +36,18 @@ Pada Kegiatan ini perencanaan peserta terdiri dari berbagai golongan dari golong
 - Fik User Account Management
 - Fix Change Password Feature
 
+16 Nov 2021 01:26 WIB
+- Pembayaran status(#code_status);
+- (peserta) Fitur Generate pembayaran
+- (peserta) Fitur Pilih Merchan
+- (Admin) Management Pembayaran
+
+
+#code_status
+- 1 == Checkout
+- 2 == Progress
+- 3 == Success
+- 4 == Pending
 
 ### Next Feature
 - Penambahan Payment Gateway

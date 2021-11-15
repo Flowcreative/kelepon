@@ -46,8 +46,12 @@
                                  </div>
                                  <?php if (!empty($loging['identitas'])) { ?>
                                      <a href="<?= base_url('peserta/matalombaupload/') . $loging['id_lomba']  ?>" class="btn btn-success btn-sm">Ubah Identitas</a>
-                                 <?php } else { ?>
-                                     <a href="<?= base_url('peserta/matalombaupload/') . $loging['id_lomba']  ?>" class="btn btn-red btn-sm">Unggah Identitas</a>
+                                     <?php } else {
+                                        if (cek_status() == 3) { ?>
+                                         <a href="<?= base_url('peserta/matalombaupload/') . $loging['id_lomba']  ?>" class="btn btn-red btn-sm">Unggah Identitas</a>
+                                     <?php } else { ?>
+                                         <button class="btn btn-red btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#belumbayar">Unggah Identitas</button>
+                                     <?php } ?>
                                  <?php } ?>
                              </div>
                          </div>
@@ -66,3 +70,23 @@
          </div>
      </div>
  </main>
+
+
+ <!-- Modal -->
+ <div class="modal fade" id="belumbayar" tabindex="-1" role="dialog" aria-labelledby="belumbayarTitle" aria-hidden="true">
+     <div class="modal-dialog modal-dialog-centered" role="document">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+             </div>
+             <div class="modal-body text-center">
+                 <h2 class="text-danger">!!! Pembayaran Belum Selesai !!!</h2>
+                 <h4 class="text-success">Upload identitas bisa dilakukan ketika proses pembayaran sudah selesai</h4>
+             </div>
+             <div class="modal-footer">
+                 Tahapan : Pembayaran -> Upload Identitas -> Upload Karya :)
+             </div>
+             <a href="<?= base_url('peserta/invoice') ?>" class="btn btn-danger" type="button">Bayar yuk!</a>
+         </div>
+     </div>
+ </div>
