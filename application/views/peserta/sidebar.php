@@ -20,8 +20,9 @@
                     <!-- Sidenav Heading (UI Toolkit)-->
                     <div class="sidenav-menu-heading">Lomba Management</div>
                     <!-- Sidenav Accordion (Utilities)-->
-                    <?php if (cek_status() == 3) {
+                    <?php if (get_bayar()) {
                     } else { ?>
+
                         <a class="nav-link" href="<?= base_url('peserta/matalomba') ?>" disabled>
                             <div class="nav-link-icon"><i class="fas fa-flag-checkered"></i></div>
                             Pilih Mata Lomba

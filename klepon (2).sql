@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2021 at 08:11 PM
+-- Generation Time: Nov 19, 2021 at 06:11 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -124,16 +124,16 @@ CREATE TABLE `log_activity` (
   `id_user` varchar(9) NOT NULL,
   `id_lomba` int(11) NOT NULL,
   `identitas` varchar(25) NOT NULL,
-  `karya` text NOT NULL
+  `karya` text NOT NULL,
+  `peserta` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `log_activity`
 --
 
-INSERT INTO `log_activity` (`id`, `id_user`, `id_lomba`, `identitas`, `karya`) VALUES
-(1637000120, 'znLaJlqiy', 4737, '', ''),
-(1637003211, 'znLaJlqiy', 2789, '', '');
+INSERT INTO `log_activity` (`id`, `id_user`, `id_lomba`, `identitas`, `karya`, `peserta`) VALUES
+(1637319331, 'znLaJlqiy', 2789, '', '', 2);
 
 -- --------------------------------------------------------
 
@@ -189,7 +189,7 @@ CREATE TABLE `payment` (
 --
 
 INSERT INTO `payment` (`id`, `id_user`, `total`, `status_payment`, `kode_chanel`, `chanel`, `admin`) VALUES
-(9422837, 'znLaJlqiy', 70000, 1, 'MYBVA', 'Maybank Virtual Account', 4250);
+(4545968, 'znLaJlqiy', 80000, 1, 'OVO', 'OVO', 2);
 
 -- --------------------------------------------------------
 
@@ -200,7 +200,7 @@ INSERT INTO `payment` (`id`, `id_user`, `total`, `status_payment`, `kode_chanel`
 CREATE TABLE `paymentmethod` (
   `id` int(5) NOT NULL,
   `chane` int(11) NOT NULL,
-  `kode` varchar(10) NOT NULL,
+  `kode` varchar(15) NOT NULL,
   `chanel` varchar(50) NOT NULL,
   `admin` int(5) NOT NULL,
   `gambar` varchar(50) NOT NULL
@@ -220,12 +220,31 @@ INSERT INTO `paymentmethod` (`id`, `chane`, `kode`, `chanel`, `admin`, `gambar`)
 (7, 0, 'SMSVA', 'Sinarmas Virtual Account', 4250, ''),
 (8, 0, 'MUAMALATVA', 'Muamalat Virtual Account', 4250, ''),
 (9, 0, 'CIMBVA', 'CIMB Virtual Account', 4250, ''),
-(10, 0, 'SAMPOERNAV', 'Sahabat Sampoerna Virtual Account', 4250, ''),
+(10, 0, 'SAMPOERNAVA', 'Sahabat Sampoerna Virtual Account', 4250, ''),
 (11, 2, 'ALFAMART', 'Alfamart', 3500, ''),
 (12, 2, 'INDOMARET', 'Indomaret', 3500, ''),
 (13, 2, 'ALFAMIDI', 'Alfamidi', 3500, ''),
 (14, 1, 'OVO', 'OVO', 2, ''),
 (15, 1, 'QRIS', 'QRIS', 750, '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `paymenturl`
+--
+
+CREATE TABLE `paymenturl` (
+  `id` int(11) NOT NULL,
+  `id_user` varchar(9) NOT NULL,
+  `url` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `paymenturl`
+--
+
+INSERT INTO `paymenturl` (`id`, `id_user`, `url`) VALUES
+(5, 'znLaJlqiy', 'https://tripay.co.id/checkout/DEV-T78252808864JAK');
 
 -- --------------------------------------------------------
 
@@ -325,6 +344,12 @@ ALTER TABLE `paymentmethod`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `paymenturl`
+--
+ALTER TABLE `paymenturl`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -362,7 +387,7 @@ ALTER TABLE `golongan`
 -- AUTO_INCREMENT for table `log_activity`
 --
 ALTER TABLE `log_activity`
-  MODIFY `id` int(16) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1637003212;
+  MODIFY `id` int(16) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1637319332;
 
 --
 -- AUTO_INCREMENT for table `lomba`
@@ -375,6 +400,12 @@ ALTER TABLE `lomba`
 --
 ALTER TABLE `paymentmethod`
   MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+
+--
+-- AUTO_INCREMENT for table `paymenturl`
+--
+ALTER TABLE `paymenturl`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user_activation`

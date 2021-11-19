@@ -48,3 +48,11 @@ function cek_bayar()
         redirect('peserta/paymentstatus');
     }
 }
+
+function get_bayar()
+{
+    $kelepon = get_instance();
+    $data =  $kelepon->Peserta_model->get_bayar();
+
+    return $data;
+}

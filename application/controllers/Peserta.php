@@ -208,6 +208,7 @@ class Peserta extends CI_Controller
         if (cek_status() == 3) {
             $this->matalombadipilih();
         } else {
+            cek_bayar();
             $data = $this->_session();
             $data['lomba'] = $this->Peserta_model->getmatalomba();
             $data['judul'] = 'Mata Lomba - KELEPON PRAMUKA UNIB';
@@ -221,6 +222,7 @@ class Peserta extends CI_Controller
 
     public function pilihmatalomba()
     {
+        cek_bayar();
         $idlomba = $this->uri->segment('3');
         $this->Peserta_model->pilihlomba($idlomba);
         redirect('peserta/matalomba');
