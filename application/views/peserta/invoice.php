@@ -28,8 +28,9 @@
                             <tr class="small text-uppercase text-muted">
                                 <th scope="col">Mata Lomba</th>
                                 <th class="text-end" scope="col"></th>
-                                <th class="text-end" scope="col">Identitas</th>
+                                <th class="text-end" scope="col">Orang/tim</th>
                                 <th class="text-end" scope="col">Biaya</th>
+                                <th class="text-end" scope="col">total</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,20 +42,16 @@
                                         <!-- <div class="small text-muted d-none d-md-block"><?= $loging['golongan'] ?></div> -->
                                     </td>
                                     <td class="text-end fw-bold"></td>
-                                    <td class="text-end fw-bold">
-                                        <?php if (empty($loging['identitas'])) { ?>
-                                            <p class="text-red">Belum upload</p>
-                                        <?php } else { ?>
-                                            <p class="text-green">Diupload</p>
-                                        <?php } ?>
-                                    </td>
+                                    <td class="text-end fw-bold"><?= $loging['peserta'] ?></td>
                                     <td class="text-end fw-bold "><?= rupiah($loging['biaya']) ?></td>
+                                    <td class="text-end fw-bold "><?= rupiah($loging['biaya'] * $loging['peserta']) ?></td>
                                 </tr>
                             <?php } ?>
                             <!-- Invoice item 2-->
 
                             <!-- Invoice subtotal-->
                             <tr>
+                                <td></td>
                                 <td class="text-end pb-0" colspan="3">
                                     <div class="text-uppercase small fw-700 text-muted">Total:</div>
                                 </td>
@@ -77,7 +74,11 @@
                 <form action="<?= base_url('peserta/inputtotal') ?>" method="post">
             </div>
             <input type="hidden" name="total" value="<?= sum() ?>">
-            <button class="btn btn-success btn-sm" type="submit">Bayar sekarang</button>
+            <?php if ($loging['peserta'] == 0) { ?>
+                <a href="<?= base_url('peserta/matalombadipilih') ?>" class="btn btn-success btn-sm">Input Jumlah Peserta</a>
+            <?php } else { ?>
+                <button class="btn btn-success btn-sm" type="submit">Bayar sekarang</button>
+            <?php } ?>
             </form>
             <div class="card-footer p-4 p-lg-5 border-top-0">
                 <div class="row">

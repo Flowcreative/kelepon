@@ -76,8 +76,6 @@
                             <div class="col-4">Provinsi/Daerah</div>
                             <div class="col-8">: <?= $datadiri['kotapangkalan'] ?></div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -88,7 +86,7 @@
                     <div class="card-body text-center">
                         <!-- Profile picture image-->
                         <?php if ($datadiri['foto']) { ?>
-                            <img class="img-account-profile rounded-circle mb-2" src="<?= base_url('src/dashboard/') ?>assets/berkas/foto/<?= $datadiri['foto'] ?>" alt="" />
+                            <img class="img-account-profile mb-2" src="<?= base_url('src/dashboard/') ?>assets/berkas/foto/<?= $datadiri['foto'] ?>" alt="" />
                         <?php } else { ?>
                             <i class="text-danger"> Belum di upload</i>
                         <?php } ?>

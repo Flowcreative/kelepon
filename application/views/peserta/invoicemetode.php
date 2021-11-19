@@ -3,7 +3,7 @@
     <div class="container-xl px-4 mt-4">
         <!-- Invoice-->
         <div class="card invoice">
-            <div class="card-header p-4 p-md-5 border-bottom-0 bg-gradient-primary-to-secondary text-white-50">
+            <div class="card-header p-4 p-md-5 border-bottom-0 bg-teal text-white-50">
                 <div class="row justify-content-between align-items-center">
                     <div class="col-12 col-lg-auto mb-5 mb-lg-0 text-center text-lg-start">
                         <!-- Invoice branding-->
@@ -28,7 +28,10 @@
                         <?php } else { ?>
                             <div class="ms-4">
                                 <div class="text-lg fw-700 text-blue"><?= $get['chanel'] ?></div>
-                                <div class="text-sm fw-400 text-muted mt-2">Biaya admin: <?= $get['admin'] ?></div>
+                                <div class="text-sm fw-400 text-muted mt-2">
+                                    <?= 'Biaya admin : ' . hitung($get);  ?>
+
+                                </div>
                             </div>
                         <?php } ?>
                     </div>
@@ -59,42 +62,13 @@
                 <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body py-4">
-                <div class="row mb-2">
-                    <div class="col-6">
-                        <p class="text-muted fw-600">Biaya Mata Lomba: </p>
-                    </div>
-                    <div class="col-6">
-                        <p class="">: <?= rupiah($get['total']) ?> </p>
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-6">
-                        <p class="text-muted fw-600">Admin pembayaran: </p>
-                    </div>
-                    <div class="col-6">
-                        <p class="">: <?= rupiah($get['admin']) ?> </p>
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-6">
-                        <p class="text-muted fw-600">Total: </p>
-                    </div>
-                    <div class="col-6">
-                        <p class="">: <?= rupiah($get['admin'] + $get['total']) ?> </p>
-                    </div>
-                </div>
                 <div class="row text-center mt-4">
                     <i class="fw-800 text-danger"> Setelah Klik Pembayaran anda sudah tidak dapat mengubah mata lomba </i>
                     <i class="fw-400 text-danger"> Anda akan di redirect ke halaman tripay.co.id untuk mendapatkan kode pembayaran </i>
                 </div>
-                <form action="">
             </div>
-            <input type="hidden" name="kode" value="<?= $get['kode_chanel'] ?>" />
-            <input type="hidden" name="total" value="<?= $get['total'] ?>" />
-            <input type="hidden" name="id" value="<?= $get['id'] ?>" />
-            <button class="btn btn-sm btn-danger">Bayar yuk!</button>
+            <a href="<?= base_url('peserta/bayar') ?>" class="btn btn-sm btn-danger">Bayar sekarang!</a>
         </div>
-        </form>
     </div>
 </div>
 
@@ -119,19 +93,16 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="small text-muted">
-                                                <?php if ($chan['chanel'] == 'OVO') { ?>
-                                                    Biaya admin: <?= $get['total'] * 0.02 ?>
-                                                <?php } else if ($chan['chanel'] == 'QRIS') { ?>
-                                                    Biaya admin: <?= $chan['admin'] + $get['total'] * 0.007 ?>
-                                                <?php } else { ?>
-                                                    Biaya admin: <?= $chan['admin'] ?>
-                                                <?php } ?>
+                                                <?php $geto = array(
+                                                    'total' => $get['total'],
+                                                    'kode_chanel' => $chan['kode']
+                                                ); ?>
+                                                Biaya admin : <?= hitung($geto);  ?>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     </a>
                 <?php } ?>
             </div>

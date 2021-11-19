@@ -246,6 +246,33 @@ class Peserta extends CI_Controller
         $this->load->view('peserta/footer');
     }
 
+    public function uploadkarya()
+    {
+        $post = $this->input->post();
+
+        if ($post) {
+            $this->Peserta_model->uploadkarya($post);
+            redirect('peserta/matalombadipilih');
+        } else {
+            $data = $this->_session();
+            $data['uri'] = $this->uri->segment('3');
+            $data['log'] = $this->Peserta_model->getlog($data['uri']);
+            $data['judul'] = 'Upload Karya - KELEPON PRAMUKA UNIB';
+            $this->load->view('peserta/header', $data);
+            $this->load->view('peserta/navbar', $data);
+            $this->load->view('peserta/sidebar');
+            $this->load->view('peserta/uploadkarya', $data);
+            $this->load->view('peserta/footer');
+        }
+    }
+
+    public function matalombapeserta()
+    {
+        $post = $this->input->post();
+        $this->Peserta_model->matalombapeserta($post);
+        redirect('peserta/matalombadipilih');
+    }
+
     public function matalombaupload()
     {
         $post = $this->input->post();
@@ -310,9 +337,12 @@ class Peserta extends CI_Controller
     // ======================================Peserta Invoice ====================================
     public function invoice()
     {
+        cek_bayar();
+
         $get = $this->Peserta_model->get_pembayaran();
         if (empty($get)) {
             $data = $this->_session();
+
             $data['log'] = $this->Peserta_model->getlogid();
             $data['judul'] = 'Pembayaran - KELEPON PRAMUKA UNIB';
             $this->load->view('peserta/header', $data);
@@ -333,6 +363,8 @@ class Peserta extends CI_Controller
 
     private function _checkout()
     {
+        cek_bayar();
+
         $data = $this->_session();
         $data['get'] = $this->Peserta_model->get_pembayaran();
         $data['chanel'] = $this->Peserta_model->get_chanel();
@@ -346,6 +378,8 @@ class Peserta extends CI_Controller
 
     public function inputchanel()
     {
+        cek_bayar();
+
         $chanel = $this->uri->segment('3');
         $this->Peserta_model->inputchanel($chanel);
         redirect('peserta/invoice');
@@ -353,22 +387,49 @@ class Peserta extends CI_Controller
 
     public function inputtotal()
     {
+        cek_bayar();
+
         $post =  $this->input->post();
         $this->Peserta_model->inputtotal($post);
         redirect('peserta/invoice');
     }
 
-    // public function statusbayar()
-    // {
-    //     $data = $this->_session();
-    //     $data['status'] = $this->Peserta_model->getpembayaran();
-    //     $data['judul'] = 'Checkout - KELEPON PRAMUKA UNIB';
-    //     $this->load->view('peserta/header', $data);
-    //     $this->load->view('peserta/navbar', $data);
-    //     $this->load->view('peserta/sidebar');
-    //     $this->load->view('peserta/statusbayar', $data);
-    //     $this->load->view('peserta/footer');
-    // }
+    public function bayar()
+    {
+        cek_bayar();
+
+        $user = $this->Peserta_model->session();
+        $pay = $this->Peserta_model->get_pembayaran();
+
+        $post = array(
+            'id' => $pay['id_user'],
+            'total' => $pay['total'],
+            'kode_chanel' => $pay['kode_chanel'],
+            'nama' => $user['nama'],
+            'email' => $user['email'],
+            'telepon' => $user['telepon']
+        );
+
+        $lomba = $this->Peserta_model->getlogid();
+        $url = regTripay($post, $lomba);
+
+        $this->Peserta_model->paymenturl($url);
+
+        redirect('peserta/paymentstatus');
+    }
+
+    public function paymentstatus()
+    {
+
+        $data = $this->_session();
+        $data['url'] = $this->Peserta_model->get_bayar();
+        $data['judul'] = 'Status Pembayaran - KELEPON PRAMUKA UNIB';
+        $this->load->view('peserta/header', $data);
+        $this->load->view('peserta/navbar', $data);
+        $this->load->view('peserta/sidebar');
+        $this->load->view('peserta/bayarproses', $data);
+        $this->load->view('peserta/footer');
+    }
     // ======================================end Peserta Invoice ================================
 
     //================================== end Account Management =================================

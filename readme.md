@@ -42,6 +42,9 @@ Pada Kegiatan ini perencanaan peserta terdiri dari berbagai golongan dari golong
 - (peserta) Fitur Pilih Merchan
 - (Admin) Management Pembayaran
 
+19 Nov 2012 18:29
+- FIx Request Pembayaran
+
 
 #code_status
 - 1 == Checkout
@@ -55,3 +58,4 @@ Pada Kegiatan ini perencanaan peserta terdiri dari berbagai golongan dari golong
 - Penambahan Data Lomba
 - Penambahan kirim email
 - Penambahan print & export
+- call back (Bingung mengambil data invoice)

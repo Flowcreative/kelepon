@@ -144,6 +144,33 @@ class Peserta_model extends CI_Model
         $this->_updatelomba();
     }
 
+    public function matalombapeserta($post)
+    {
+        $id = $this->session->userdata('id');
+        $data = array(
+            'id_user' => $id,
+            'id_lomba' => $post['idlomba'],
+        );
+
+        $this->db->set('peserta', $post['peserta']);
+        $this->db->where($data);
+        $this->db->update('log_activity');
+        $this->_updatelomba();
+    }
+
+    public function uploadkarya($post)
+    {
+        $id = $this->session->userdata('id');
+        $data = array(
+            'id_user' => $id,
+            'id_lomba' => $post['idlomba'],
+        );
+
+        $this->db->set('karya', $post['karya']);
+        $this->db->where($data);
+        $this->db->update('log_activity');
+    }
+
     public function batallomba($idlomba)
     {
         $id = $this->session->userdata('id');
@@ -159,12 +186,20 @@ class Peserta_model extends CI_Model
     private function _updatelomba()
     {
         $get = $this->get_pembayaran();
+        $id = $this->session->userdata('id');
         if ($get) {
-            $id = $this->session->userdata('id');
             $this->db->where('id_user', $id);
             $this->db->delete('payment');
+            $this->_updateurl($id);
         } else {
+            $this->_updateurl($id);
         }
+    }
+
+    private function _updateurl($id)
+    {
+        $this->db->where('id_user', $id);
+        $this->db->delete('paymenturl');
     }
 
     public function uploadpeserta($newimage, $data)
@@ -256,5 +291,25 @@ class Peserta_model extends CI_Model
         $this->db->set($data);
         $this->db->where('id_user', $id);
         $this->db->update('payment');
+    }
+
+    public function paymenturl($url)
+    {
+        $id = $this->session->userdata('id');
+
+        $data = array(
+            'id_user' => $id,
+            'url' => $url
+        );
+
+        $this->db->insert('paymenturl', $data);
+    }
+
+    public function get_bayar()
+    {
+        $id = $this->session->userdata('id');
+        $data = $this->db->get_where('paymenturl', ['id_user' => $id])->row_array();
+
+        return $data;
     }
 }

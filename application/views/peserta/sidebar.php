@@ -32,15 +32,12 @@
                         Mata Lomba Dipilih
                     </a>
                     <!-- Sidenav Heading (Addons)-->
-                    <?php if (cek_status() == 3) {
-                    } else { ?>
-                        <div class="sidenav-menu-heading">Pembayaran</div>
-                        <!-- Sidenav Link (Charts)-->
-                        <a class="nav-link" href="<?= base_url('peserta/invoice'); ?>">
-                            <div class="nav-link-icon"><i class="fas fa-money-bill-wave"></i></div>
-                            Pembayaran
-                        </a>
-                    <?php } ?>
+                    <div class="sidenav-menu-heading">Pembayaran</div>
+                    <!-- Sidenav Link (Charts)-->
+                    <a class="nav-link" href="<?= base_url('peserta/invoice'); ?>">
+                        <div class="nav-link-icon"><i class="fas fa-money-bill-wave"></i></div>
+                        Pembayaran
+                    </a>
                 </div>
             </div>
             <!-- Sidenav Footer-->

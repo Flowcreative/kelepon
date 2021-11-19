@@ -58,14 +58,14 @@
                                     <?php if (empty($usr['identitas'])) { ?>
                                         <i class="text-danger">Belum Upload</i>
                                     <?php } else { ?>
-                                        <a href="<?= base_url('src/dashboard/assets/berkas/pesertaidentitas/' . $usr['identitas']) ?>">Lihat</a>
+                                        <a href="<?= base_url('src/dashboard/assets/berkas/pesertaidentitas/' . $usr['identitas']) ?>" target="_blank">Lihat</a>
                                     <?php } ?>
                                 </td>
                                 <td class="text-center">
                                     <?php if (empty($usr['karya'])) { ?>
                                         <i class="text-danger">Belum Submit</i>
                                     <?php } else { ?>
-                                        <a href="<?= $usr['karya'] ?>">Lihat Karya</a>
+                                        <a href="<?= $usr['karya'] ?>" target="_blank">Lihat Karya</a>
                                     <?php } ?>
                                 </td>
                             </tr>

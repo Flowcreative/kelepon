@@ -46,12 +46,56 @@
                                  </div>
                                  <?php if (!empty($loging['identitas'])) { ?>
                                      <a href="<?= base_url('peserta/matalombaupload/') . $loging['id_lomba']  ?>" class="btn btn-success btn-sm">Ubah Identitas</a>
+                                     <?php if (!empty($loging['karya'])) { ?>
+                                         <a href="<?= base_url('peserta/uploadkarya/') . $loging['id_lomba']  ?>" class="btn btn-success btn-sm mt-3">Ubah Karya</a>
+                                     <?php } else { ?>
+                                         <a href="<?= base_url('peserta/uploadkarya/') . $loging['id_lomba']  ?>" class="btn btn-red btn-sm mt-3">Submit Karya</a>
+                                     <?php } ?>
+
                                      <?php } else {
                                         if (cek_status() == 3) { ?>
                                          <a href="<?= base_url('peserta/matalombaupload/') . $loging['id_lomba']  ?>" class="btn btn-red btn-sm">Unggah Identitas</a>
                                      <?php } else { ?>
-                                         <button class="btn btn-red btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#belumbayar">Unggah Identitas</button>
+
+                                         <?php if ($loging['peserta'] == 0) { ?>
+                                             <form action="<?= base_url() ?>peserta/matalombapeserta" method="post">
+                                                 <div class="row text-center mt-4">
+                                                     <div class="col-6">
+                                                         <?php if ($loging['tim'] == 1) { ?>
+                                                             <p class="mt-2 fw-600 text-lg">Jumlah peserta:</p>
+                                                         <?php } elseif ($loging['tim'] == 2) { ?>
+                                                             <p class="mt-2 fw-600 text-lg">Jumlah tim:</p>
+                                                         <?php } ?>
+                                                     </div>
+                                                     <div class="col-3">
+                                                         <input name="idlomba" type="hidden" value="<?= $loging['id_lomba'] ?>" />
+                                                         <input class="form-control form-sm form-control-solid" name="peserta" type="number" placeholder="" />
+                                                     </div>
+                                                     <div class="col-3">
+                                                         <button class="btn btn-teal" type="submit">Add</button>
+                                                     </div>
+                                                 </div>
+                                             </form>
+                                         <?php } else { ?>
+                                             <form action="<?= base_url() ?>peserta/matalombapeserta" method="post">
+                                                 <div class="row text-center mt-4">
+                                                     <div class="col-6">
+                                                         <p class="mt-2 fw-600 text-lg">Jumlah Peserta:</p>
+                                                     </div>
+                                                     <div class="col-3">
+                                                         <input name="idlomba" type="hidden" value="<?= $loging['id_lomba'] ?>" />
+                                                         <input class="form-control form-sm form-control-solid" name="peserta" type="number" placeholder="" value="<?= $loging['peserta'] ?>" />
+                                                     </div>
+                                                     <div class="col-3">
+                                                         <button class="btn btn-teal" type="submit">Add</button>
+                                                     </div>
+                                                 </div>
+                                             </form>
+                                             <button class="btn btn-red btn-sm mt-3" type="button" data-bs-toggle="modal" data-bs-target="#belumbayar">Unggah Identitas</button>
+                                         <?php } ?>
+
                                      <?php } ?>
+
                                  <?php } ?>
                              </div>
                          </div>

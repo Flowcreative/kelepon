@@ -18,7 +18,7 @@ function sum()
 
     $sum = 0;
     foreach ($log as $biaya) {
-        $sum += str_replace(',', '', $biaya['biaya']);
+        $sum += str_replace(',', '', $biaya['biaya'] * $biaya['peserta']);
     }
 
     return $sum;
@@ -36,4 +36,15 @@ function cek_status()
     }
 
     return $log;
+}
+
+
+function cek_bayar()
+{
+    $kelepon = get_instance();
+    $data =  $kelepon->Peserta_model->get_bayar();
+
+    if (isset($data)) {
+        redirect('peserta/paymentstatus');
+    }
 }
