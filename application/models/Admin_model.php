@@ -166,6 +166,12 @@ class Admin_model extends CI_Model
         $data = $this->db->get()->result_array();
         return $data;
     }
+
+    public function paymentid($id)
+    {
+        $data =  $this->db->get_where('payment', ['id_user' => $id])->row_array();
+        return $data;
+    }
     // ======================= end Pembayaran Management =============================
 
 

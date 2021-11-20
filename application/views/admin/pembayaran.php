@@ -61,15 +61,17 @@
 
                                     <?php } elseif ($usr['status_payment'] == 2) { ?>
 
-                                        <i class="text-success">tripay.co.id progress</i>
+                                        <i class="text-success">Pembayaran Expired</i>
                                     <?php } elseif ($usr['status_payment'] == 3) { ?>
 
                                         <i class="text-success">Pembayaran Success</i>
-                                    <?php } else { ?>
-                                        <i class="text-danger">Pembayaran Pending</i>
+                                    <?php } elseif ($usr['status_payment'] == 4) { ?>
+                                        <i class="text-danger">Pembayaran Gagal</i>
                                     <?php } ?>
                                 </td>
-                                <td class="text-center">Nanti bisa Bayar via kestari</td>
+                                <td class="text-center">
+                                    <a href="<?= base_url('admin/ubahstatusbayar/') . $usr['id_user'] ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> status</a>
+                                </td>
                             </tr>
                         <?php } ?>
                     </tbody>

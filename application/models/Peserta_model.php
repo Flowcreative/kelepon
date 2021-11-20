@@ -254,7 +254,7 @@ class Peserta_model extends CI_Model
             'id' => random_int(1111111, 9999988),
             'id_user' => $id,
             'total' => $post['total'],
-            'status_payment' => 1
+            'status_payment' => 0
         );
         $this->db->insert('payment', $data);
     }

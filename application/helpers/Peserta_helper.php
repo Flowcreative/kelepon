@@ -29,7 +29,7 @@ function cek_status()
     $kelepon = get_instance();
 
     $data = $kelepon->Peserta_model->get_pembayaran();
-    if ($data) {
+    if (!empty($data)) {
         $log = $data['status_payment'];
     } else {
         $log = 0;
@@ -39,15 +39,25 @@ function cek_status()
 }
 
 
-function cek_bayar()
-{
-    $kelepon = get_instance();
-    $data =  $kelepon->Peserta_model->get_bayar();
+// function cek_bayar()
+// {
+//     $kelepon = get_instance();
+//     $data =  $kelepon->Peserta_model->get_pembayaran();
 
-    if (isset($data)) {
-        redirect('peserta/paymentstatus');
-    }
-}
+//     if (empty($data)) {
+//         // redirect('peserta/matalombadipilih');
+//     } else {
+//         if ($data['status_payment'] == 1) {
+//             redirect('peserta/paymentstatus');
+//         } elseif ($data['status_paymet'] == 2) {
+//             redirect('peserta/paymentstatus');
+//         } elseif ($data['status_paymet'] == 3) {
+//             redirect('peserta/paymentstatus');
+//         } else {
+//             redirect('peserta/invoice');
+//         }
+//     }
+// }
 
 function get_bayar()
 {

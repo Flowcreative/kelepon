@@ -7,6 +7,7 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Admin_model');
+        $this->load->model('All_model');
         $data['page'] = $this->uri->segment('2');
         admin_cek();
     }
@@ -75,13 +76,17 @@ class Admin extends CI_Controller
     {
         $id = $this->uri->segment('3');
         $detail = $this->Admin_model->userdetail($id);
-        $session = $this->_session();
-        $data['judul'] = 'Detail User - KLEPON PRAMUKA UNIB';
-        $this->load->view('admin/header', $data);
-        $this->load->view('admin/navbar', $session);
-        $this->load->view('admin/sidebar', $session);
-        $this->load->view('admin/userdetail', $detail);
-        $this->load->view('admin/footer');
+        if (empty($detail)) {
+            redirect('admin/userlist');
+        } else {
+            $session = $this->_session();
+            $data['judul'] = 'Detail User - KLEPON PRAMUKA UNIB';
+            $this->load->view('admin/header', $data);
+            $this->load->view('admin/navbar', $session);
+            $this->load->view('admin/sidebar', $session);
+            $this->load->view('admin/userdetail', $detail);
+            $this->load->view('admin/footer');
+        }
     }
 
     public function edituser()
@@ -92,13 +97,17 @@ class Admin extends CI_Controller
         if ($this->form_validation->run() == false) {
             $id = $this->uri->segment('3');
             $detail = $this->Admin_model->userdetail($id);
-            $session = $this->_session();
-            $data['judul'] = 'edit User - KLEPON PRAMUKA UNIB';
-            $this->load->view('admin/header', $data);
-            $this->load->view('admin/navbar', $session);
-            $this->load->view('admin/sidebar', $session);
-            $this->load->view('admin/useredit', $detail);
-            $this->load->view('admin/footer');
+            if (empty($detail)) {
+                redirect('admin/userlist');
+            } else {
+                $session = $this->_session();
+                $data['judul'] = 'edit User - KLEPON PRAMUKA UNIB';
+                $this->load->view('admin/header', $data);
+                $this->load->view('admin/navbar', $session);
+                $this->load->view('admin/sidebar', $session);
+                $this->load->view('admin/useredit', $detail);
+                $this->load->view('admin/footer');
+            }
         } else {
             $post = $this->input->post();
             $this->Admin_model->edituser($post);
@@ -137,19 +146,27 @@ class Admin extends CI_Controller
     {
         $data = $this->_session();
         $data['datadiri'] = $this->Admin_model->getdetaildatadiri($uri);
-        $data['judul'] = 'Data Diri Peserta - KLEPON PRAMUKA UNIB';
-        $this->load->view('admin/header', $data);
-        $this->load->view('admin/navbar', $data);
-        $this->load->view('admin/sidebar', $data);
-        $this->load->view('admin/datadiripesertadetail', $data);
-        $this->load->view('admin/footer');
+        if (empty($data['datadiri'])) {
+            redirect('admin/datadiripeserta');
+        } else {
+            $data['judul'] = 'Data Diri Peserta - KLEPON PRAMUKA UNIB';
+            $this->load->view('admin/header', $data);
+            $this->load->view('admin/navbar', $data);
+            $this->load->view('admin/sidebar', $data);
+            $this->load->view('admin/datadiripesertadetail', $data);
+            $this->load->view('admin/footer');
+        }
     }
 
     public function printdatadiripeserta()
     {
         $uri = $this->uri->segment('3');
         $data['datadiri'] = $this->Admin_model->getdetaildatadiri($uri);
-        $this->load->view('admin/datadiripesertaprint', $data);
+        if (empty($data['datadiri'])) {
+            redirect('admin/datadiripeserta');
+        } else {
+            $this->load->view('admin/datadiripesertaprint', $data);
+        }
     }
     // ===================================end data Diri Peserta Area ============================================
 
@@ -198,13 +215,17 @@ class Admin extends CI_Controller
             $data = $this->_session();
             $id = $this->uri->segment('3');
             $data['lomba'] = $this->Admin_model->getlomba($id);
-            $data['golongan'] = $this->Admin_model->getallgolongan();
-            $data['judul'] = "Edit Mata Lomba - KELEPON PRAMUKA UNIB";
-            $this->load->view('admin/header', $data);
-            $this->load->view('admin/navbar', $data);
-            $this->load->view('admin/sidebar', $data);
-            $this->load->view('admin/matalombaedit', $data);
-            $this->load->view('admin/footer');
+            if (empty($data['lomba'])) {
+                redirect('admin/inputlomba');
+            } else {
+                $data['golongan'] = $this->Admin_model->getallgolongan();
+                $data['judul'] = "Edit Mata Lomba - KELEPON PRAMUKA UNIB";
+                $this->load->view('admin/header', $data);
+                $this->load->view('admin/navbar', $data);
+                $this->load->view('admin/sidebar', $data);
+                $this->load->view('admin/matalombaedit', $data);
+                $this->load->view('admin/footer');
+            }
         } else {
             $this->_editlomba($post);
         }
@@ -231,7 +252,6 @@ class Admin extends CI_Controller
         $id = $this->uri->segment('3');
         $this->Admin_model->deletelomba($id);
         $this->session->set_flashdata('info', '<div class="alert alert-success alert-solid" role="alert">Lomba berhasil di hapus!</div>');
-
         redirect('admin/inputlomba');
     }
     // ==================================== end Input Data Lomba ================================================
@@ -313,6 +333,37 @@ class Admin extends CI_Controller
         $this->load->view('admin/sidebar');
         $this->load->view('admin/pembayaran', $data);
         $this->load->view('admin/footer');
+    }
+
+    public function ubahstatusbayar()
+    {
+        $post = $this->input->post();
+
+        if (!empty($post)) {
+            $this->_ubahstatusbayar($post);
+        } else {
+            $data = $this->_session();
+            $iduser = $this->uri->segment('3');
+            $data['payment'] = $this->Admin_model->paymentid($iduser);
+            if (empty($data['payment'])) {
+                redirect('admin/pembayaran');
+            } else {
+                $data['judul'] = 'Pembayaran - KELEPON PRAMUKA UNIB';
+                $this->load->view('admin/header', $data);
+                $this->load->view('admin/navbar', $data);
+                $this->load->view('admin/sidebar');
+                $this->load->view('admin/pembayaranubahstatus', $data);
+                $this->load->view('admin/footer');
+            }
+        }
+    }
+
+    private function _ubahstatusbayar($post)
+    {
+        $post['id_user'] = $post['iduser'];
+
+        $this->All_model->switchstatus($post, $post['status']);
+        $this->All_model->invoiceadmin($post);
     }
     // ================================ end Pembayaran Management ===================================
 

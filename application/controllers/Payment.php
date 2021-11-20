@@ -3,6 +3,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Payment extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('All_model');
+    }
+
 
     public function api()
     {
@@ -32,24 +38,46 @@ class Payment extends CI_Controller
             die('Invalid callback event, no action was taken');
         }
 
-        $merchantRef = 'REFF';
-        $totalAmount = 'PEMBAYARAN';
+        $merchantRef = $data->merchant_ref;
+        $totalAmount = $data->total_ammount;
 
+        $payment = $this->db->get_where('payment', ['id_user' => $merchantRef]);
         switch ($data->status) {
                 // Pembayaran sukses, lanjutkan proses di sistem anda dengan
                 // mengupdate status transaksi di database menjadi sukses, contoh:
             case 'PAID':
-                //    
+                //  ubah status success
+                if ($payment) {
+                    if ($totalAmount == $payment['total']) {
+                        $this->All_model->switchstatus($payment, 3);
+                        $this->All_model->createinvoice($data);
+                    }
+                }
+
                 echo json_encode(['success' => true]);
                 break;
 
             case 'EXPIRED':
                 // alurnya disini
+                $status = $payment['status_payment'];
+                if ($status != 3) {
+                    $this->All_model->switchstatus($payment, 2);
+                    $this->All_model->invoice($data);
+                    $this->All_model->deleteurl($payment);
+                }
                 echo json_encode(['success' => true]);
                 break;
 
             case 'FAILED':
-                // alurnya disini
+                //Alurnya disini
+
+                $status = $payment['status_payment'];
+                if ($status != 3) {
+                    $this->All_model->switchstatus($payment, 4);
+                    $this->All_model->invoice($data);
+                    $this->All_model->deleteurl($payment);
+                }
+
                 echo json_encode(['success' => true]);
                 break;
 
