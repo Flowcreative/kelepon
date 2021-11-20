@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2021 at 06:11 PM
--- Server version: 10.4.19-MariaDB
--- PHP Version: 8.0.6
+-- Generation Time: Nov 20, 2021 at 08:59 AM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `klepon`
+-- Database: `kelepon`
 --
 
 -- --------------------------------------------------------
@@ -116,6 +116,36 @@ INSERT INTO `golongan` (`idgolongan`, `golongan`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `invoice`
+--
+
+CREATE TABLE `invoice` (
+  `id` int(11) NOT NULL,
+  `reference` varchar(100) NOT NULL,
+  `merchant_ref` varchar(10) NOT NULL,
+  `payment_method` varchar(50) NOT NULL,
+  `payment_method_code` varchar(25) NOT NULL,
+  `total_amount` int(8) NOT NULL,
+  `fee_merchant` int(6) NOT NULL,
+  `fee_customer` int(6) NOT NULL,
+  `total_fee` int(6) NOT NULL,
+  `amount_received` int(6) NOT NULL,
+  `is_closed_payment` int(2) NOT NULL,
+  `status` varchar(10) NOT NULL,
+  `paid_at` int(25) NOT NULL,
+  `note` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `invoice`
+--
+
+INSERT INTO `invoice` (`id`, `reference`, `merchant_ref`, `payment_method`, `payment_method_code`, `total_amount`, `fee_merchant`, `fee_customer`, `total_fee`, `amount_received`, `is_closed_payment`, `status`, `paid_at`, `note`) VALUES
+(1, 'Admin Kestari Prabu', 'znLaJlqiy', 'Offline sama Si POPON', 'KELEPON', 80000, 0, 0, 0, 80000, 1, '3', 1637391408, 'Terimakasih ????');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `log_activity`
 --
 
@@ -133,7 +163,8 @@ CREATE TABLE `log_activity` (
 --
 
 INSERT INTO `log_activity` (`id`, `id_user`, `id_lomba`, `identitas`, `karya`, `peserta`) VALUES
-(1637319331, 'znLaJlqiy', 2789, '', '', 2);
+(1637393434, 'znLaJlqiy', 2789, '', '', 4),
+(1637393444, 'znLaJlqiy', 4737, '', '', 4);
 
 -- --------------------------------------------------------
 
@@ -189,7 +220,7 @@ CREATE TABLE `payment` (
 --
 
 INSERT INTO `payment` (`id`, `id_user`, `total`, `status_payment`, `kode_chanel`, `chanel`, `admin`) VALUES
-(4545968, 'znLaJlqiy', 80000, 1, 'OVO', 'OVO', 2);
+(5012319, 'znLaJlqiy', 280000, 0, 'MYBVA', 'Maybank Virtual Account', 4250);
 
 -- --------------------------------------------------------
 
@@ -244,7 +275,7 @@ CREATE TABLE `paymenturl` (
 --
 
 INSERT INTO `paymenturl` (`id`, `id_user`, `url`) VALUES
-(5, 'znLaJlqiy', 'https://tripay.co.id/checkout/DEV-T78252808864JAK');
+(9, 'znLaJlqiy', 'https://tripay.co.id/checkout/DEV-T782528147GUGOW');
 
 -- --------------------------------------------------------
 
@@ -320,6 +351,12 @@ ALTER TABLE `golongan`
   ADD PRIMARY KEY (`idgolongan`);
 
 --
+-- Indexes for table `invoice`
+--
+ALTER TABLE `invoice`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `log_activity`
 --
 ALTER TABLE `log_activity`
@@ -384,10 +421,16 @@ ALTER TABLE `golongan`
   MODIFY `idgolongan` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT for table `invoice`
+--
+ALTER TABLE `invoice`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `log_activity`
 --
 ALTER TABLE `log_activity`
-  MODIFY `id` int(16) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1637319332;
+  MODIFY `id` int(16) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1637393445;
 
 --
 -- AUTO_INCREMENT for table `lomba`
@@ -405,7 +448,7 @@ ALTER TABLE `paymentmethod`
 -- AUTO_INCREMENT for table `paymenturl`
 --
 ALTER TABLE `paymenturl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `user_activation`
