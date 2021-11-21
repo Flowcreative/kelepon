@@ -47,10 +47,10 @@ class Payment extends CI_Controller
                 // mengupdate status transaksi di database menjadi sukses, contoh:
             case 'PAID':
                 //  ubah status success
-                if ($payment) {
+                if (empty($payment)) {
                     if ($totalAmount == $payment['total']) {
                         $this->All_model->switchstatus($payment, 3);
-                        $this->All_model->createinvoice($data);
+                        $this->All_model->invoice($data);
                     }
                 }
 

@@ -433,9 +433,6 @@ class Peserta extends CI_Controller
     {
         $data = $this->_session();
         $data['url'] = $this->Peserta_model->get_bayar();
-        $payment = $this->Peserta_model->get_pembayaran();
-        // if (!empty($data['url'])) {
-        //     if ($payment['status_payment'] == 1) {
         $data['payment'] = $this->Peserta_model->get_pembayaran();
         $data['judul'] = 'Status Pembayaran - KELEPON PRAMUKA UNIB';
         $this->load->view('peserta/header', $data);
@@ -443,19 +440,6 @@ class Peserta extends CI_Controller
         $this->load->view('peserta/sidebar');
         $this->load->view('peserta/bayarproses', $data);
         $this->load->view('peserta/footer');
-        // }
-        // } elseif ($payment['status_payment'] == 0) {
-
-        //     $data['payment'] = $this->Peserta_model->get_pembayaran();
-        //     $data['judul'] = 'Status Pembayaran - KELEPON PRAMUKA UNIB';
-        //     $this->load->view('peserta/header', $data);
-        //     $this->load->view('peserta/navbar', $data);
-        //     $this->load->view('peserta/sidebar');
-        //     $this->load->view('peserta/bayarproses', $data);
-        //     $this->load->view('peserta/footer');
-        // } else {
-        //     echo 'goblok';
-        // }
     }
     // ======================================end Peserta Invoice ================================
 
