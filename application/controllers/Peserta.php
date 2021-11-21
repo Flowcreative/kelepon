@@ -365,11 +365,14 @@ class Peserta extends CI_Controller
             }
         } else {
             if ($get['status_payment'] == 3) {
-                redirect('peserta/paymentstatus');
+                // redirect('peserta/paymentstatus');
+                $this->paymentstatus();
             } else if ($get['status_payment'] == 2) {
                 $this->_checkout();
             } else if ($get['status_payment'] == 1) {
                 $this->paymentstatus();
+            } else if ($get['status_payment'] == 4) {
+                $this->_checkout();
             } else {
                 $this->_checkout();
             }

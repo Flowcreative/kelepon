@@ -364,6 +364,7 @@ class Admin extends CI_Controller
         $post['id_user'] = $post['iduser'];
         $this->All_model->switchstatus($post, $post['status']);
         $this->All_model->invoiceadmin($post);
+        $this->All_model->deleteurl($post);
     }
     // ================================ end Pembayaran Management ===================================
 
