@@ -137,6 +137,44 @@ class Auth_model extends CI_Model
     }
     // Lupa password Area=================================================================================
 
+    // profile Area=====================================================================================
+    public function gantipp($data)
+    {
+        $id = $this->session->userdata('id');
+        $this->db->set('foto_profile', $data);
+        $this->db->where('id', $id);
+        $this->db->update('user');
+    }
+
+    public function updateprofile($post)
+    {
+        $id = $this->session->userdata('id');
+        $upd = array(
+            'nama' => $post['nama'],
+            'email' => $post['email'],
+            'telepon' => $post['telepon']
+        );
+        $this->db->set($upd);
+        $this->db->where('id', $id);
+        $this->db->update('user');
+    }
+
+    public function cekpwd()
+    {
+        $id = $this->session->userdata('id');
+        $user = $this->db->get_where('user', ['id' => $id])->row_array();
+        return $user;
+    }
+
+    public function updatepassword($pwd)
+    {
+        $id = $this->session->userdata('id');
+        $this->db->set('password', $pwd);
+        $this->db->where('id', $id);
+        $this->db->update('user');
+    }
+    // end profile Area=================================================================================
+
     // Public Area =======================================================================================
     public function idsession()
     {

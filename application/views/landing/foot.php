@@ -2,7 +2,7 @@
   <footer class="footer_area p_120">
       <div class="container">
           <div class="row footer_inner">
-              <div class="col-lg-4 col-sm-4">
+              <div class="col-lg-4 col-sm-4 mb-4">
                   <aside class="f_widget ab_widget">
                       <div class="f_title">
                           <h3>Sponsorship</h3>
@@ -14,7 +14,7 @@
                       </p>
                   </aside>
               </div>
-              <div class="col-lg-4 col-sm-4 justify-content-center">
+              <div class="col-lg-4 col-sm-4 justify-content-center mb-4">
                   <aside class="f_widget news_widget">
                       <div class="f_title">
                           <h3>Tentang Kami</h3>
@@ -42,15 +42,14 @@
                           </li>
                           <li>
                               <a href="#">
-                                  <img src="<?= base_url('src/landing/img/mediapartner/') ?>update.png" alt="" height="65px" width="120px">
+                                  <img src="<?= base_url('src/landing/img/mediapartner/') ?>update.png" alt="" height="fit-content" width="130px">
                               </a>
                           </li>
                       </ul>
                   </aside>
               </div>
           </div>
-          <p>
-              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+          <p style="padding-top: 50px;" <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
               Copyright &copy;<script>
                   document.write(new Date().getFullYear());
               </script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>.Downloaded from <a href="https://themeslab.org/" target="_blank">Themeslab</a>

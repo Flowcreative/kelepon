@@ -3,23 +3,7 @@
         <nav class="sidenav shadow-right sidenav-light">
             <div class="sidenav-menu">
                 <div class="nav accordion" id="accordionSidenav">
-                    <!-- Sidenav Menu Heading (Account)-->
-                    <!-- * * Note: * * Visible only on and above the sm breakpoint-->
-                    <!-- <div class="sidenav-menu-heading d-sm-none">Account</div> -->
-                    <!-- Sidenav Link (Alerts)-->
-                    <!-- * * Note: * * Visible only on and above the sm breakpoint-->
-                    <!-- <a class="nav-link d-sm-none" href="#!">
-                        <div class="nav-link-icon"><i data-feather="bell"></i></div>
-                        Alerts
-                        <span class="badge bg-warning-soft text-warning ms-auto">4 New!</span>
-                    </a> -->
-                    <!-- Sidenav Link (Messages)-->
-                    <!-- * * Note: * * Visible only on and above the sm breakpoint-->
-                    <!-- <a class="nav-link d-sm-none" href="#!">
-                        <div class="nav-link-icon"><i data-feather="mail"></i></div>
-                        Messages
-                        <span class="badge bg-success-soft text-success ms-auto">2 New!</span>
-                    </a> -->
+
                     <!-- Sidenav Menu Heading (Core)-->
                     <div class="sidenav-menu-heading">Core</div>
                     <!-- Sidenav Accordion (Dashboard)-->
@@ -41,10 +25,11 @@
                     <!-- Sidenav Heading (UI Toolkit)-->
                     <div class="sidenav-menu-heading">Lomba Management</div>
                     <!-- Sidenav Accordion (Utilities)-->
-                    <a class="nav-link" href="<?= base_url('admin/userlist') ?>">
+                    <a class="nav-link" href="<?= base_url('admin/inputlomba') ?>">
                         <div class="nav-link-icon"><i class="fas fa-flag-checkered"></i></div>
                         Mata Lomba
                     </a>
+<<<<<<< HEAD
                     <div class="sidenav-menu-heading">Core Setting</div>
                     <!-- Sidenav Accordion (Utilities)-->
                     <a class="nav-link" href="<?= base_url('core/mail') ?>">
@@ -58,19 +43,32 @@
                     <a class="nav-link" href="<?= base_url('core/logpeserta') ?>">
                         <div class="nav-link-icon"><i class="fas fa-history"></i></div>
                         Log Admin
+=======
+                    <a class="nav-link" href="<?= base_url('admin/siaga') ?>">
+                        <div class="nav-link-icon"><i class="fas fa-flag"></i></div>
+                        Peserta Siaga
+                    </a>
+                    <a class="nav-link" href="<?= base_url('admin/penggalang') ?>">
+                        <div class="nav-link-icon"><i class="fas fa-flag"></i></div>
+                        Peserta Penggalang
+                    </a>
+                    <a class="nav-link" href="<?= base_url('admin/penegak') ?>">
+                        <div class="nav-link-icon"><i class="fas fa-flag"></i></div>
+                        Peserta Penegak
+                    </a>
+                    <a class="nav-link" href="<?= base_url('admin/pandega') ?>">
+                        <div class="nav-link-icon"><i class="fas fa-flag"></i></div>
+                        Peserta Pandega (Umum)
+>>>>>>> dump/main
                     </a>
                     <!-- Sidenav Heading (Addons)-->
-                    <!-- <div class="sidenav-menu-heading">Plugins</div> -->
-                    <!-- Sidenav Link (Charts)-->
-                    <!-- <a class="nav-link" href="charts.html">
-                        <div class="nav-link-icon"><i data-feather="bar-chart"></i></div>
-                        Charts
-                    </a> -->
-                    <!-- Sidenav Link (Tables)-->
-                    <!-- <a class="nav-link" href="tables.html">
-                        <div class="nav-link-icon"><i data-feather="filter"></i></div>
-                        Tables
-                    </a> -->
+                    <div class="sidenav-menu-heading">Plugins</div>
+                    <!-- Sidenav Link (Pembayran)-->
+                    <a class="nav-link" href="<?= base_url('admin/pembayaran') ?>">
+                        <div class="nav-link-icon"><i class="fas fa-money-bill-wave"></i></div>
+                        Pembayaran
+                    </a>
+
                 </div>
             </div>
             <!-- Sidenav Footer-->

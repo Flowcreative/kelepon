@@ -7,6 +7,7 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Admin_model');
+        $this->load->model('All_model');
         $data['page'] = $this->uri->segment('2');
         admin_cek();
     }
@@ -75,13 +76,17 @@ class Admin extends CI_Controller
     {
         $id = $this->uri->segment('3');
         $detail = $this->Admin_model->userdetail($id);
-        $session = $this->_session();
-        $data['judul'] = 'Detail User - KLEPON PRAMUKA UNIB';
-        $this->load->view('admin/header', $data);
-        $this->load->view('admin/navbar', $session);
-        $this->load->view('admin/sidebar', $session);
-        $this->load->view('admin/userdetail', $detail);
-        $this->load->view('admin/footer');
+        if (empty($detail)) {
+            redirect('admin/userlist');
+        } else {
+            $session = $this->_session();
+            $data['judul'] = 'Detail User - KLEPON PRAMUKA UNIB';
+            $this->load->view('admin/header', $data);
+            $this->load->view('admin/navbar', $session);
+            $this->load->view('admin/sidebar', $session);
+            $this->load->view('admin/userdetail', $detail);
+            $this->load->view('admin/footer');
+        }
     }
 
     public function edituser()
@@ -92,13 +97,17 @@ class Admin extends CI_Controller
         if ($this->form_validation->run() == false) {
             $id = $this->uri->segment('3');
             $detail = $this->Admin_model->userdetail($id);
-            $session = $this->_session();
-            $data['judul'] = 'edit User - KLEPON PRAMUKA UNIB';
-            $this->load->view('admin/header', $data);
-            $this->load->view('admin/navbar', $session);
-            $this->load->view('admin/sidebar', $session);
-            $this->load->view('admin/useredit', $detail);
-            $this->load->view('admin/footer');
+            if (empty($detail)) {
+                redirect('admin/userlist');
+            } else {
+                $session = $this->_session();
+                $data['judul'] = 'edit User - KLEPON PRAMUKA UNIB';
+                $this->load->view('admin/header', $data);
+                $this->load->view('admin/navbar', $session);
+                $this->load->view('admin/sidebar', $session);
+                $this->load->view('admin/useredit', $detail);
+                $this->load->view('admin/footer');
+            }
         } else {
             $post = $this->input->post();
             $this->Admin_model->edituser($post);
@@ -137,21 +146,226 @@ class Admin extends CI_Controller
     {
         $data = $this->_session();
         $data['datadiri'] = $this->Admin_model->getdetaildatadiri($uri);
-        $data['judul'] = 'Data Diri Peserta - KLEPON PRAMUKA UNIB';
-        $this->load->view('admin/header', $data);
-        $this->load->view('admin/navbar', $data);
-        $this->load->view('admin/sidebar', $data);
-        $this->load->view('admin/datadiripesertadetail', $data);
-        $this->load->view('admin/footer');
+        if (empty($data['datadiri'])) {
+            redirect('admin/datadiripeserta');
+        } else {
+            $data['judul'] = 'Data Diri Peserta - KLEPON PRAMUKA UNIB';
+            $this->load->view('admin/header', $data);
+            $this->load->view('admin/navbar', $data);
+            $this->load->view('admin/sidebar', $data);
+            $this->load->view('admin/datadiripesertadetail', $data);
+            $this->load->view('admin/footer');
+        }
     }
 
     public function printdatadiripeserta()
     {
         $uri = $this->uri->segment('3');
         $data['datadiri'] = $this->Admin_model->getdetaildatadiri($uri);
-        $this->load->view('admin/datadiripesertaprint', $data);
+        if (empty($data['datadiri'])) {
+            redirect('admin/datadiripeserta');
+        } else {
+            $this->load->view('admin/datadiripesertaprint', $data);
+        }
     }
     // ===================================end data Diri Peserta Area ============================================
+
+    // ==================================== Input Data Lomba ====================================================
+    public function inputlomba()
+    {
+        $post = $this->input->post();
+        if ($post) {
+            $this->_inputlomba($post);
+        } else {
+            $data = $this->_session();
+            $data['golongan'] = $this->Admin_model->getallgolongan();
+            $data['lomba'] = $this->Admin_model->getlistlomba();
+            $data['judul'] = "Mata Lomba - KELEPON PRAMUKA UNIB";
+            $this->load->view('admin/header', $data);
+            $this->load->view('admin/navbar', $data);
+            $this->load->view('admin/sidebar', $data);
+            $this->load->view('admin/matalomba', $data);
+            $this->load->view('admin/footer');
+        }
+    }
+
+    private function _inputlomba($post)
+    {
+        $id = random_int(1000, 9999);
+
+        $data = array(
+            'id' => $id,
+            'id_golongan' => $post['golongan'],
+            'matalomba' => $post['nama'],
+            'biaya' => $post['biaya'],
+            'status' => $post['status'],
+            'tim' => $post['tim']
+        );
+
+        $this->Admin_model->inputlomba($data);
+        $this->session->set_flashdata('info', '<div class="alert alert-success alert-solid" role="alert">Lomba berhasil di tambahkan!</div>');
+
+        redirect('admin/inputlomba');
+    }
+
+    public function editlomba()
+    {
+        $post = $this->input->post();
+        if (!$post) {
+            $data = $this->_session();
+            $id = $this->uri->segment('3');
+            $data['lomba'] = $this->Admin_model->getlomba($id);
+            if (empty($data['lomba'])) {
+                redirect('admin/inputlomba');
+            } else {
+                $data['golongan'] = $this->Admin_model->getallgolongan();
+                $data['judul'] = "Edit Mata Lomba - KELEPON PRAMUKA UNIB";
+                $this->load->view('admin/header', $data);
+                $this->load->view('admin/navbar', $data);
+                $this->load->view('admin/sidebar', $data);
+                $this->load->view('admin/matalombaedit', $data);
+                $this->load->view('admin/footer');
+            }
+        } else {
+            $this->_editlomba($post);
+        }
+    }
+
+    private function _editlomba($post)
+    {
+        $id = $post['id'];
+        $data = array(
+            'id_golongan' => $post['golongan'],
+            'matalomba' => $post['nama'],
+            'biaya' => $post['biaya'],
+            'status' => $post['status'],
+            'tim' => $post['tim']
+        );
+
+        $this->Admin_model->editlomba($id, $data);
+        $this->session->set_flashdata('info', '<div class="alert alert-success alert-solid" role="alert">Lomba berhasil di update!</div>');
+        redirect('admin/inputlomba');
+    }
+
+    public function deletelomba()
+    {
+        $id = $this->uri->segment('3');
+        $this->Admin_model->deletelomba($id);
+        $this->session->set_flashdata('info', '<div class="alert alert-success alert-solid" role="alert">Lomba berhasil di hapus!</div>');
+        redirect('admin/inputlomba');
+    }
+    // ==================================== end Input Data Lomba ================================================
+
+    // ===================================== Data pendaftar Lomba ==================================================
+    public function siaga()
+    {
+        $data = $this->_session();
+        $data['peserta'] = $this->Admin_model->peserta(1);
+        $data['gol'] = 'Siaga';
+        $data['judul'] = "Pendaftar Siaga - KELEPON PRAMUKA UNIB";
+        $this->load->view('admin/header', $data);
+        $this->load->view('admin/navbar', $data);
+        $this->load->view('admin/sidebar', $data);
+        $this->load->view('admin/pesertadaftar', $data);
+        $this->load->view('admin/footer');
+    }
+    public function penggalang()
+    {
+        $data = $this->_session();
+        $data['peserta'] = $this->Admin_model->peserta(2);
+        $data['gol'] = 'Penggalang';
+        $data['judul'] = "Pendaftar Penggalang - KELEPON PRAMUKA UNIB";
+        $this->load->view('admin/header', $data);
+        $this->load->view('admin/navbar', $data);
+        $this->load->view('admin/sidebar', $data);
+        $this->load->view('admin/pesertadaftar', $data);
+        $this->load->view('admin/footer');
+    }
+    public function penegak()
+    {
+        $data = $this->_session();
+        $data['peserta'] = $this->Admin_model->peserta(3);
+        $data['gol'] = 'Penegak';
+        $data['judul'] = "Pendaftar Penegak - KELEPON PRAMUKA UNIB";
+        $this->load->view('admin/header', $data);
+        $this->load->view('admin/navbar', $data);
+        $this->load->view('admin/sidebar', $data);
+        $this->load->view('admin/pesertadaftar', $data);
+        $this->load->view('admin/footer');
+    }
+
+    public function pandega()
+    {
+        $data = $this->_session();
+        $data['peserta'] = $this->Admin_model->peserta(4, 5);
+        $data['gol'] = 'Pandega & Umum';
+        $data['judul'] = "Pendaftar Siaga - KELEPON PRAMUKA UNIB";
+        $this->load->view('admin/header', $data);
+        $this->load->view('admin/navbar', $data);
+        $this->load->view('admin/sidebar', $data);
+        $this->load->view('admin/pesertadaftar', $data);
+        $this->load->view('admin/footer');
+    }
+    // ===================================== end Data pendaftar Lomba ==============================================
+
+    //================================== Account Management =====================================
+    public function profile()
+    {
+        $role = $this->session->userdata('role');
+        $data = $this->_session();
+        $data['judul'] = 'Account Settings - KELEPON PRAMUKA UNIB';
+        $this->load->view('admin/header', $data);
+        $this->load->view('admin/navbar', $data);
+        $this->load->view('admin/sidebar');
+        $this->load->view('all/userprofile', $data);
+        $this->load->view('admin/footer');
+    }
+    //================================== end Account Management =================================
+
+    //================================= Pembayaran Management ===================================
+    public function pembayaran()
+    {
+        $data = $this->_session();;
+        $data['bayar'] = $this->Admin_model->get_pembayaran();
+        $data['judul'] = 'Pembayaran - KELEPON PRAMUKA UNIB';
+        $this->load->view('admin/header', $data);
+        $this->load->view('admin/navbar', $data);
+        $this->load->view('admin/sidebar');
+        $this->load->view('admin/pembayaran', $data);
+        $this->load->view('admin/footer');
+    }
+
+    public function ubahstatusbayar()
+    {
+        $post = $this->input->post();
+
+        if (!empty($post)) {
+            $this->_ubahstatusbayar($post);
+        } else {
+            $data = $this->_session();
+            $iduser = $this->uri->segment('3');
+            $data['payment'] = $this->Admin_model->paymentid($iduser);
+            if (empty($data['payment'])) {
+                redirect('admin/pembayaran');
+            } else {
+                $data['judul'] = 'Pembayaran - KELEPON PRAMUKA UNIB';
+                $this->load->view('admin/header', $data);
+                $this->load->view('admin/navbar', $data);
+                $this->load->view('admin/sidebar');
+                $this->load->view('admin/pembayaranubahstatus', $data);
+                $this->load->view('admin/footer');
+            }
+        }
+    }
+
+    private function _ubahstatusbayar($post)
+    {
+        $post['id_user'] = $post['iduser'];
+
+        $this->All_model->switchstatus($post, $post['status']);
+        $this->All_model->invoiceadmin($post);
+    }
+    // ================================ end Pembayaran Management ===================================
 
     private function _session()
     {
@@ -159,6 +373,7 @@ class Admin extends CI_Controller
         $data['user'] = array(
             'nama' => $user['nama'],
             'email' => $user['email'],
+            'telepon' => $user['telepon'],
             'pp' => $user['foto_profile']
         );
         return $data;

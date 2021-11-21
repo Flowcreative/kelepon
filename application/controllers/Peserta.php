@@ -205,16 +205,261 @@ class Peserta extends CI_Controller
     // ================================= Mata Lomba Area ===================================
     public function matalomba()
     {
+        if (cek_status() == 3) {
+            $this->matalombadipilih();
+        } else {
+            // cek_bayar();
+            $data = $this->_session();
+            $data['lomba'] = $this->Peserta_model->getmatalomba();
+            $data['judul'] = 'Mata Lomba - KELEPON PRAMUKA UNIB';
+            $this->load->view('peserta/header', $data);
+            $this->load->view('peserta/navbar', $data);
+            $this->load->view('peserta/sidebar');
+            $this->load->view('peserta/matalomba', $data);
+            $this->load->view('peserta/footer');
+        }
+    }
+
+    public function pilihmatalomba()
+    {
+        // cek_bayar();
+
+        $idlomba = $this->uri->segment('3');
+        $this->Peserta_model->pilihlomba($idlomba);
+        redirect('peserta/matalomba');
+    }
+
+    public function batalmatalomba()
+    {
+        $idlomba = $this->uri->segment('3');
+        $this->Peserta_model->batallomba($idlomba);
+        redirect('peserta/matalomba');
+    }
+
+    public function matalombadipilih()
+    {
         $data = $this->_session();
-        $data['judul'] = 'Mata Lomba - KELEPON PRAMUKA UNIB';
+        $data['lomba'] = $this->Peserta_model->getmatalomba();
+        $data['log'] = $this->Peserta_model->getlogid();
+        $data['judul'] = 'Mata Lomba Dipilih - KELEPON PRAMUKA UNIB';
         $this->load->view('peserta/header', $data);
         $this->load->view('peserta/navbar', $data);
         $this->load->view('peserta/sidebar');
-        $this->load->view('peserta/matalomba');
+        $this->load->view('peserta/matalombadipilih', $data);
         $this->load->view('peserta/footer');
+    }
+
+    public function uploadkarya()
+    {
+        $post = $this->input->post();
+
+        if ($post) {
+            $this->Peserta_model->uploadkarya($post);
+            redirect('peserta/matalombadipilih');
+        } else {
+            $data = $this->_session();
+            $data['uri'] = $this->uri->segment('3');
+            $data['log'] = $this->Peserta_model->getlog($data['uri']);
+            if (!isset($data['log'])) {
+                redirect('peserta/matalombadipilih');
+            } else {
+                $data['judul'] = 'Upload Karya - KELEPON PRAMUKA UNIB';
+                $this->load->view('peserta/header', $data);
+                $this->load->view('peserta/navbar', $data);
+                $this->load->view('peserta/sidebar');
+                $this->load->view('peserta/uploadkarya', $data);
+                $this->load->view('peserta/footer');
+            }
+        }
+    }
+
+    public function matalombapeserta()
+    {
+        $post = $this->input->post();
+        $this->Peserta_model->matalombapeserta($post);
+        redirect('peserta/matalombadipilih');
+    }
+
+    public function matalombaupload()
+    {
+        $post = $this->input->post();
+        if ($post) {
+            $idlomba = $this->uri->segment('3');
+            $this->_matalombaupload($idlomba);
+        } else {
+            $lom = $this->uri->segment('3');
+            $data = $this->_session();
+            $data['log'] = $this->Peserta_model->getlog($lom);
+            if (!isset($data['log'])) {
+                redirect('peserta/matalombadipilih');
+            } else {
+                $data['judul'] = 'Upload Data Peserta - KELEPON PRAMUKA UNIB';
+                $this->load->view('peserta/header', $data);
+                $this->load->view('peserta/navbar', $data);
+                $this->load->view('peserta/sidebar');
+                $this->load->view('peserta/matalombaupload', $data);
+                $this->load->view('peserta/footer');
+            }
+        }
+    }
+
+    private function _matalombaupload($data)
+    {
+        $post = $this->input->post();
+        $id = $this->session->userdata('id');
+
+        $upload = $_FILES['identitas']['name'];
+        $ext = pathinfo($upload, PATHINFO_EXTENSION);
+
+        if ($upload) {
+            $config['allowed_types']        = 'pdf';
+            $config['max_size']             = 5000;
+            $config['upload_path']          = './src/dashboard/assets/berkas/pesertaidentitas';
+            $config['file_name']            = $id . $data . '.' . $ext;
+            $this->load->library('upload', $config);
+
+            unlink($config['upload_path'] . '/' . $post['hapus']);
+
+
+            if ($this->upload->do_upload('identitas')) {
+                $newimage = $this->upload->data('file_name');
+                $this->Peserta_model->uploadpeserta($newimage, $data);
+            } else {
+                echo $this->upload->display_errors();
+            }
+        }
+
+        redirect('peserta/matalombadipilih');
     }
     // ================================= end Mata Lomba Area ================================
 
+    //================================== Account Management =====================================
+    public function profile()
+    {
+        $data = $this->_session();
+        $data['judul'] = 'Account Settings - KELEPON PRAMUKA UNIB';
+        $this->load->view('peserta/header', $data);
+        $this->load->view('peserta/navbar', $data);
+        $this->load->view('peserta/sidebar');
+        $this->load->view('all/userprofile', $data);
+        $this->load->view('peserta/footer');
+    }
+
+    // ======================================Peserta Invoice ====================================
+    public function invoice()
+    {
+
+        $get = $this->Peserta_model->get_pembayaran();
+        if (empty($get)) {
+            $data = $this->_session();
+            $data['log'] = $this->Peserta_model->getlogid();
+            if (!empty($data['log'])) {
+                $data['judul'] = 'Pembayaran - KELEPON PRAMUKA UNIB';
+                $this->load->view('peserta/header', $data);
+                $this->load->view('peserta/navbar', $data);
+                $this->load->view('peserta/sidebar');
+                $this->load->view('peserta/invoice', $data);
+                $this->load->view('peserta/footer');
+            } else {
+                redirect('peserta/pilihmatalomba');
+            }
+        } else {
+            if ($get['status_payment'] == 3) {
+                redirect('peserta/matalombadipilih');
+            } else if ($get['status_payment'] == 2) {
+                $this->_checkout();
+            } else {
+                $this->_checkout();
+            }
+        }
+    }
+
+    private function _checkout()
+    {
+        $data = $this->_session();
+        $data['get'] = $this->Peserta_model->get_pembayaran();
+        $data['chanel'] = $this->Peserta_model->get_chanel();
+        $data['judul'] = 'Pembayaran - KELEPON PRAMUKA UNIB';
+        $this->load->view('peserta/header', $data);
+        $this->load->view('peserta/navbar', $data);
+        $this->load->view('peserta/sidebar');
+        $this->load->view('peserta/invoicemetode', $data);
+        $this->load->view('peserta/footer');
+    }
+
+    public function inputchanel()
+    {
+        // cek_bayar();
+
+        $chanel = $this->uri->segment('3');
+        $this->Peserta_model->inputchanel($chanel);
+        redirect('peserta/invoice');
+    }
+
+    public function inputtotal()
+    {
+        // cek_bayar();
+
+        $post =  $this->input->post();
+        $this->Peserta_model->inputtotal($post);
+        redirect('peserta/invoice');
+    }
+
+    public function bayar()
+    {
+        // cek_bayar();
+
+        $user = $this->Peserta_model->session();
+        $pay = $this->Peserta_model->get_pembayaran();
+
+        $post = array(
+            'id' => $pay['id_user'],
+            'total' => $pay['total'],
+            'kode_chanel' => $pay['kode_chanel'],
+            'nama' => $user['nama'],
+            'email' => $user['email'],
+            'telepon' => $user['telepon']
+        );
+
+        $lomba = $this->Peserta_model->getlogid();
+        $url = regTripay($post, $lomba);
+
+        $this->Peserta_model->paymenturl($url);
+
+        redirect('peserta/paymentstatus');
+    }
+
+    public function paymentstatus()
+    {
+        $data = $this->_session();
+        $data['url'] = $this->Peserta_model->get_bayar();
+        $payment = $this->Peserta_model->get_pembayaran();
+        // if (!empty($data['url'])) {
+        //     if ($payment['status_payment'] == 1) {
+        $data['payment'] = $this->Peserta_model->get_pembayaran();
+        $data['judul'] = 'Status Pembayaran - KELEPON PRAMUKA UNIB';
+        $this->load->view('peserta/header', $data);
+        $this->load->view('peserta/navbar', $data);
+        $this->load->view('peserta/sidebar');
+        $this->load->view('peserta/bayarproses', $data);
+        $this->load->view('peserta/footer');
+        // }
+        // } elseif ($payment['status_payment'] == 0) {
+
+        //     $data['payment'] = $this->Peserta_model->get_pembayaran();
+        //     $data['judul'] = 'Status Pembayaran - KELEPON PRAMUKA UNIB';
+        //     $this->load->view('peserta/header', $data);
+        //     $this->load->view('peserta/navbar', $data);
+        //     $this->load->view('peserta/sidebar');
+        //     $this->load->view('peserta/bayarproses', $data);
+        //     $this->load->view('peserta/footer');
+        // } else {
+        //     echo 'goblok';
+        // }
+    }
+    // ======================================end Peserta Invoice ================================
+
+    //================================== end Account Management =================================
     private function _session()
     {
         $user = $this->Peserta_model->session();
