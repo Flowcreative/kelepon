@@ -42,8 +42,21 @@ Pada Kegiatan ini perencanaan peserta terdiri dari berbagai golongan dari golong
 - (peserta) Fitur Pilih Merchan
 - (Admin) Management Pembayaran
 
-19 Nov 2012 18:29
+19 Nov 2021 18:29
 - FIx Request Pembayaran
+
+
+21 Nov 2021 14:32
+# Update System
+- User Redirect
+
+# Upadate database
+- invoice
+- log_activity
+- lomba
+- payment
+- payment method
+- paymenturl
 
 
 #code_status
