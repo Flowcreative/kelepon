@@ -29,21 +29,12 @@
                         <div class="nav-link-icon"><i class="fas fa-flag-checkered"></i></div>
                         Mata Lomba
                     </a>
-<<<<<<< HEAD
                     <div class="sidenav-menu-heading">Core Setting</div>
                     <!-- Sidenav Accordion (Utilities)-->
                     <a class="nav-link" href="<?= base_url('core/mail') ?>">
                         <div class="nav-link-icon"><i class="fas fa-envelope"></i></div>
                         E-Mail Blask
                     </a>
-                    <a class="nav-link" href="<?= base_url('core/logadmin') ?>">
-                        <div class="nav-link-icon"><i class="fas fa-history"></i></div>
-                        Log Admin
-                    </a>
-                    <a class="nav-link" href="<?= base_url('core/logpeserta') ?>">
-                        <div class="nav-link-icon"><i class="fas fa-history"></i></div>
-                        Log Admin
-=======
                     <a class="nav-link" href="<?= base_url('admin/siaga') ?>">
                         <div class="nav-link-icon"><i class="fas fa-flag"></i></div>
                         Peserta Siaga
@@ -59,7 +50,6 @@
                     <a class="nav-link" href="<?= base_url('admin/pandega') ?>">
                         <div class="nav-link-icon"><i class="fas fa-flag"></i></div>
                         Peserta Pandega (Umum)
->>>>>>> dump/main
                     </a>
                     <!-- Sidenav Heading (Addons)-->
                     <div class="sidenav-menu-heading">Plugins</div>
