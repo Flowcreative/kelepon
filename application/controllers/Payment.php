@@ -41,17 +41,21 @@ class Payment extends CI_Controller
         $merchantRef = $data->merchant_ref;
         $totalAmount = $data->total_ammount;
 
-        $payment = $this->db->get_where('payment', ['id_user' => $merchantRef]);
+        $payment = $this->db->get_where('payment', ['id_user' => $merchantRef])->row_array();
         switch ($data->status) {
                 // Pembayaran sukses, lanjutkan proses di sistem anda dengan
                 // mengupdate status transaksi di database menjadi sukses, contoh:
             case 'PAID':
                 //  ubah status success
-                if ($payment) {
+                if ($payment != NULL) {
                     if ($totalAmount == $payment['total']) {
                         $this->All_model->switchstatus($payment, 3);
-                        $this->All_model->createinvoice($data);
+                        $this->All_model->invoice($data);
                     }
+
+                    echo 'ga goblok';
+                } else {
+                    echo 'goblok';
                 }
 
                 echo json_encode(['success' => true]);
