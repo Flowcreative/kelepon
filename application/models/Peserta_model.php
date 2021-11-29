@@ -250,13 +250,30 @@ class Peserta_model extends CI_Model
     public function inputtotal($post)
     {
         $id = $this->session->userdata('id');
+        $cekdulu = $this->db->get_where('payment', ['id_user' => $id])->row_array();
+        if (!empty($cekdulu)) {
+            $this->_updatetotal($post, $id);
+        } else {
+            $data = array(
+                'id' => random_int(1111111, 9999988),
+                'id_user' => $id,
+                'total' => $post['total'],
+                'status_payment' => 0
+            );
+            $this->db->insert('payment', $data);
+        }
+    }
+
+    private function _updatetotal($post, $id)
+    {
         $data = array(
             'id' => random_int(1111111, 9999988),
-            'id_user' => $id,
             'total' => $post['total'],
             'status_payment' => 0
         );
-        $this->db->insert('payment', $data);
+        $this->db->set($data);
+        $this->db->where('id_user', $id);
+        $this->db->update('payment');
     }
 
     public function ubahstatus($sts)
