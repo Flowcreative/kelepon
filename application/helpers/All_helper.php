@@ -22,7 +22,7 @@ function infoview()
 
 function hitung($get)
 {
-    $apiKey = 'DEV-VJFfhlihKIfBEjCi4S9wn2M6EkUuQhFsfqQoVB0t';
+    $apiKey = 'EwxwKfmnGHqRc6AGMdABObtQf06UkWVFn0pmDSQ2';
 
     $payload = [
         'code'    => $get['kode_chanel'],
@@ -33,7 +33,7 @@ function hitung($get)
 
     curl_setopt_array($curl, [
         CURLOPT_FRESH_CONNECT  => true,
-        CURLOPT_URL            => 'https://tripay.co.id/api-sandbox/merchant/fee-calculator?' . http_build_query($payload),
+        CURLOPT_URL            => 'https://tripay.co.id/api/merchant/fee-calculator?' . http_build_query($payload),
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_HEADER         => false,
         CURLOPT_HTTPHEADER     => ['Authorization: Bearer ' . $apiKey],
@@ -60,9 +60,9 @@ function hitung($get)
 
 function regTripay($post, $log)
 {
-    $apiKey       = 'DEV-VJFfhlihKIfBEjCi4S9wn2M6EkUuQhFsfqQoVB0t';
-    $privateKey   = 'Dsut2-rCiAR-6kwMu-9uBB2-MZEXz';
-    $merchantCode = 'T7825';
+    $apiKey       = 'EwxwKfmnGHqRc6AGMdABObtQf06UkWVFn0pmDSQ2';
+    $privateKey   = 'OTTNz-pEBFM-sUnKI-zJ3tK-CekGS';
+    $merchantCode = 'T7863';
     $merchantRef  = $post['id'];
     $amount       = $post['total'];
 
@@ -79,11 +79,11 @@ function regTripay($post, $log)
                 'name'        => 'Pramuka Universitas Bengkulu',
                 'price'       => $post['total'],
                 'quantity'    => 1,
-                'product_url' => 'https://tokokamu.com/product/nama-produk-1',
-                'image_url'   => 'https://tokokamu.com/product/nama-produk-1.jpg',
+                'product_url' => 'https://kelepon.online/peserta/matalomba',
+                'image_url'   => 'https://kelepon.online/bsbit/src/dashboard/assets/img/user/default.png',
             ],
         ],
-        'return_url'   => 'http://192.168.0.114/kelepon/peserta/paymentstatus',
+        'return_url'   => 'https://kelepon.online/peserta/paymentstatus',
         'expired_time' => (time() + (24 * 60 * 60)), // 24 jam
         'signature'    => hash_hmac('sha256', $merchantCode . $merchantRef . $amount, $privateKey)
     ];
@@ -92,7 +92,7 @@ function regTripay($post, $log)
 
     curl_setopt_array($curl, [
         CURLOPT_FRESH_CONNECT  => true,
-        CURLOPT_URL            => 'https://tripay.co.id/api-sandbox/transaction/create',
+        CURLOPT_URL            => 'https://tripay.co.id/api/transaction/create',
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_HEADER         => false,
         CURLOPT_HTTPHEADER     => ['Authorization: Bearer ' . $apiKey],

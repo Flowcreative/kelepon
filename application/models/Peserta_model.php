@@ -263,7 +263,6 @@ class Peserta_model extends CI_Model
             $this->db->insert('payment', $data);
         }
     }
-
     private function _updatetotal($post, $id)
     {
         $data = array(
