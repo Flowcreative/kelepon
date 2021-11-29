@@ -29,12 +29,6 @@
                         <div class="nav-link-icon"><i class="fas fa-flag-checkered"></i></div>
                         Mata Lomba
                     </a>
-                    <div class="sidenav-menu-heading">Core Setting</div>
-                    <!-- Sidenav Accordion (Utilities)-->
-                    <a class="nav-link" href="<?= base_url('core/mail') ?>">
-                        <div class="nav-link-icon"><i class="fas fa-envelope"></i></div>
-                        E-Mail Blask
-                    </a>
                     <a class="nav-link" href="<?= base_url('admin/siaga') ?>">
                         <div class="nav-link-icon"><i class="fas fa-flag"></i></div>
                         Peserta Siaga
