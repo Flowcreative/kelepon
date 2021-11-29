@@ -21,7 +21,7 @@ class Payment extends CI_Controller
             : '';
 
         // Isi dengan private merchant key anda
-        $privateKey = 'Dsut2-rCiAR-6kwMu-9uBB2-MZEXz';
+        $privateKey = 'OTTNz-pEBFM-sUnKI-zJ3tK-CekGS';
 
         // Generate signature untuk dicocokkan dengan X-Callback-Signature
         $signature = hash_hmac('sha256', $json, $privateKey);
@@ -38,56 +38,37 @@ class Payment extends CI_Controller
             die('Invalid callback event, no action was taken');
         }
 
+
         $merchantRef = $data->merchant_ref;
         $totalAmount = $data->total_ammount;
 
         $payment = $this->db->get_where('payment', ['id_user' => $merchantRef])->row_array();
-        switch ($data->status) {
+        if ($data->status == 'PAID') {
                 // Pembayaran sukses, lanjutkan proses di sistem anda dengan
                 // mengupdate status transaksi di database menjadi sukses, contoh:
-            case 'PAID':
                 //  ubah status success
-                if ($payment != NULL) {
-                    if ($totalAmount == $payment['total']) {
-                        $this->All_model->switchstatus($payment, 3);
-                        $this->All_model->invoice($data);
-                    }
-
+                if (empty($payment)) {
                     echo 'ga goblok';
                 } else {
-                    echo 'goblok';
+                    $this->All_model->switchstatus($payment, 3);
+                    $this->All_model->invoice($data);
                 }
 
                 echo json_encode(['success' => true]);
-                break;
 
-            case 'EXPIRED':
+        }elseif ($data->status == 'EXPIRED') {
                 // alurnya disini
-                $status = $payment['status_payment'];
-                if ($status != 3) {
                     $this->All_model->switchstatus($payment, 2);
                     $this->All_model->invoice($data);
                     $this->All_model->deleteurl($payment);
-                }
                 echo json_encode(['success' => true]);
-                break;
 
-            case 'FAILED':
-                //Alurnya disini
-
-                $status = $payment['status_payment'];
-                if ($status != 3) {
+        }elseif ($data->status == 'FAILED') {
                     $this->All_model->switchstatus($payment, 4);
                     $this->All_model->invoice($data);
                     $this->All_model->deleteurl($payment);
-                }
 
                 echo json_encode(['success' => true]);
-                break;
-
-            default:
-                die('Unrecognized payment status');
-                break;
         }
     }
 }

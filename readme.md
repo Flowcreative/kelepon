@@ -13,6 +13,17 @@ Pada Kegiatan ini perencanaan peserta terdiri dari berbagai golongan dari golong
 - Penambahan Sistem Verifikasi
 - Perbaikan Sistem Verifikasi
 
+29 Nov 2021 14:32
+- Perbaikan sistem calback
+-menghapus validasi yang tidak perlu
+
+21 Nov 2021 14:32
+- Update System
+- User Redirect
+
+19 Nov 2021 18:29
+- FIx Request Pembayaran
+
 10 Nov 2021
 - fix readme file
 - fix view data diri bagian upload data
@@ -42,13 +53,6 @@ Pada Kegiatan ini perencanaan peserta terdiri dari berbagai golongan dari golong
 - (peserta) Fitur Pilih Merchan
 - (Admin) Management Pembayaran
 
-19 Nov 2021 18:29
-- FIx Request Pembayaran
-
-
-21 Nov 2021 14:32
-# Update System
-- User Redirect
 
 # Upadate database
 - invoice
