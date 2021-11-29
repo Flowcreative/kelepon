@@ -341,6 +341,7 @@ class Admin extends CI_Controller
 
         if (!empty($post)) {
             $this->_ubahstatusbayar($post);
+            redirect('admin/pembayaran');
         } else {
             $data = $this->_session();
             $iduser = $this->uri->segment('3');
@@ -361,9 +362,9 @@ class Admin extends CI_Controller
     private function _ubahstatusbayar($post)
     {
         $post['id_user'] = $post['iduser'];
-
         $this->All_model->switchstatus($post, $post['status']);
         $this->All_model->invoiceadmin($post);
+        $this->All_model->deleteurl($post);
     }
     // ================================ end Pembayaran Management ===================================
 

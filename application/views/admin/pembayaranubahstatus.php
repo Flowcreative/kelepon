@@ -29,7 +29,6 @@
                                         <select name="status" class="form-select" id="validationCustom04" required>
                                             <option selected disabled class="text-center fw-400">-- Status Pembayaran --
                                             <option value="3" class="text-center fw-400">Dibayar</option>
-                                            <option value="1" class="text-center fw-400">Checkout</option>
                                             <option value="2" class="text-center fw-400">Expired</option>
                                             <option value="4" class="text-center fw-400">Gagal</option>
                                         </select>

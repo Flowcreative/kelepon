@@ -361,12 +361,17 @@ class Peserta extends CI_Controller
                 $this->load->view('peserta/invoice', $data);
                 $this->load->view('peserta/footer');
             } else {
-                redirect('peserta/pilihmatalomba');
+                redirect('peserta/matalomba');
             }
         } else {
             if ($get['status_payment'] == 3) {
-                redirect('peserta/matalombadipilih');
+                // redirect('peserta/paymentstatus');
+                $this->paymentstatus();
             } else if ($get['status_payment'] == 2) {
+                $this->_checkout();
+            } else if ($get['status_payment'] == 1) {
+                $this->paymentstatus();
+            } else if ($get['status_payment'] == 4) {
                 $this->_checkout();
             } else {
                 $this->_checkout();
@@ -423,13 +428,31 @@ class Peserta extends CI_Controller
 
         $lomba = $this->Peserta_model->getlogid();
         $url = regTripay($post, $lomba);
-
         $this->Peserta_model->paymenturl($url);
+        $this->Peserta_model->ubahstatus('1');
 
         redirect('peserta/paymentstatus');
     }
 
     public function paymentstatus()
+    {
+        $get = $this->Peserta_model->get_pembayaran();
+        if ($get['status_payment'] == 3) {
+            $this->_printinvoice();
+        } else {
+            $data = $this->_session();
+            $data['url'] = $this->Peserta_model->get_bayar();
+            $data['payment'] = $this->Peserta_model->get_pembayaran();
+            $data['judul'] = 'Status Pembayaran - KELEPON PRAMUKA UNIB';
+            $this->load->view('peserta/header', $data);
+            $this->load->view('peserta/navbar', $data);
+            $this->load->view('peserta/sidebar');
+            $this->load->view('peserta/bayarproses', $data);
+            $this->load->view('peserta/footer');
+        }
+    }
+
+    private function _printinvoice()
     {
         $data = $this->_session();
         $data['url'] = $this->Peserta_model->get_bayar();
@@ -438,9 +461,10 @@ class Peserta extends CI_Controller
         $this->load->view('peserta/header', $data);
         $this->load->view('peserta/navbar', $data);
         $this->load->view('peserta/sidebar');
-        $this->load->view('peserta/bayarproses', $data);
+        $this->load->view('peserta/printinvoice', $data);
         $this->load->view('peserta/footer');
     }
+
     // ======================================end Peserta Invoice ================================
 
     //================================== end Account Management =================================

@@ -259,6 +259,14 @@ class Peserta_model extends CI_Model
         $this->db->insert('payment', $data);
     }
 
+    public function ubahstatus($sts)
+    {
+        $id = $this->session->userdata('id');
+        $this->db->set('status_payment', $sts);
+        $this->db->where('id_user', $id);
+        $this->db->update('payment');
+    }
+
     public function get_pembayaran()
     {
         $id = $this->session->userdata('id');
